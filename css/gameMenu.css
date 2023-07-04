@@ -1,9 +1,12 @@
+body {
+    background-color:black;
+}
+
 #game-menu {
     height: 400px;
     margin-top: 170px;
     background-color:#0749c3; 
     border: #071595 10px solid;
-    display: none; /*Will be visible when user clicks "Play"*/
 }
 
 #quit-btn {
@@ -12,7 +15,6 @@
     font-size: 20px;
     border: #071595 5px solid;
     font-family: "Trirong", serif;
-    display: none;
 }
 
 #quit-btn:hover {
