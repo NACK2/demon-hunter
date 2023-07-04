@@ -6,7 +6,7 @@ body {
     height: 400px;
     margin-top: 170px;
     background-color:#0749c3; 
-    border: #071595 10px solid;
+    border: #071595 solid 5px;
 }
 
 #quit-btn {
@@ -14,10 +14,56 @@ body {
     height: 50px;
     font-size: 20px;
     border: #071595 5px solid;
-    font-family: "Trirong", serif;
+    font-family: "Audiowide";
 }
 
 #quit-btn:hover {
     cursor: pointer;
     background-color:#acaeed;
 }
+
+#stats {
+    text-align: center;
+    border: gray solid 5px;
+    border-radius: 15px;
+    background-color:dimgray;
+    margin-left: 25px;
+    position: absolute;
+    width: 750px;
+    top: 110px;
+    height: 50px;
+    color: white;
+}
+
+#stat {
+    padding-right: 70px;
+    position: relative;
+    bottom: 15px;
+    color: black;
+    font-family: "Audiowide";
+    font-size: 25px;
+}
+
+#health {
+    position: relative;
+    left: 5px;
+    padding: 10px;
+    width: 34px;
+    height: 30px;
+}
+
+#gold {
+    padding: 0 7px 7px 0;
+    width: 34px;
+    height: 34px;
+}
+
+#xp {
+    position: relative;
+    left: 5px;
+    padding-bottom: 5px;
+    width: 45px;
+    height: 40px;
+}
+
+
