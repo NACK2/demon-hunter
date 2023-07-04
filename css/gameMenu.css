@@ -80,7 +80,7 @@ body {
     cursor:cell;
     font-size: 15px;
     color: white;
-    transition: 1s; 
+    transition: 0.5s; 
     position: relative;
     top: 5px;          
 }
@@ -101,7 +101,7 @@ body {
     cursor: cell;
     font-size: 15px;
     color: white;
-    transition: 1s; 
+    transition: 0.5s; 
     position: relative;
     top: 5px;
 }
