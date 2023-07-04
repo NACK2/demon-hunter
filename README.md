@@ -1,4 +1,4 @@
-### Creating RPG website using HTML, CSS, and JavaScript
+### RPG website made with HTML, CSS, and JavaScript
 
 # By NACK2
 
