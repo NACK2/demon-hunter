@@ -4,7 +4,7 @@ body {
 
 #main-menu {
     border: #950740 10px solid;
-    background-color:#c3073f; /*#6f2232 950740 c3073f*/
+    background-color:#c3073f; 
     margin-top: 100px;
     height: 200px;
     display: grid;
@@ -22,6 +22,7 @@ body {
     font-weight: bold;
     font-size: 20px;
     margin: auto;
+    font-family: "Trirong", serif;
 }
 
 #play-btn:hover {

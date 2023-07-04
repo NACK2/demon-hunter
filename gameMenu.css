@@ -1,0 +1,7 @@
+#game-menu {
+    height: 200px;
+    background-color:#0749c3; 
+    border: #071595 10px solid;
+    margin-top: 100px;
+    display: none; /*Will be visible when user clicks "Play"*/
+}
