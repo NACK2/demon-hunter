@@ -1,7 +1,21 @@
 #game-menu {
-    height: 200px;
+    height: 400px;
+    margin-top: 170px;
     background-color:#0749c3; 
     border: #071595 10px solid;
-    margin-top: 100px;
     display: none; /*Will be visible when user clicks "Play"*/
+}
+
+#quit-btn {
+    width: 200px;
+    height: 50px;
+    font-size: 20px;
+    border: #071595 5px solid;
+    font-family: "Trirong", serif;
+    display: none;
+}
+
+#quit-btn:hover {
+    cursor: pointer;
+    background-color:#acaeed;
 }

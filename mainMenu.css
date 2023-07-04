@@ -16,10 +16,9 @@ body {
 }
 
 #play-btn {
-    border: #950740 7px solid;
+    border: #950740 5px solid;
     height: 50px;
     width: 200px;
-    font-weight: bold;
     font-size: 20px;
     margin: auto;
     font-family: "Trirong", serif;
