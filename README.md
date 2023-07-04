@@ -1,4 +1,4 @@
-### RPG website made with HTML, CSS, and JavaScript
+### "Monster Hunter" RPG website made with HTML, CSS, and JavaScript
 
 # By NACK2
 
