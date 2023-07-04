@@ -20,7 +20,7 @@ body {
     color: white;
 }
 
-#stat {
+#healthTxt, #goldTxt, #xpTxt {
     padding-right: 50px;
     position: relative;
     bottom: 10px;
@@ -29,7 +29,7 @@ body {
     font-size: 25px;
 }
 
-#health {
+#healthImg {
     position: relative;
     left: 5px;
     padding: 10px 10px 5px 10px;
@@ -37,13 +37,13 @@ body {
     height: 30px;
 }
 
-#gold {
+#goldImg {
     padding: 0 7px 3px 0;
     width: 34px;
     height: 34px;
 }
 
-#xp {
+#xpImg {
     position: relative;
     left: 5px;
     width: 45px;
@@ -63,8 +63,8 @@ body {
 
 #btn1, #btn2, #btn3 {
     margin: 0 5px 10px 0;
-    height: 50px;
-    width: 170px;
+    width: 200px;
+    height: 70px;
     font-size: 20px;
     margin-right: 10px;
     font-family: "Audiowide";
@@ -87,12 +87,12 @@ body {
 
 #quit-btn {
     color: black;
-    width: 170px;
-    height: 50px;
+    width: 200px;
+    height: 70px;
     font-size: 20px;
     background: linear-gradient(0deg, rgba(227,26,45,1) 0%, rgba(167,25,62,1) 100%);
     border: #950740 5px solid;
-    box-shadow: 0 0 10px red;
+    box-shadow: 0 0 15px red;
     border-radius: 10px;
     font-family: "Audiowide";
 }
