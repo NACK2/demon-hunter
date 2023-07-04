@@ -16,6 +16,7 @@ body {
 }
 
 #play-btn {
+    color: black;
     border: #950740 5px solid;
     height: 50px;
     width: 200px;
