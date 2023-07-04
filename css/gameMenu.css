@@ -23,7 +23,6 @@ body {
     border: #950740 5px solid;
     box-shadow: 0 0 10px red;
     border-radius: 10px;
-    transition: 0.7s; 
     font-family: "Audiowide";
 }
 
@@ -31,6 +30,7 @@ body {
     cursor: cell;
     font-size: 15px;
     color: white;
+    transition: 1s; 
     bottom: 0px;
 }
 
@@ -97,7 +97,6 @@ body {
     border: #07159587 solid 5px;
     box-shadow: 0 0 10px #eee;
     border-radius: 10px;
-    transition: 1s;           
 }
 
 #btn1:hover, #btn2:hover, #btn3:hover {
@@ -105,6 +104,7 @@ body {
     font-size: 15px;
     color: white;
     top: 10px;
+    transition: 1s;           
 }
  
       
