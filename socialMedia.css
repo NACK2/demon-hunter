@@ -1,10 +1,10 @@
 .fa {
-    padding: 20px;
     font-size: 30px;
-    width: 50px;
+    padding: 20px;
+    width: 40px;
     text-align: center;
     text-decoration: none;
-    margin: 5px 2px;
+    margin: 3px;
     position: relative;
     top: 100px;
   }
@@ -18,8 +18,13 @@
     color: white;
   }
 
-  .fa-youtube {
+.fa-youtube {
     background: #bb0000;
     color: white;
-  }
+}
+
+.fa-github {
+    color: white;
+    background: rgb(65, 62, 62);
+}
   
