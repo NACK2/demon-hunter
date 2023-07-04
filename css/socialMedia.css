@@ -1,12 +1,12 @@
 .fa {
-    font-size: 30px;
     padding: 20px;
-    width: 40px;
+    width: 30px;
     text-align: center;
     text-decoration: none;
     margin: 3px;
     position: relative;
     top: 100px;
+    border-radius: 5px;
   }
 
 .fa:hover {

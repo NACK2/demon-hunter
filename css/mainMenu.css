@@ -4,10 +4,11 @@ body {
 
 #main-menu {
     border: #950740 10px solid;
-    background-color:#c3073f; 
+    background-image: linear-gradient(to right, #be1a5b 0%, #d12923  51%, #be1a5b  100%); /*d123cb*/
     margin-top: 100px;
     height: 200px;
     display: grid;
+    border-radius: 10px;
 }
 
 #title {
@@ -16,16 +17,28 @@ body {
 }
 
 #play-btn {
-    color: black;
-    border: #950740 5px solid;
     height: 50px;
     width: 200px;
-    font-size: 25px;
+    font-size: 20px;
+
+    color: black;
+    background-image: linear-gradient(to right, #e52d27 0%, #b31217  51%, #e52d27  100%);
+    background-size: 200% auto;           
+    box-shadow: 0 0 20px white;
+    border-radius: 10px;
+    border: #950740 5px solid;
+
     margin: auto;
     font-family: "Audiowide";
+    text-align: center;
+    transition: 0.7s;
 }
 
 #play-btn:hover {
     cursor: pointer;
-    background-color:#edacc044;
+    background-position: right center;
+    color: white;
+    text-decoration: none;
+    font-size: 25px;
 }
+

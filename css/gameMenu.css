@@ -1,37 +1,46 @@
 body {
-    background-color:black;
+    background-color: black;
 }
 
 #game-menu {
     position: relative;
     top: 120px;
     height: 400px;
-    background-color:#0749c3; 
+    background: linear-gradient(0deg, rgb(34, 60, 136) 0%, rgba(57,115,240,1) 100%);
+    box-shadow: 0 0 10px #eee;
     border: #071595 solid 5px;
+    border-radius: 10px;
 }
 
 #quit-btn {
     color: black;
-    position: relative;
-    top: 125px;
+    position: absolute;
+    bottom: 10px;
     width: 200px;
     height: 50px;
     font-size: 20px;
-    border: #071595 5px solid;
+    background: linear-gradient(0deg, rgba(227,26,45,1) 0%, rgba(167,25,62,1) 100%);
+    border: #950740 5px solid;
+    box-shadow: 0 0 10px red;
+    border-radius: 10px;
+    transition: 0.7s; 
     font-family: "Audiowide";
 }
 
 #quit-btn:hover {
-    cursor: pointer;
-    background-color:#acaeed;
+    cursor: cell;
+    font-size: 15px;
+    color: white;
+    bottom: 0px;
 }
 
 #stats {
-    border: gray solid 5px;
+    border: dimgray solid 5px;
+    box-shadow: 0 0 10px #eee;
     border-radius: 15px;
-    background-color:dimgray;
+    background: linear-gradient(0deg, rgba(78,79,82,1) 0%, rgba(152,146,146,1) 100%);
     position: relative;
-    top: 115px;
+    top: 105px;
     color: white;
 }
 
@@ -71,3 +80,31 @@ body {
     font-family: Verdana;
 }
 
+#buttons {
+    position: relative;
+    top: 135px;
+}
+
+#btn1, #btn2, #btn3 {
+    height: 50px;
+    width: 200px;
+    font-size: 20px;
+    margin-right: 10px;
+    font-family: "Audiowide";
+
+    color: black;
+    background: linear-gradient(0deg, rgba(26,65,227,1) 0%, rgba(25,117,167,1) 100%);
+    border: #07159587 solid 5px;
+    box-shadow: 0 0 10px #eee;
+    border-radius: 10px;
+    transition: 1s;           
+}
+
+#btn1:hover, #btn2:hover, #btn3:hover {
+    cursor:cell;
+    font-size: 15px;
+    color: white;
+    top: 10px;
+}
+ 
+      
