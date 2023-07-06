@@ -47,6 +47,10 @@ body {
     height: 40px;
 }
 
+#healthImg:hover, #goldImg:hover, #xpImg:hover {
+    cursor:help;
+}
+
 #text {
     margin: 10px;
     font-size: 20px;
@@ -112,9 +116,8 @@ figure {
 #weapons {
     display: none;
     position: absolute;
-    top: 50px;
-    height: 340px;
     width: 98%;
+    height: 390px;
     /*If content flows outside of container, overflow:auto allows you to scroll to overflowed content
     instead of the content showing outside of the container*/
     overflow:auto; 
@@ -123,12 +126,32 @@ figure {
 }
 
 #slingshot, #baseball-bat, #wooden-sword, #stone-sword, #dual-wield {
+    margin-top: 40px;
     height: 200px;
 }
 
 .weaponButton {
     height: 40px;
     width: 180px;
+    font-family: "Audiowide";
+    font-size: 15px;
+
+    color: black;
+    background: linear-gradient(0deg, rgba(236,119,20,1) 0%, rgba(227,141,18,1) 100%);
+    border: #07159587 solid 5px;
+    box-shadow: 0 0 10px #eee;
+    border-radius: 10px;
+}
+
+/*IDEA: USE cursor:not-allowed FOR THE LOCKED WEAPONS */
+.weaponButton:hover {
+    cursor:pointer;
+    color: white;
+    /*enlarging effect*/
+    transition: 0.5s; 
+    font-size: 20px;
+    height: 45px;
+    width: 185px;  
 }
  
       

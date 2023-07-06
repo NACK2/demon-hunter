@@ -70,7 +70,7 @@ function buyHealth() {
 }
 
 function buyWeapons() {
-    // text.style.display = "none";
+    //text.style.display = "none";
     text.innerText = "***PAGE WORK IN PROGRESS***";
     weapons.style.display = "block";
 }
