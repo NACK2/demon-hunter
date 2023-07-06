@@ -11,6 +11,7 @@ const text = document.querySelector("#text");
 const healthTxt = document.querySelector("#healthTxt");
 const goldTxt = document.querySelector("#goldTxt");
 const xpTxt = document.querySelector("#xpTxt");
+const weapons = document.querySelector("#weapons");
 
 quitBtn.onclick = quit;
 
@@ -68,8 +69,9 @@ function buyHealth() {
 }
 
 function buyWeapons() {
-    // TO-DO
-    text.innerText = "Not implemented yet"
+    // text.style.display = "none";
+    text.innerText = "***PAGE WORK IN PROGRESS***";
+    weapons.style.display = "block";
 }
 
 function town() {

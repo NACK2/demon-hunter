@@ -33,20 +33,17 @@ body {
     position: relative;
     left: 5px;
     padding: 10px 10px 5px 10px;
-    width: 34px;
     height: 30px;
 }
 
 #goldImg {
     padding: 0 7px 3px 0;
-    width: 34px;
     height: 34px;
 }
 
 #xpImg {
     position: relative;
     left: 5px;
-    width: 45px;
     height: 40px;
 }
 
@@ -105,6 +102,28 @@ body {
     transition: 0.5s; 
     position: relative;
     top: 5px;
+}
+
+figure {
+    /*figures are block by default*/
+    display: inline-block;
+}
+
+#weapons {
+    display: none;
+    position: absolute;
+    top: 50px;
+    height: 340px;
+    width: 100%;
+    /*If a child's contents overflows out of the parents contents, then overflow:auto allows you to scroll to the 
+    content outside of the container */
+    overflow:auto; 
+    text-align: center; /*center the images within the game menu*/
+    border: white solid 5px;
+}
+
+#slingshot, #baseball-bat, #wooden-sword, #stone-sword, #dual-wield {
+    height: 200px;
 }
  
       
