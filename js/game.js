@@ -55,6 +55,7 @@ function wilderness() {
 }
 
 function buyHealth() {
+    weapons.style.display = "none";
     if (gold < 10) {
         text.innerText = "Insufficient gold!";
     }
@@ -75,6 +76,7 @@ function buyWeapons() {
 }
 
 function town() {
+    weapons.style.display = "none";
     text.innerText = "Welcome to the town! \n\n\
     Go to the store to buy health and weapons! \n\
     Go to the cave to look for materials and gold to help you on your journey! \n\

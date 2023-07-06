@@ -54,7 +54,7 @@ body {
     font-weight: bold;
 }
 
-#buttons {
+#pathButtons {
     position: relative;
     top: 30px;
 }
@@ -114,9 +114,9 @@ figure {
     position: absolute;
     top: 50px;
     height: 340px;
-    width: 100%;
-    /*If a child's contents overflows out of the parents contents, then overflow:auto allows you to scroll to the 
-    content outside of the container */
+    width: 98%;
+    /*If content flows outside of container, overflow:auto allows you to scroll to overflowed content
+    instead of the content showing outside of the container*/
     overflow:auto; 
     text-align: center; /*center the images within the game menu*/
     border: white solid 5px;
@@ -124,6 +124,11 @@ figure {
 
 #slingshot, #baseball-bat, #wooden-sword, #stone-sword, #dual-wield {
     height: 200px;
+}
+
+.weaponButton {
+    height: 40px;
+    width: 180px;
 }
  
       
