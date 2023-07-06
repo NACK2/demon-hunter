@@ -31,7 +31,7 @@ body {
     margin: auto;
     font-family: "Audiowide";
     text-align: center;
-    transition: 0.7s;
+    transition: 0.5s;
 }
 
 #play-btn:hover {

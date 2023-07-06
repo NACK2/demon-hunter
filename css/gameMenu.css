@@ -143,13 +143,14 @@ figure {
     border-radius: 10px;
 }
 
-/*IDEA: USE cursor:not-allowed FOR THE LOCKED WEAPONS */
+/*IDEA: USE cursor:not-allowed FOR THE LOCKED WEAPONS, LOCKED WEAPONS SHOULD BE GRAYED OUT OF BUTTON SHOULD BE GRAYED,
+BUTTON HSOULD CHANGE COLOURS WHEN ACQUIRED */
 .weaponButton:hover {
     cursor:pointer;
     color: white;
     /*enlarging effect*/
     transition: 0.5s; 
-    font-size: 20px;
+    font-size: 18px;
     height: 45px;
     width: 185px;  
 }
