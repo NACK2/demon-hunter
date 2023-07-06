@@ -92,7 +92,7 @@ body {
     width: 200px;
     height: 70px;
     font-size: 20px;
-    background: linear-gradient(0deg, rgba(227,26,45,1) 0%, rgba(167,25,62,1) 100%);
+    background: linear-gradient(0deg, rgba(167,25,62,1) 0%, rgba(227,26,45,1) 100%);
     border: #950740 5px solid;
     box-shadow: 0 0 15px red;
     border-radius: 10px;
@@ -122,12 +122,14 @@ figure {
     instead of the content showing outside of the container*/
     overflow:auto; 
     text-align: center; /*center the images within the game menu*/
-    border: white solid 5px;
 }
 
 #slingshot, #baseball-bat, #wooden-sword, #stone-sword, #dual-wield {
     margin-top: 40px;
     height: 200px;
+    background: linear-gradient(0deg, rgba(80,78,78,1) 0%, rgba(203,201,201,1) 100%);
+    border: black solid 5px; 
+    border-radius: 10px;
 }
 
 .weaponButton {
