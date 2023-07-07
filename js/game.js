@@ -94,8 +94,8 @@ function buyHealth() {
         gold -= 10;
 
         consoleText.innerText = "Successfully bought 10 health!";
-        healthText.innerText = health;
-        goldText.innerText = gold;
+        healthText.innerText = health + " HP";
+        goldText.innerText = gold + " G";
     }
 }
 
@@ -121,7 +121,7 @@ function buyWeapon(weaponToBuy) {
             else { // successfully buying
                 gold -= weaponsList[i].price;
                 inventory.push(weaponsList[i]);
-                goldText.innerText = gold;
+                goldText.innerText = gold + " G";
                 consoleText.innerText = "Successfully bought a " + weaponToBuy + "!";
             }
         }
