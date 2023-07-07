@@ -28,27 +28,29 @@
             <figure>
                 <figcaption class="weaponPrice"> 10 GOLD </figcaption>
                 <img src="img/slingshot.webp" id="slingshotImg" title="Slingshot">
-                <figcaption> <button class="weaponButton" id="slingshotBtn"> Slingshot </button> </figcaption>
+                <!-- Sending weapon as paremeter to buyWeapon() upon btn click, the parameter string matches
+                the names within weapons object in game.js -->
+                <figcaption> <button onclick="buyWeapon('slingshot')" class="weaponButton"> Slingshot </button> </figcaption>
             </figure>
             <figure>
                 <figcaption class="weaponPrice"> 30 GOLD </figcaption>
                 <img src="img/baseball-bat.png" id="baseballBatImg" title="Baseball bat">
-                <figcaption> <button class="weaponButton" id="baseballBatBtn"> Baseball bat </button> </figcaption>
+                <figcaption> <button onclick="buyWeapon('baseballBat')" class="weaponButton"> Baseball bat </button> </figcaption>
             </figure>
             <figure>
                 <figcaption class="weaponPrice"> 60 GOLD </figcaption>
                 <img src="img/wood-sword.webp" id="woodSwordImg" title="Wood sword">
-                <figcaption> <button class="weaponButton" id="woodSwordBtn"> Wood sword </button> </figcaption>
+                <figcaption> <button onclick="buyWeapon('woodSword')" class="weaponButton"> Wood sword </button> </figcaption>
             </figure>
             <figure>
                 <figcaption class="weaponPrice"> 90 GOLD </figcaption>
                 <img src="img/stone-sword.webp" id="stoneSwordImg" title="Stone sword">
-                <figcaption> <button class="weaponButton" id="stoneSwordBtn"> Stone sword </button> </figcaption>
+                <figcaption> <button onclick="buyWeapon('stoneSword')" class="weaponButton"> Stone sword </button> </figcaption>
             </figure>
             <figure>
-                <figcaption class="weaponPrice"> 140 GOLD </figcaption>
+                <figcaption class="weaponPrice"> 150 GOLD </figcaption>
                 <img src="img/dual-wield.png" id="dualWieldImg" title="Dual wield">
-                <figcaption> <button class="weaponButton" id="dualWieldBtn"> Dual-wield </button> </figcaption>
+                <figcaption> <button onclick="buyWeapon('dualWield')" class="weaponButton"> Dual-wield </button> </figcaption>
             </figure>
         </div>
     </div>

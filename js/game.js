@@ -1,23 +1,41 @@
 let health = 100;
 let gold = 70;
 let xp = 0;
+let inventory = [];
 
 let weapons = [
-    
+    {
+        // btn click for buying weapon will send a paremeter matching these names
+        name: "slingshot",
+        price: 10,
+        power: 5
+    },
+    {
+        name: "baseballBat",
+        price: 30,
+        power: 10
+    },
+    {
+        name: "woodSword",
+        price: 60,
+        power: 30
+    },
+    {
+        name: "stoneSword",
+        price: 90,
+        power: 50
+    },
+    {
+        name: "dualWield",
+        price: 150,
+        power: 80
+    }
 ];
-
-let inventory = [];
 
 const quitBtn = document.querySelector("#quitBtn");
 const btn1 = document.querySelector("#btn1");
 const btn2 = document.querySelector("#btn2");
 const btn3 = document.querySelector("#btn3");
-
-const slingshot = document.querySelector("#slingshotBtn");
-const baseballBat = document.querySelector("#baseballBatBtn");
-const woodSword = document.querySelector("#woodSwordBtn");
-const stoneSword = document.querySelector("#stoneSwordBtn");
-const dualWiel = document.querySelector("#dualWieldBtn");
 
 const text = document.querySelector("#text");
 const healthTxt = document.querySelector("#healthTxt");
@@ -25,9 +43,8 @@ const goldTxt = document.querySelector("#goldTxt");
 const xpTxt = document.querySelector("#xpTxt");
 const weaponsMenu = document.querySelector("#weaponsMenu");
 
-quitBtn.onclick = quit;
-
 // init buttons
+quitBtn.onclick = quit;
 btn1.onclick = store;
 btn2.onclick = cave;
 btn3.onclick = wilderness;
@@ -48,7 +65,7 @@ function store() {
     To go back to the town, click \"Town\"!";
     
     btn1.onclick = buyHealth;
-    btn2.onclick = buyWeapons;
+    btn2.onclick = buyWeaponsMenu;
     btn3.onclick = town;
 
     btn1.innerText = "Buy Health";
@@ -82,10 +99,19 @@ function buyHealth() {
     }
 }
 
-function buyWeapons() {
+function buyWeaponsMenu() {
     text.style.display = "none";
     weaponsMenu.style.display = "block";
-    
+}
+
+function buyWeapon(weapon) {
+    // look for weapon object matching the weapon paremeter, add it to inventory
+    for (let i = 0; i<weapons.length; ++i) { 
+        if (weapons[i].name == weapon) {
+            inventory.push(weapons[i]);
+            console.log(inventory);
+        }
+    }
 }
 
 function town() {
