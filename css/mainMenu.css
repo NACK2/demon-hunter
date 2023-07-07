@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "pixelFont";
+    src: url(/fonts/Px437_AMI_EGA_9x14.ttf); 
+}
+
 body {
     background-color:black;
 }
@@ -6,19 +11,20 @@ body {
     border: #950740 10px solid;
     background-image: linear-gradient(to right, #be1a5b 0%, #d12923  51%, #be1a5b  100%); /*d123cb*/
     margin-top: 100px;
-    height: 200px;
+    height: 300px;
     display: grid;
     border-radius: 10px;
 }
 
 #title {
     text-align: center;
-    font-family: "Trirong", serif;
+    font-size: 50px;
+    font-family: "pixelFont", serif;
 }
 
 #play-btn {
-    height: 50px;
-    width: 200px;
+    height: 80px;
+    width: 300px;
     font-size: 20px;
 
     color: black;

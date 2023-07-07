@@ -73,6 +73,7 @@ body {
 }
 
 #btn1, #btn2, #btn3 {
+    color: black;
     margin: 0 10px 10px 0;
     width: 200px;
     height: 70px;
@@ -95,6 +96,7 @@ body {
 }
 
 #quitBtn {
+    color: black;
     width: 200px;
     height: 70px;
     font-size: 20px;
