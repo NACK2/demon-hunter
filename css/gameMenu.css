@@ -69,12 +69,11 @@ body {
 #pathButtons {
     position: relative;
     top: 30px;
-    margin-bottom: 15px;
 }
 
 #btn1, #btn2, #btn3 {
+    margin: 0 10px 15px 0;
     color: black;
-    margin: 0 10px 10px 0;
     width: 200px;
     height: 70px;
     font-size: 20px;
@@ -88,7 +87,6 @@ body {
 
 #btn1:hover, #btn2:hover, #btn3:hover {
     cursor: cell;
-    font-size: 15px;
     color: white;
     transition: 0.5s; 
     position: relative;
@@ -96,6 +94,7 @@ body {
 }
 
 #quitBtn {
+    margin-bottom: 15px;
     color: black;
     width: 200px;
     height: 70px;
@@ -110,7 +109,6 @@ body {
 
 #quitBtn:hover {
     cursor: cell;
-    font-size: 15px;
     color: white;
     transition: 0.5s; 
     position: relative;
@@ -119,7 +117,7 @@ body {
 
 #consoleMenu {
     position: relative;
-    top: 20px;
+    top: 30px;
     height: 180px;
     background-color: rgb(30, 30, 30);
     border: black solid 5px;
@@ -147,6 +145,7 @@ figure {
 .weaponPrice {
     margin: 10px 0 5px 0;
     font-family: "DM Sans";
+    font-weight: bold;
     font-size: 18px;
     background: linear-gradient(0deg, rgba(65,120,238,1) 0%, rgba(97,143,241,1) 100%);
     border: black solid 3px;
@@ -179,11 +178,9 @@ BUTTON HSOULD CHANGE COLOURS WHEN ACQUIRED */
 .weaponButton:hover {
     cursor:pointer;
     color: white;
-    /*enlarging effect*/
     transition: 0.5s; 
-    font-size: 18px;
-    height: 45px;
-    width: 185px;  
+    position: relative;
+    top: 5px;
 }
  
       
