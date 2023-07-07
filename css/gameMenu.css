@@ -28,7 +28,7 @@ body {
     color: white;
 }
 
-#healthTxt, #goldTxt, #xpTxt {
+#healthText, #goldText, #xpText {
     padding-right: 50px;
     position: relative;
     bottom: 10px;
