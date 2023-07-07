@@ -1,5 +1,5 @@
-let health = 100;
-let gold = 70;
+let health = 70;
+let gold = 50;
 let xp = 0;
 let inventory = [];
 
