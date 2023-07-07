@@ -101,7 +101,7 @@ function buyHealth() {
 
 function buyWeaponsMenu() {
     dialogueText.style.display = "none";
-    consoleText.innerText = "You may scroll down for more weapons!"
+    consoleText.innerText = "You may have to scroll down for more weapons!"
     weaponsMenu.style.display = "block";
 }
 
