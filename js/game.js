@@ -37,10 +37,11 @@ const btn1 = document.querySelector("#btn1");
 const btn2 = document.querySelector("#btn2");
 const btn3 = document.querySelector("#btn3");
 
-const text = document.querySelector("#text");
-const healthTxt = document.querySelector("#healthTxt");
-const goldTxt = document.querySelector("#goldTxt");
-const xpTxt = document.querySelector("#xpTxt");
+const dialogueText = document.querySelector("#dialogueText");
+const healthTxt = document.querySelector("#healthText");
+const goldTxt = document.querySelector("#goldText");
+const xpTxt = document.querySelector("#xpText");
+const consoleTxt = document.querySelector("#consoleText");
 const weaponsMenu = document.querySelector("#weaponsMenu");
 
 // init buttons
@@ -59,7 +60,7 @@ function quit() { // sends you back to home page
 }
 
 function store() {
-    text.innerText = "Welcome to the store! \n\n\
+    dialogueText.innerText = "Welcome to the store! \n\n\
     You can gain 10 health for 10 gold!\n\
     For information on prices of weapons, click \"Buy Weapons\"!\n\
     To go back to the town, click \"Town\"!";
@@ -75,32 +76,32 @@ function store() {
 
 function cave() {
     // TO-DO
-    text.innerText = "Not implemented yet"
+    dialogueText.innerText = "Not implemented yet"
 }
 
 function wilderness() {
     // TO-DO
-    text.innerText = "Not implemented yet"
+    dialogueText.innerText = "Not implemented yet"
 }
 
 function buyHealth() {
     weaponsMenu.style.display = "none";
-    text.style.display = "block";
+    dialogueText.style.display = "block";
     if (gold < 10) {
-        text.innerText = "Insufficient gold!";
+        dialogueText.innerText = "Insufficient gold!";
     }
     else {
         health += 10;
         gold -= 10;
 
-        text.innerText = "Successfully gained 10 health!";
-        healthTxt.innerText = health;
-        goldTxt.innerText = gold;
+        dialogueText.innerText = "Successfully gained 10 health!";
+        healthText.innerText = health;
+        goldText.innerText = gold;
     }
 }
 
 function buyWeaponsMenu() {
-    text.style.display = "none";
+    dialogueText.innerText = "You may scroll down for more weapons!"
     weaponsMenu.style.display = "block";
 }
 
@@ -116,8 +117,8 @@ function buyWeapon(weapon) {
 
 function town() {
     weaponsMenu.style.display = "none";
-    text.style.display = "block";
-    text.innerText = "Welcome to the town! \n\n\
+    dialogueText.style.display = "block";
+    dialogueText.innerText = "Welcome to the town! \n\n\
     Go to the store to buy health and weapons! \n\
     Go to the cave to look for materials and gold to help you on your journey! \n\
     Go to the wilderness to fight some demons and earn gold!"

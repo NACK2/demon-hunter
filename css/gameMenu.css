@@ -1,5 +1,10 @@
+@font-face {
+    font-family: "pixelFont";
+    src: url(/fonts/Px437_AMI_EGA_9x14.ttf); 
+}
+
 body {
-    background-color: black;
+    background-color: rgb(170, 170, 170);
 }
 
 #gameMenu {
@@ -10,6 +15,9 @@ body {
     box-shadow: 0 0 10px #eee;
     border: #071595 solid 5px;
     border-radius: 10px;
+    /*If content flows outside of container, overflow:auto allows you to scroll to overflowed content
+    instead of the content showing outside of the container*/
+    overflow: scroll;
 }
 
 #stats {
@@ -51,7 +59,7 @@ body {
     cursor:help;
 }
 
-#text {
+#dialogueText {
     margin: 10px;
     font-size: 20px;
     font-family: "DM Sans";
@@ -61,17 +69,16 @@ body {
 #pathButtons {
     position: relative;
     top: 30px;
+    margin-bottom: 15px;
 }
 
 #btn1, #btn2, #btn3 {
-    margin: 0 5px 10px 0;
+    margin: 0 10px 10px 0;
     width: 200px;
     height: 70px;
     font-size: 20px;
-    margin-right: 10px;
     font-family: "Audiowide";
 
-    color: black;
     background: linear-gradient(0deg, rgba(26,65,227,1) 0%, rgba(25,117,167,1) 100%);
     border: #07159587 solid 5px;
     box-shadow: 0 0 10px #eee;
@@ -79,24 +86,24 @@ body {
 }
 
 #btn1:hover, #btn2:hover, #btn3:hover {
-    cursor:cell;
+    cursor: cell;
     font-size: 15px;
     color: white;
     transition: 0.5s; 
     position: relative;
-    top: 5px;          
+    top: 5px;        
 }
 
 #quitBtn {
-    color: black;
     width: 200px;
     height: 70px;
     font-size: 20px;
+    font-family: "Audiowide";
+
     background: linear-gradient(0deg, rgba(167,25,62,1) 0%, rgba(227,26,45,1) 100%);
     border: #950740 5px solid;
     box-shadow: 0 0 15px red;
     border-radius: 10px;
-    font-family: "Audiowide";
 }
 
 #quitBtn:hover {
@@ -108,6 +115,22 @@ body {
     top: 5px;
 }
 
+#consoleMenu {
+    position: relative;
+    top: 20px;
+    height: 180px;
+    background-color: rgb(30, 30, 30);
+    border: black solid 5px;
+    border-radius: 10px;
+}
+
+#consoleText {
+    font-family: "pixelFont";
+    font-size: 25px;
+    color: white;
+    padding-left: 20px;
+}
+
 figure {
     /*figures are block by default*/
     display: inline-block;
@@ -115,17 +138,12 @@ figure {
 
 #weaponsMenu {
     display: none;
-    position: absolute;
-    width: 98%;
-    height: 390px;
-    /*If content flows outside of container, overflow:auto allows you to scroll to overflowed content
-    instead of the content showing outside of the container*/
-    overflow:auto; 
+    position: relative;
     text-align: center; /*center the images within the game menu*/
 }
 
 .weaponPrice {
-    margin: 30px 0 5px 0;
+    margin: 10px 0 5px 0;
     font-family: "DM Sans";
     font-size: 18px;
     background: linear-gradient(0deg, rgba(65,120,238,1) 0%, rgba(97,143,241,1) 100%);
