@@ -2,16 +2,28 @@ let health = 100;
 let gold = 70;
 let xp = 0;
 
-const quitBtn = document.querySelector("#quit-btn");
+let weapons = [
+    
+];
+
+let inventory = [];
+
+const quitBtn = document.querySelector("#quitBtn");
 const btn1 = document.querySelector("#btn1");
 const btn2 = document.querySelector("#btn2");
 const btn3 = document.querySelector("#btn3");
+
+const slingshot = document.querySelector("#slingshotBtn");
+const baseballBat = document.querySelector("#baseballBatBtn");
+const woodSword = document.querySelector("#woodSwordBtn");
+const stoneSword = document.querySelector("#stoneSwordBtn");
+const dualWiel = document.querySelector("#dualWieldBtn");
 
 const text = document.querySelector("#text");
 const healthTxt = document.querySelector("#healthTxt");
 const goldTxt = document.querySelector("#goldTxt");
 const xpTxt = document.querySelector("#xpTxt");
-const weapons = document.querySelector("#weapons");
+const weaponsMenu = document.querySelector("#weaponsMenu");
 
 quitBtn.onclick = quit;
 
@@ -55,7 +67,8 @@ function wilderness() {
 }
 
 function buyHealth() {
-    weapons.style.display = "none";
+    weaponsMenu.style.display = "none";
+    text.style.display = "block";
     if (gold < 10) {
         text.innerText = "Insufficient gold!";
     }
@@ -71,11 +84,13 @@ function buyHealth() {
 
 function buyWeapons() {
     text.style.display = "none";
-    weapons.style.display = "block";
+    weaponsMenu.style.display = "block";
+    
 }
 
 function town() {
-    weapons.style.display = "none";
+    weaponsMenu.style.display = "none";
+    text.style.display = "block";
     text.innerText = "Welcome to the town! \n\n\
     Go to the store to buy health and weapons! \n\
     Go to the cave to look for materials and gold to help you on your journey! \n\

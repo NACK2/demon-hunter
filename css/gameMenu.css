@@ -2,7 +2,7 @@ body {
     background-color: black;
 }
 
-#game-menu {
+#gameMenu {
     position: relative;
     top: 15px;
     height: 400px;
@@ -87,7 +87,7 @@ body {
     top: 5px;          
 }
 
-#quit-btn {
+#quitBtn {
     color: black;
     width: 200px;
     height: 70px;
@@ -99,7 +99,7 @@ body {
     font-family: "Audiowide";
 }
 
-#quit-btn:hover {
+#quitBtn:hover {
     cursor: cell;
     font-size: 15px;
     color: white;
@@ -113,7 +113,7 @@ figure {
     display: inline-block;
 }
 
-#weapons {
+#weaponsMenu {
     display: none;
     position: absolute;
     width: 98%;
@@ -124,8 +124,17 @@ figure {
     text-align: center; /*center the images within the game menu*/
 }
 
-#slingshot, #baseball-bat, #wooden-sword, #stone-sword, #dual-wield {
-    margin-top: 40px;
+.weaponPrice {
+    margin: 30px 0 5px 0;
+    font-family: "DM Sans";
+    font-size: 18px;
+    background: linear-gradient(0deg, rgba(65,120,238,1) 0%, rgba(97,143,241,1) 100%);
+    border: black solid 3px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+#slingshotImg, #baseballBatImg, #woodSwordImg, #stoneSwordImg, #dualWieldImg {
     height: 200px;
     background: linear-gradient(0deg, rgba(80,78,78,1) 0%, rgba(203,201,201,1) 100%);
     border: black solid 5px; 
