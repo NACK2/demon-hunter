@@ -17,7 +17,7 @@ body {
     border-radius: 10px;
     /*If content flows outside of container, overflow:auto allows you to scroll to overflowed content
     instead of the content showing outside of the container*/
-    overflow: scroll;
+    overflow: auto;
 }
 
 #stats {
@@ -66,7 +66,7 @@ body {
     font-weight: bold;
 }
 
-#pathButtons {
+#pathBtns {
     position: relative;
     top: 30px;
 }
@@ -153,14 +153,15 @@ figure {
     text-align: center;
 }
 
-#slingshotImg, #baseballBatImg, #woodSwordImg, #stoneSwordImg, #dualWieldImg {
+.weaponImg {
     height: 200px;
-    background: linear-gradient(0deg, rgba(80,78,78,1) 0%, rgba(203,201,201,1) 100%);
+    background: linear-gradient(0deg, rgba(126,9,22,1) 0%, rgba(255,0,33,1) 100%);
     border: black solid 5px; 
     border-radius: 10px;
+    opacity: 30%;
 }
 
-.weaponButton {
+.weaponBtn {
     height: 40px;
     width: 180px;
     font-family: "Audiowide";
@@ -175,7 +176,7 @@ figure {
 
 /*IDEA: USE cursor:not-allowed FOR THE LOCKED WEAPONS, LOCKED WEAPONS SHOULD BE GRAYED OUT OF BUTTON SHOULD BE GRAYED,
 BUTTON HSOULD CHANGE COLOURS WHEN ACQUIRED */
-.weaponButton:hover {
+.weaponBtn:hover {
     cursor:pointer;
     color: white;
     transition: 0.5s; 

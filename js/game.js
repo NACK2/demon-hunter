@@ -6,28 +6,40 @@ let inventory = [];
 let weaponsList = [
     {
         name: "slingshot",
+        imgId: "#slingshotImg",
         price: 10,
-        power: 5
+        power: 5,
+        // to buy a weapon you must buy every weapon weaker than that weapon first, 
+        // hence you start off only being able to buy the first, so unlocked = true only for first weapon
+        unlocked: true 
     },
     {
         name: "baseball bat",
+        imgId: "#baseballBatImg",
         price: 30,
-        power: 10
+        power: 10, 
+        unlocked: false
     },
     {
         name: "wood sword",
+        imgId: "#woodSwordImg",
         price: 60,
-        power: 30
+        power: 30,
+        unlocked: false
     },
     {
         name: "stone sword",
+        imgId: "#stoneSwordImg",
         price: 90,
-        power: 50
+        power: 50,
+        unlocked: false
     },
     {
         name: "dual wield sword",
+        imgId: "#dualWieldSwordImg",
         price: 150,
-        power: 80
+        power: 80,
+        unlocked: false
     }
 ];
 
@@ -103,28 +115,47 @@ function buyWeaponsMenu() {
     dialogueText.style.display = "none";
     consoleText.innerText = "You may have to scroll down for more weapons!"
     weaponsMenu.style.display = "block";
+    
 }
 
-function buyWeapon(weaponToBuy) {
+function buyWeapon(weaponToBuy) { // function is called when user clicks button to purchase a weapon
     // weaponsList is array of objects, each object is info on a weapon
     // loop through weaponsList, find the object w/ name matching weaponToBuy, 
     // and add it to inventory as long as user doesnt already have it
     for (let i = 0; i<weaponsList.length; ++i) { 
-        if (weaponsList[i].name == weaponToBuy) { // found matching weapon 
+        if (weaponsList[i].name == weaponToBuy) { 
             let hasWeapon = inventory.includes(weaponsList[i], 0); // check if user already has weapon
-            if (hasWeapon) {
+            if (!weaponsList[i].unlocked) { // weapon is locked
+                consoleText.innerText = "Weapon is locked! Buy all the previous weapons first!";
+            }
+            else if (hasWeapon) {
                 consoleText.innerText = "Weapon already bought!";
             }
             else if (weaponsList[i].price > gold) { 
                 consoleText.innerText = "Insufficient gold!"
             }
-            else { // successfully buying
+            else { // successful purchase
                 gold -= weaponsList[i].price;
-                inventory.push(weaponsList[i]);
                 goldText.innerText = gold + " G";
+                inventory.push(weaponsList[i]); // add weapon to inventory
                 consoleText.innerText = "Successfully bought a " + weaponToBuy + "!";
+                unlockWeapon(i);
             }
         }
+    }
+}
+
+// function called when weapon is purchased, will unlock the next weapon and turn background of purchased weapon green
+// weaponIndex is the index of weapon object in weaponsList
+function unlockWeapon(weaponIndex) {
+    let weapon = document.querySelector(weaponsList[weaponIndex].imgId);
+    weapon.style.background = "linear-gradient(0deg, rgba(10,96,9,1) 0%, rgba(24,222,14,1) 100%)";
+    if (weaponIndex != weaponsList.length-1) { 
+        // unlocking the next weapon now that current weapon is bought
+        // conditional is weaponIndex != weaponsList.length-1 bc we are accessing next element of array
+        weaponsList[weaponIndex+1].unlocked = true;
+        weapon = document.querySelector(weaponsList[weaponIndex+1].imgId);
+        weapon.style.opacity = "100%";
     }
 }
 
