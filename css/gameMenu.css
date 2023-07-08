@@ -161,11 +161,30 @@ figure {
     opacity: 30%;
 }
 
-.weaponBtn {
+.weaponBtnLocked {
     height: 40px;
     width: 180px;
     font-family: "Audiowide";
     font-size: 15px;
+    opacity: 30%;
+
+    color: black;
+    background: linear-gradient(0deg, rgba(126,9,22,1) 0%, rgba(255,0,33,1) 100%);
+    border: #07159587 solid 5px;
+    box-shadow: 0 0 10px #eee;
+    border-radius: 10px;
+}
+
+.weaponBtnLocked:hover {
+    cursor:no-drop;
+}
+
+.weaponBtnUnlocked {
+    height: 40px;
+    width: 180px;
+    font-family: "Audiowide";
+    font-size: 15px;
+    opacity: 100%;
 
     color: black;
     background: linear-gradient(0deg, rgba(236,119,20,1) 0%, rgba(227,141,18,1) 100%);
@@ -174,9 +193,7 @@ figure {
     border-radius: 10px;
 }
 
-/*IDEA: USE cursor:not-allowed FOR THE LOCKED WEAPONS, LOCKED WEAPONS SHOULD BE GRAYED OUT OF BUTTON SHOULD BE GRAYED,
-BUTTON HSOULD CHANGE COLOURS WHEN ACQUIRED */
-.weaponBtn:hover {
+.weaponBtnUnlocked:hover {
     cursor:pointer;
     color: white;
     transition: 0.5s; 

@@ -1,12 +1,12 @@
 let health = 70;
-let gold = 50;
+let gold = 400;
 let xp = 0;
 let inventory = [];
 
 let weaponsList = [
     {
         name: "slingshot",
-        imgId: "#slingshotImg",
+        id: "#slingshot",
         price: 10,
         power: 5,
         // to buy a weapon you must buy every weapon weaker than that weapon first, 
@@ -15,28 +15,28 @@ let weaponsList = [
     },
     {
         name: "baseball bat",
-        imgId: "#baseballBatImg",
+        id: "#baseballBat",
         price: 30,
         power: 10, 
         unlocked: false
     },
     {
         name: "wood sword",
-        imgId: "#woodSwordImg",
+        id: "#woodSword",
         price: 60,
         power: 30,
         unlocked: false
     },
     {
         name: "stone sword",
-        imgId: "#stoneSwordImg",
+        id: "#stoneSword",
         price: 90,
         power: 50,
         unlocked: false
     },
     {
         name: "dual wield sword",
-        imgId: "#dualWieldSwordImg",
+        id: "#dualWieldSword",
         price: 150,
         power: 80,
         unlocked: false
@@ -148,14 +148,19 @@ function buyWeapon(weaponToBuy) { // function is called when user clicks button 
 // function called when weapon is purchased, will unlock the next weapon and turn background of purchased weapon green
 // weaponIndex is the index of weapon object in weaponsList
 function unlockWeapon(weaponIndex) {
-    let weapon = document.querySelector(weaponsList[weaponIndex].imgId);
-    weapon.style.background = "linear-gradient(0deg, rgba(10,96,9,1) 0%, rgba(24,222,14,1) 100%)";
+    let weaponImg = document.querySelector(weaponsList[weaponIndex].id + "Img");
+    let weaponBtn = document.querySelector(".weaponBtnLocked")
+    weaponImg.style.background = "linear-gradient(0deg, rgba(10,96,9,1) 0%, rgba(24,222,14,1) 100%)"; // make background green
+
+    // conditional is weaponIndex != weaponsList.length-1 bc we are accessing next element of array, 
+    // thus statement doesnt run on last element
     if (weaponIndex != weaponsList.length-1) { 
-        // unlocking the next weapon now that current weapon is bought
-        // conditional is weaponIndex != weaponsList.length-1 bc we are accessing next element of array
-        weaponsList[weaponIndex+1].unlocked = true;
-        weapon = document.querySelector(weaponsList[weaponIndex+1].imgId);
-        weapon.style.opacity = "100%";
+        weaponsList[weaponIndex+1].unlocked = true; // unlocking the next weapon now that current weapon is bought
+        weaponImg = document.querySelector(weaponsList[weaponIndex+1].id + "Img");
+        weaponImg.style.opacity = "100%"; // make next weapon opacity 100% (looks unlocked)
+
+        weaponBtn.classList.remove("weaponBtnLocked"); 
+        weaponBtn.classList.add("weaponBtnUnlocked"); // make next weapon's btn the unlocked btn
     }
 }
 
