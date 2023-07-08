@@ -1,5 +1,5 @@
 let health = 70;
-let gold = 400;
+let gold = 50;
 let xp = 0;
 let inventory = [];
 
@@ -149,18 +149,28 @@ function buyWeapon(weaponToBuy) { // function is called when user clicks button 
 // weaponIndex is the index of weapon object in weaponsList
 function unlockWeapon(weaponIndex) {
     let weaponImg = document.querySelector(weaponsList[weaponIndex].id + "Img");
-    let weaponBtn = document.querySelector(".weaponBtnLocked")
+
+    // removing .weaponBtnLocked class from an element each time, so each time we 
+    // call document.querySelector(".weaponBtnLocked") the next element will be called as it always returns 
+    // the first element w the corresponding class
+    let weaponBtn = document.querySelector(".weaponBtnLocked"); 
+
+    let weaponPrice = document.querySelectorAll(".weaponPrice"); // getting array of all .weaponPrice elements
+
     weaponImg.style.background = "linear-gradient(0deg, rgba(10,96,9,1) 0%, rgba(24,222,14,1) 100%)"; // make background green
+    weaponPrice[weaponIndex].style.opacity = "100%"; // price is unlocked
 
     // conditional is weaponIndex != weaponsList.length-1 bc we are accessing next element of array, 
     // thus statement doesnt run on last element
     if (weaponIndex != weaponsList.length-1) { 
         weaponsList[weaponIndex+1].unlocked = true; // unlocking the next weapon now that current weapon is bought
         weaponImg = document.querySelector(weaponsList[weaponIndex+1].id + "Img");
-        weaponImg.style.opacity = "100%"; // make next weapon opacity 100% (looks unlocked)
+        weaponImg.style.opacity = "100%"; // make next weapon img unlocked
 
         weaponBtn.classList.remove("weaponBtnLocked"); 
-        weaponBtn.classList.add("weaponBtnUnlocked"); // make next weapon's btn the unlocked btn
+        weaponBtn.classList.add("weaponBtnUnlocked"); // make next weapon's button unlocked
+
+        weaponPrice[weaponIndex+1].style.opacity = "100%"; // make next price unlocked
     }
 }
 
