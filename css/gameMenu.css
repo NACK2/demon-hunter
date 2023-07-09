@@ -3,6 +3,11 @@
     src: url(../fonts/Px437_AMI_EGA_9x14.ttf); 
 }
 
+@font-face {
+    font-family: "pressStart2P";
+    src: url(../fonts/PressStart2P-Regular.ttf);
+}
+
 body {
     background-color: rgb(170, 170, 170);
 }
@@ -62,8 +67,7 @@ body {
 #dialogueText {
     margin: 10px;
     font-size: 20px;
-    font-family: "DM Sans";
-    font-weight: bold;
+    font-family: "pressStart2P";
 }
 
 #pathBtns {
