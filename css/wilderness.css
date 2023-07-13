@@ -1,0 +1,30 @@
+body {
+    background-color: black;
+}
+
+#land {
+    background-image: url("../img/wilderness/land1.png");
+    height: 90vh; /* height is 90% of the screen */
+}
+
+#exitBtn {
+    margin-top: 10px;
+    color: black;
+    width: 200px;
+    height: 70px;
+    font-size: 20px;
+    font-family: "Audiowide";
+
+    background: linear-gradient(0deg, rgba(167,25,62,1) 0%, rgba(227,26,45,1) 100%);
+    border: #950740 5px solid;
+    box-shadow: 0 0 15px red;
+    border-radius: 10px;
+}
+
+#exitBtn:hover {
+    cursor: cell;
+    color: white;
+    transition: 0.5s; 
+    position: relative;
+    top: 5px;
+}

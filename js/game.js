@@ -1,7 +1,7 @@
 let health = 70;
 let gold = 50;
 let xp = 0;
-let inventory = [];
+let inventoryList = [];
 
 let weaponsList = [
     {
@@ -58,7 +58,7 @@ const weaponsMenu = document.querySelector("#weaponsMenu");
 // init buttons
 quitBtn.onclick = quit;
 btn1.onclick = store;
-btn2.onclick = cave;
+btn2.onclick = inventory;
 btn3.onclick = wilderness;
 
 // TO-DO: 
@@ -85,19 +85,16 @@ function store() {
     btn3.innerText = "Town";
 }
 
-function cave() {
+function inventory() {
     // TO-DO
-    dialogueText.innerText = "Not implemented yet"
+    dialogueText.innerText = "Inventory not implemented yet"
 }
 
 function wilderness() {
-    // TO-DO
-    dialogueText.innerText = "Not implemented yet"
+    window.location = "wilderness.html";
 }
 
 function buyHealth() {
-    weaponsMenu.style.display = "none";
-    dialogueText.style.display = "block";
     if (gold < 10) {
         consoleText.innerText = "Insufficient gold!";
     }
@@ -124,7 +121,7 @@ function buyWeapon(weaponToBuy) { // function is called when user clicks button 
     // and add it to inventory as long as user doesnt already have it
     for (let i = 0; i<weaponsList.length; ++i) { 
         if (weaponsList[i].name == weaponToBuy) { 
-            let hasWeapon = inventory.includes(weaponsList[i], 0); // check if user already has weapon
+            let hasWeapon = inventoryList.includes(weaponsList[i], 0); // check if user already has weapon
             if (!weaponsList[i].unlocked) { // weapon is locked
                 consoleText.innerText = "Weapon is locked! Buy all the previous weapons first!";
             }
@@ -137,7 +134,7 @@ function buyWeapon(weaponToBuy) { // function is called when user clicks button 
             else { // successful purchase
                 gold -= weaponsList[i].price;
                 goldText.innerText = gold + " G";
-                inventory.push(weaponsList[i]); // add weapon to inventory
+                inventoryList.push(weaponsList[i]); // add weapon to inventory
                 consoleText.innerText = "Successfully bought a " + weaponToBuy + "!";
                 unlockWeapon(i);
             }
@@ -179,14 +176,13 @@ function town() {
     dialogueText.style.display = "block";
     dialogueText.innerText = "Welcome to the town! \n\n\
     Go to the store to buy health and weapons! \n\
-    Go to the cave to look for materials and gold to help you on your journey! \n\
     Go to the wilderness to fight some demons and earn gold!"
 
     btn1.onclick = store;
-    btn2.onclick = cave;
+    btn2.onclick = inventory;
     btn3.onclick = wilderness;
 
     btn1.innerText = "Store";
-    btn2.innerText = "Cave";
+    btn2.innerText = "Inventory";
     btn3.innerText = "Wilderness";
 }

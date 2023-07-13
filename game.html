@@ -20,36 +20,35 @@
         <p id="dialogueText"> 
             Welcome to the town! <br> <br>
             Go to the store to buy health and weapons! <br>
-            Go to the cave to look for materials and gold to help you on your journey! <br>
             Go to the wilderness to fight some demons and earn gold!
         </p>
 
         <div id="weaponsMenu">
             <figure>
                 <figcaption class="weaponPrice" style="opacity: 100%"> 10 GOLD </figcaption>
-                <img src="img/slingshot.webp" class="weaponImg" id="slingshotImg" title="Slingshot" style="opacity: 100%">
+                <img src="img/weapons/slingshot.webp" class="weaponImg" id="slingshotImg" title="Slingshot" style="opacity: 100%">
                 <!-- Sending weapon as paremeter to buyWeapon() upon btn click, the parameter string matches
                 the names within weapons object in game.js -->
                 <figcaption> <button onclick="buyWeapon('slingshot')" class="weaponBtnUnlocked"> Slingshot </button> </figcaption>
             </figure>
             <figure>
                 <figcaption class="weaponPrice"> 30 GOLD </figcaption>
-                <img src="img/baseballBat.png" class="weaponImg" id="baseballBatImg" title="Baseball bat">
+                <img src="img/weapons/baseballBat.png" class="weaponImg" id="baseballBatImg" title="Baseball bat">
                 <figcaption> <button onclick="buyWeapon('baseball bat')" class="weaponBtnLocked"> Baseball bat </button> </figcaption>
             </figure>
             <figure>
                 <figcaption class="weaponPrice"> 60 GOLD </figcaption>
-                <img src="img/woodSword.webp" class="weaponImg" id="woodSwordImg" title="Wood sword">
+                <img src="img/weapons/woodSword.webp" class="weaponImg" id="woodSwordImg" title="Wood sword">
                 <figcaption> <button onclick="buyWeapon('wood sword')" class="weaponBtnLocked"> Wood sword </button> </figcaption>
             </figure>
             <figure>
                 <figcaption class="weaponPrice"> 90 GOLD </figcaption>
-                <img src="img/stoneSword.webp" class="weaponImg" id="stoneSwordImg" title="Stone sword">
+                <img src="img/weapons/stoneSword.webp" class="weaponImg" id="stoneSwordImg" title="Stone sword">
                 <figcaption> <button onclick="buyWeapon('stone sword')" class="weaponBtnLocked"> Stone sword </button> </figcaption>
             </figure>
             <figure>
                 <figcaption class="weaponPrice"> 150 GOLD </figcaption>
-                <img src="img/dualWield.png" class="weaponImg" id="dualWieldSwordImg" title="Dual wield sword">
+                <img src="img/weapons/dualWield.png" class="weaponImg" id="dualWieldSwordImg" title="Dual wield sword">
                 <figcaption> <button onclick="buyWeapon('dual wield sword')" class="weaponBtnLocked"> Dual wield </button> </figcaption>
             </figure>
         </div>
@@ -57,7 +56,7 @@
 
     <div id="pathBtns">
         <button id="btn1"> Store </button>
-        <button id="btn2"> Cave </button>
+        <button id="btn2"> Inventory </button>
         <button id="btn3"> Wilderness </button>
         <button id="quitBtn">Quit</button>
     </div>
