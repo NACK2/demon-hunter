@@ -3,12 +3,13 @@ body {
 }
 
 #land {
-    background-image: url("../img/wilderness/land1.png");
+    background-image: url("../img/wilderness/land3.png");
     position: relative;
     height: 90vh; /* height is 90% of the screen */
+    overflow: hidden; /* for bushes that spawn out of screen */
 }
 
-#exitBtn {
+#exitBtn { /* same as quit btn from game menu */
     margin-top: 10px;
     color: black;
     width: 200px;
@@ -50,8 +51,8 @@ body {
     background-image: url("../img/wilderness/player_front.png");
     position: absolute;
     top: 0;
-    width: 75px;
-    height: 90px;
+    width: 80px;
+    height: 100px;
     background-size: 240px 100px; /* Bigger player */
 
     animation: run;
@@ -59,5 +60,18 @@ body {
     animation-iteration-count: infinite; /* animation runs forever */
     animation-timing-function: linear; /* speed of the animation, linear means constant animation speed throughout*/
     border: 2px red solid;
+}
+
+#bush {
+    position: absolute;
+    
+    /* z-index: 1; to make sure bushes arent covered by the background land (default z index is 0) */
+    background-image: url("../img/wilderness/bush.png");
+    
+    /* adjusted background-size, height, width, and background-position to fit bush right within div borders */
+    background-size: 160px 125px;
+    height: 55px;
+    width: 75px;
+    background-position: -5px -15px;
 }
 
