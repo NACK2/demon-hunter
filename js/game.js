@@ -1,7 +1,7 @@
+let inventoryList = [];
 let health = 70;
 let gold = 50;
 let xp = 0;
-let inventoryList = [];
 
 let weaponsList = [
     {
@@ -55,16 +55,34 @@ const xpText = document.querySelector("#xpText");
 const consoleText = document.querySelector("#consoleText");
 const weaponsMenu = document.querySelector("#weaponsMenu");
 
-// init buttons
-quitBtn.onclick = quit;
-btn1.onclick = store;
-btn2.onclick = inventory;
-btn3.onclick = wilderness;
+function init() { // initialization
+    quitBtn.onclick = quit;
+    btn1.onclick = store;
+    btn2.onclick = inventory;
+    btn3.onclick = wilderness;
 
-// TO-DO: 
-// - make inventory a drop down menu, lists items in inventory in the dropdown options
-// - create bunch of buttons for different paths: go to town, go to store, go to boss fight, go to mine, etc
-// - make sure stats such as health, gold etc. save even when user quits
+    updateData(); // update health, gold, xp, and inventory
+}
+init();
+
+function updateData() { // get any previous saved user data and update numbers
+    let savedHealth = localStorage.getItem("health"); // returns null if data key does not exist
+    let savedGold = localStorage.getItem("gold");
+    let savedXp = localStorage.getItem("xp");
+
+    if (savedHealth != null) { // check that key exists
+        healthText.innerText = savedHealth + " HP";
+        health = parseInt(savedHealth); // turning into int because getItem() returns string
+    }
+    if (savedGold != null) {
+        goldText.innerText = savedGold + " G";
+        gold = parseInt(savedGold);
+    }
+    if (savedXp != null) {
+        xpText.innerText = savedXp + " XP";
+        xp = parseInt(savedXp);
+    }
+}
 
 function quit() { // sends you back to home page
     window.location = "index.html";
@@ -105,6 +123,10 @@ function buyHealth() {
         consoleText.innerText = "Successfully bought 10 health!";
         healthText.innerText = health + " HP";
         goldText.innerText = gold + " G";
+
+        // saving data, must do JSON.stringify() bc only accepts strings
+        localStorage.setItem("health", JSON.stringify(health)); 
+        localStorage.setItem("gold", JSON.stringify(gold)); 
     }
 }
 
@@ -112,7 +134,6 @@ function buyWeaponsMenu() {
     dialogueText.style.display = "none";
     consoleText.innerText = "You may have to scroll down for more weapons!"
     weaponsMenu.style.display = "block";
-    
 }
 
 function buyWeapon(weaponToBuy) { // function is called when user clicks button to purchase a weapon
@@ -136,6 +157,7 @@ function buyWeapon(weaponToBuy) { // function is called when user clicks button 
                 goldText.innerText = gold + " G";
                 inventoryList.push(weaponsList[i]); // add weapon to inventory
                 consoleText.innerText = "Successfully bought a " + weaponToBuy + "!";
+                localStorage.setItem("gold", JSON.stringify(gold)); // saving gold data
                 unlockWeapon(i);
             }
         }
