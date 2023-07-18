@@ -50,16 +50,22 @@ body {
 #player {
     background-image: url("../img/wilderness/player_front.png");
     position: absolute;
-    top: 0;
+    top: 45%;
+    left: 47%;
     width: 80px;
     height: 100px;
     background-size: 240px 100px; /* Bigger player */
+    background-position: -80px 0;
 
+    /* commenting this out because player won't be running by default */
+    /*
     animation: run;
     animation-duration: 0.3s;
-    animation-iteration-count: infinite; /* animation runs forever */
-    animation-timing-function: linear; /* speed of the animation, linear means constant animation speed throughout*/
+    animation-iteration-count: infinite; /* animation runs forever 
+    animation-timing-function: linear; /* speed of the animation, linear means constant animation speed throughout
     border: 2px red solid;
+    */
+    
 }
 
 #bush {
