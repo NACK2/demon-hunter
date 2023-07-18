@@ -48,6 +48,7 @@ body {
 }
 
 #player {
+    z-index: 1; /* assures player will always be in front of everything (ex. bushes) */
     background-image: url("../img/wilderness/player_front.png");
     position: absolute;
     top: 45%;
