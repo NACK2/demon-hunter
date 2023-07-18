@@ -46,6 +46,8 @@ function createBushes() {
 }
 
 function userMovement(e) {
+    let validKey = true; 
+
     switch (e.key) {
         case 'w':
             if (player.offsetTop < landCoords.top) {
@@ -87,9 +89,14 @@ function userMovement(e) {
             player.style.backgroundImage = "url('../img/wilderness/player_right.png')";
             break;
         default:
+            validKey = false;
             break;
     }
-    player.classList.add("running"); // running animation starts when key pressed
+
+    // since userMovement() is called when ANY key is pressed, making sure running animation only plays for WASD
+    if (validKey) { 
+        player.classList.add("running"); 
+    }
 }
 window.addEventListener("keydown", userMovement); // when any key is pressed userMovement() will be called
 
