@@ -48,19 +48,42 @@ function createBushes() {
 function userMovement(e) {
     switch (e.key) {
         case 'w':
-            playerVel.y = -1; // USE SPEED 3 AS A RUNNING UPGRADE LATER
+            if (player.offsetTop < landCoords.top) {
+                playerVel.y = 0;
+            }
+            else {
+                playerVel.y = -1; // USE SPEED 3 AS A RUNNING UPGRADE LATER
+            }
             player.style.backgroundImage = "url('../img/wilderness/player_front.png')";
             break;
+
         case 'a':
-            playerVel.x = -1;
+            if (player.offsetLeft < landCoords.left) {
+                playerVel.x = 0;
+            }
+            else {
+                playerVel.x = -1;
+            }
             player.style.backgroundImage = "url('../img/wilderness/player_left.png')";
             break;
+
         case 's':
-            playerVel.y = 1;
+            if (player.offsetTop + player.clientWidth > landCoords.bottom) {
+                playerVel.y = 0;
+            }
+            else {
+                playerVel.y = 1; // USE SPEED 3 AS A RUNNING UPGRADE LATER
+            }
             player.style.backgroundImage = "url('../img/wilderness/player_back.png')";
             break;
+
         case 'd':
-            playerVel.x = 1;
+            if (player.offsetLeft + player.clientWidth > landCoords.right) {
+                playerVel.x = 0;
+            }
+            else {
+                playerVel.x = 1; // USE SPEED 3 AS A RUNNING UPGRADE LATER
+            }
             player.style.backgroundImage = "url('../img/wilderness/player_right.png')";
             break;
         default:
