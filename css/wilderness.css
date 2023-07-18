@@ -1,10 +1,17 @@
+@font-face {
+    font-family: "pressStart2P";
+    src: url(../fonts/PressStart2P-Regular.ttf);
+}
+
 body {
+    z-index: 0;
     background-color: black;
 }
 
 #land {
     background-image: url("../img/wilderness/land.png");
     position: relative;
+    z-index: 1;
     height: 90vh; /* height is 90% of the screen */
     overflow: hidden; /* for bushes that spawn out of screen */
 }
@@ -21,6 +28,13 @@ body {
     border: #950740 5px solid;
     box-shadow: 0 0 15px red;
     border-radius: 10px;
+}
+
+#text {
+    margin-left: 50px;
+    color: white;
+    font-family: "pressStart2P";
+    font-size: 25px;
 }
 
 #exitBtn:hover {
@@ -76,8 +90,7 @@ body {
 
 #bush {
     position: absolute;
-    
-    /* z-index: 1; to make sure bushes arent covered by the background land (default z index is 0) */
+    z-index: 2;
     background-image: url("../img/wilderness/bush.png");
     
     /* adjusted background-size, height, width, and background-position to fit bush right within div borders */
