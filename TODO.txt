@@ -2,4 +2,5 @@ To-Do List:
 
 - Add speed boots to weapon shop (change player vel to 5 ish)
 - Add monsters in wilderness (will spawn when player steps into certain coord)
+- Add visible inventory (with grid layout)
 - Add save option for player to save progress
