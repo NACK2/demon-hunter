@@ -32,7 +32,7 @@ function run() {
     player.style.left = playerPos.x + "px";
     player.style.top = playerPos.y + "px";
     // onsole.log("TEST");
-    requestAnimationFrame(run); // will constantly call run even when another function is running
+    requestAnimationFrame(run); // will constantly call run() even when another function is running
 }
 
 function createBushes() {
@@ -48,27 +48,32 @@ function createBushes() {
 function userMovement(e) {
     switch (e.key) {
         case 'w':
-            playerVel.y = -1;
+            playerVel.y = -1; // USE SPEED 3 AS A RUNNING UPGRADE LATER
+            player.style.backgroundImage = "url('../img/wilderness/player_front.png')";
             break;
         case 'a':
             playerVel.x = -1;
+            player.style.backgroundImage = "url('../img/wilderness/player_left.png')";
             break;
         case 's':
             playerVel.y = 1;
+            player.style.backgroundImage = "url('../img/wilderness/player_back.png')";
             break;
         case 'd':
             playerVel.x = 1;
+            player.style.backgroundImage = "url('../img/wilderness/player_right.png')";
             break;
         default:
             break;
-
     }
+    player.classList.add("running"); // running animation starts when key pressed
 }
 window.addEventListener("keydown", userMovement); // when any key is pressed userMovement() will be called
 
 function userStopped(e) {
     playerVel.x = 0;
     playerVel.y = 0;
+    player.classList.remove("running"); // running animation stops when key released
 }
 window.addEventListener("keyup", userStopped); // when any key is let go userStopped() will be called
 

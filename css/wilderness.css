@@ -63,9 +63,14 @@ body {
     animation-duration: 0.3s;
     animation-iteration-count: infinite; /* animation runs forever 
     animation-timing-function: linear; /* speed of the animation, linear means constant animation speed throughout
-    border: 2px red solid;
-    */
-    
+    border: 2px red solid;*/
+}
+
+.running {
+    animation: run;
+    animation-duration: 0.3s;
+    animation-iteration-count: infinite; /* animation runs forever*/ 
+    animation-timing-function: linear; /* speed of the animation, linear means constant animation speed throughout*/
 }
 
 #bush {
