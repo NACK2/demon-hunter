@@ -3,7 +3,7 @@ body {
 }
 
 #land {
-    background-image: url("../img/wilderness/land3.png");
+    background-image: url("../img/wilderness/land.png");
     position: relative;
     height: 90vh; /* height is 90% of the screen */
     overflow: hidden; /* for bushes that spawn out of screen */

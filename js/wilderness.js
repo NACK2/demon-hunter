@@ -1,5 +1,3 @@
-// WILDNERESS IS INSPIRED BY POKEMON
-
 const NUM_BUSHES = 15;
 const exitBtn = document.querySelector("#exitBtn");
 const land = document.querySelector("#land");
@@ -31,7 +29,7 @@ function run() {
 
     player.style.left = playerPos.x + "px";
     player.style.top = playerPos.y + "px";
-    // onsole.log("TEST");
+    // console.log("TEST");
     requestAnimationFrame(run); // will constantly call run() even when another function is running
 }
 
