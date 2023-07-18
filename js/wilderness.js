@@ -72,7 +72,7 @@ function userMovement(e) {
                 playerVel.y = 0;
             }
             else {
-                playerVel.y = 1; // USE SPEED 3 AS A RUNNING UPGRADE LATER
+                playerVel.y = 1; 
             }
             player.style.backgroundImage = "url('../img/wilderness/player_back.png')";
             break;
@@ -82,7 +82,7 @@ function userMovement(e) {
                 playerVel.x = 0;
             }
             else {
-                playerVel.x = 1; // USE SPEED 3 AS A RUNNING UPGRADE LATER
+                playerVel.x = 1; 
             }
             player.style.backgroundImage = "url('../img/wilderness/player_right.png')";
             break;
