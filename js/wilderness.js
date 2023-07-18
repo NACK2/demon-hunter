@@ -54,7 +54,7 @@ function userMovement(e) {
             else {
                 playerVel.y = -1; // USE SPEED 3 AS A RUNNING UPGRADE LATER
             }
-            player.style.backgroundImage = "url('../img/wilderness/player_front.png')";
+            player.style.backgroundImage = "url('./img/wilderness/player_front.png')";
             break;
 
         case 'a':
@@ -64,7 +64,7 @@ function userMovement(e) {
             else {
                 playerVel.x = -1;
             }
-            player.style.backgroundImage = "url('../img/wilderness/player_left.png')";
+            player.style.backgroundImage = "url('./img/wilderness/player_left.png')";
             break;
 
         case 's':
@@ -74,7 +74,7 @@ function userMovement(e) {
             else {
                 playerVel.y = 1; 
             }
-            player.style.backgroundImage = "url('../img/wilderness/player_back.png')";
+            player.style.backgroundImage = "url('./img/wilderness/player_back.png')";
             break;
 
         case 'd':
@@ -84,7 +84,7 @@ function userMovement(e) {
             else {
                 playerVel.x = 1; 
             }
-            player.style.backgroundImage = "url('../img/wilderness/player_right.png')";
+            player.style.backgroundImage = "url('./img/wilderness/player_right.png')";
             break;
         default:
             validKey = false;
