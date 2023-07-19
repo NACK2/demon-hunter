@@ -56,19 +56,17 @@ const consoleText = document.querySelector("#consoleText");
 const weaponsMenu = document.querySelector("#weaponsMenu");
 
 function init() { // initialization
+    // init buttons
     quitBtn.onclick = quit;
     btn1.onclick = store;
     btn2.onclick = inventory;
     btn3.onclick = wilderness;
 
-    updateData(); // update health, gold, xp, and inventory
-}
-init();
-
-function updateData() { // get any previous saved user data and update numbers
+    // getting any previously saved data such as inventory, gold, health, etc and loading them
     let savedHealth = localStorage.getItem("health"); // returns null if data key does not exist
     let savedGold = localStorage.getItem("gold");
     let savedXp = localStorage.getItem("xp");
+    let savedInventory = localStorage.getItem("inventory");
 
     if (savedHealth != null) { // check that key exists
         healthText.innerText = savedHealth + " HP";
@@ -82,7 +80,15 @@ function updateData() { // get any previous saved user data and update numbers
         xpText.innerText = savedXp + " XP";
         xp = parseInt(savedXp);
     }
+    if (savedInventory != null) {
+        inventoryList = JSON.parse(savedInventory); // turning into object because getItem() returns string
+        // for each of previously bought weapons, making the background green in weapon store to show it was already bought
+        for (let i=0; i<inventoryList.length; ++i) {
+            unlockWeapon(i); 
+        }
+    }
 }
+init();
 
 function quit() { // sends you back to home page
     window.location = "index.html";
@@ -104,8 +110,10 @@ function store() {
 }
 
 function inventory() {
-    // TO-DO
-    dialogueText.innerText = "Inventory not implemented yet"
+    dialogueText.innerText = "THIS IS GOING TO LOOK BETTER, TEMPORARY SOLUTION\n\n"
+    for (let i=0; i<inventoryList.length; ++i) {
+        dialogueText.innerText += "- " + inventoryList[i].name + '\n';
+    }
 }
 
 function wilderness() {
@@ -137,17 +145,20 @@ function buyWeaponsMenu() {
 }
 
 function buyWeapon(weaponToBuy) { // function is called when user clicks button to purchase a weapon
-    // weaponsList is array of objects, each object is info on a weapon
+    for (let i = 0; i<inventoryList.length; ++i) { // check if user already bought weapon
+        if (inventoryList[i].name == weaponToBuy) {
+            consoleText.innerText = "Weapon already bought!";
+            return;
+        }
+    }
+    
+    // weaponsList is array of all possible weapon objects, each object is info on a weapon.
     // loop through weaponsList, find the object w/ name matching weaponToBuy, 
     // and add it to inventory as long as user doesnt already have it
     for (let i = 0; i<weaponsList.length; ++i) { 
         if (weaponsList[i].name == weaponToBuy) { 
-            let hasWeapon = inventoryList.includes(weaponsList[i], 0); // check if user already has weapon
             if (!weaponsList[i].unlocked) { // weapon is locked
                 consoleText.innerText = "Weapon is locked! Buy all the previous weapons first!";
-            }
-            else if (hasWeapon) {
-                consoleText.innerText = "Weapon already bought!";
             }
             else if (weaponsList[i].price > gold) { 
                 consoleText.innerText = "Insufficient gold!"
@@ -158,7 +169,8 @@ function buyWeapon(weaponToBuy) { // function is called when user clicks button 
                 inventoryList.push(weaponsList[i]); // add weapon to inventory
                 consoleText.innerText = "Successfully bought a " + weaponToBuy + "!";
                 localStorage.setItem("gold", JSON.stringify(gold)); // saving gold data
-                unlockWeapon(i);
+                localStorage.setItem("inventory", JSON.stringify(inventoryList)); // saving inventory data
+                unlockWeapon(i); // unlocking weapon turns the weapon background from gray to green in weapon buy menu
             }
         }
     }
