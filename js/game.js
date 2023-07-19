@@ -110,9 +110,14 @@ function store() {
 }
 
 function inventory() {
-    dialogueText.innerText = "THIS IS GOING TO LOOK BETTER, TEMPORARY SOLUTION\n\n"
-    for (let i=0; i<inventoryList.length; ++i) {
-        dialogueText.innerText += "- " + inventoryList[i].name + '\n';
+    dialogueText.innerText = "INVENTORY WILL LOOK BETTER, THIS IS TEMPORARY\n\n"
+    if (inventoryList.length > 0) {
+        for (let i=0; i<inventoryList.length; ++i) {
+            dialogueText.innerText += "- " + inventoryList[i].name + '\n';
+        }
+    }
+    else {
+        alert("Empty Inventory :(");
     }
 }
 
