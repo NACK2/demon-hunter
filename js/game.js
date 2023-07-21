@@ -53,7 +53,7 @@ const healthText = document.querySelector("#healthText");
 const goldText = document.querySelector("#goldText");
 const xpText = document.querySelector("#xpText");
 const consoleText = document.querySelector("#consoleText");
-const weaponsMenu = document.querySelector("#weaponsMenu");
+const itemMenu = document.querySelector(".itemMenu");
 
 function init() { // initialization
     // init buttons
@@ -101,7 +101,7 @@ function store() {
     To go back to the town, click \"Town\"!";
     
     btn1.onclick = buyHealth;
-    btn2.onclick = buyWeaponsMenu;
+    btn2.onclick = buyItemMenu;
     btn3.onclick = town;
 
     btn1.innerText = "Buy Health";
@@ -143,25 +143,25 @@ function buyHealth() {
     }
 }
 
-function buyWeaponsMenu() {
+function buyItemMenu() {
     dialogueText.style.display = "none";
     consoleText.innerText = "You may have to scroll down for more weapons!"
-    weaponsMenu.style.display = "block";
+    itemMenu.style.display = "block";
 }
 
-function buyWeapon(weaponToBuy) { // function is called when user clicks button to purchase a weapon
+function buyItem(itemToBuy) { // function is called when user clicks button to purchase a weapon
     for (let i = 0; i<inventoryList.length; ++i) { // check if user already bought weapon
-        if (inventoryList[i].name == weaponToBuy) {
+        if (inventoryList[i].name == itemToBuy) {
             consoleText.innerText = "Weapon already bought!";
             return;
         }
     }
     
     // weaponsList is array of all possible weapon objects, each object is info on a weapon.
-    // loop through weaponsList, find the object w/ name matching weaponToBuy, 
+    // loop through weaponsList, find the object w/ name matching itemToBuy, 
     // and add it to inventory as long as user doesnt already have it
     for (let i = 0; i<weaponsList.length; ++i) { 
-        if (weaponsList[i].name == weaponToBuy) { 
+        if (weaponsList[i].name == itemToBuy) { 
             if (!weaponsList[i].unlocked) { // weapon is locked
                 consoleText.innerText = "Weapon is locked! Buy all the previous weapons first!";
             }
@@ -172,7 +172,7 @@ function buyWeapon(weaponToBuy) { // function is called when user clicks button 
                 gold -= weaponsList[i].price;
                 goldText.innerText = gold + " G";
                 inventoryList.push(weaponsList[i]); // add weapon to inventory
-                consoleText.innerText = "Successfully bought a " + weaponToBuy + "!";
+                consoleText.innerText = "Successfully bought a " + itemToBuy + "!";
                 localStorage.setItem("gold", JSON.stringify(gold)); // saving gold data
                 localStorage.setItem("inventory", JSON.stringify(inventoryList)); // saving inventory data
                 unlockWeapon(i); // unlocking weapon turns the weapon background from gray to green in weapon buy menu
@@ -186,12 +186,12 @@ function buyWeapon(weaponToBuy) { // function is called when user clicks button 
 function unlockWeapon(weaponIndex) {
     let weaponImg = document.querySelector(weaponsList[weaponIndex].id + "Img");
 
-    // removing .weaponBtnLocked class from an element each time, so each time we 
-    // call document.querySelector(".weaponBtnLocked") the next element will be called as it always returns 
+    // removing .itemBtnLocked class from an element each time, so each time we 
+    // call document.querySelector(".itemBtnLocked") the next element will be called as it always returns 
     // the first element w the corresponding class
-    let weaponBtn = document.querySelector(".weaponBtnLocked"); 
+    let weaponBtn = document.querySelector(".itemBtnLocked"); 
 
-    let weaponPrice = document.querySelectorAll(".weaponPrice"); // getting array of all .weaponPrice elements
+    let weaponPrice = document.querySelectorAll(".itemPrice"); // getting array of all .weaponPrice elements
 
     weaponImg.style.background = "linear-gradient(0deg, rgba(10,96,9,1) 0%, rgba(24,222,14,1) 100%)"; // make background green
     weaponPrice[weaponIndex].style.opacity = "100%"; // price is unlocked
@@ -203,15 +203,15 @@ function unlockWeapon(weaponIndex) {
         weaponImg = document.querySelector(weaponsList[weaponIndex+1].id + "Img");
         weaponImg.style.opacity = "100%"; // make next weapon img unlocked
 
-        weaponBtn.classList.remove("weaponBtnLocked"); 
-        weaponBtn.classList.add("weaponBtnUnlocked"); // make next weapon's button unlocked
+        weaponBtn.classList.remove("itemBtnLocked"); 
+        weaponBtn.classList.add("itemBtnUnlocked"); // make next weapon's button unlocked
 
         weaponPrice[weaponIndex+1].style.opacity = "100%"; // make next price unlocked
     }
 }
 
 function town() {
-    weaponsMenu.style.display = "none";
+    itemMenu.style.display = "none";
     dialogueText.style.display = "block";
     dialogueText.innerText = "Welcome to the town! \n\n\
     Go to the store to buy health and weapons! \n\
