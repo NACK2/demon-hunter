@@ -1,4 +1,5 @@
-let inventoryList = [];
+let inventoryList = []; // inventoryList only consists of weapons, doesnt include speed boots
+let haveBoots = false; // flag for if user bought speed boots
 let health = 70;
 let gold = 50;
 let xp = 0;
@@ -54,6 +55,7 @@ const goldText = document.querySelector("#goldText");
 const xpText = document.querySelector("#xpText");
 const consoleText = document.querySelector("#consoleText");
 const itemMenu = document.querySelector(".itemMenu");
+const bootsImg = document.querySelector("#bootsImg");
 
 function init() { // initialization
     // init buttons
@@ -66,7 +68,8 @@ function init() { // initialization
     let savedHealth = localStorage.getItem("health"); // returns null if data key does not exist
     let savedGold = localStorage.getItem("gold");
     let savedXp = localStorage.getItem("xp");
-    let savedInventory = localStorage.getItem("inventory");
+    let savedInventory = localStorage.getItem("inventory"); // remember, savedInventory only has weapons, no boots
+    let savedBoots = localStorage.getItem("boots");
 
     if (savedHealth != null) { // check that key exists
         healthText.innerText = savedHealth + " HP";
@@ -86,6 +89,10 @@ function init() { // initialization
         for (let i=0; i<inventoryList.length; ++i) {
             unlockWeapon(i); 
         }
+    }
+    if (savedBoots != null) {
+        haveBoots = true;
+        bootsImg.style.background = "linear-gradient(0deg, rgba(10,96,9,1) 0%, rgba(24,222,14,1) 100%)"; // make background green
     }
 }
 init();
@@ -110,14 +117,21 @@ function store() {
 }
 
 function inventory() {
-    dialogueText.innerText = "INVENTORY WILL LOOK BETTER, THIS IS TEMPORARY\n\n"
-    if (inventoryList.length > 0) {
-        for (let i=0; i<inventoryList.length; ++i) {
-            dialogueText.innerText += "- " + inventoryList[i].name + '\n';
-        }
+    dialogueText.innerText = "INVENTORY WILL LOOK BETTER, THIS IS TEMPORARY\n\n";
+
+    if (!inventoryList.length && !haveBoots) {
+        alert("Empty Inventory :(");
     }
     else {
-        alert("Empty Inventory :(");
+        if (inventoryList.length > 0) { // NOTE: inventoryList ONLY includes weapons, not speed boots
+            for (let i=0; i<inventoryList.length; ++i) {
+                dialogueText.innerText += "- " + inventoryList[i].name + '\n';
+            }
+        }
+
+        if (haveBoots) {
+            dialogueText.innerText += "- speed boots" + '\n';
+        }
     }
 }
 
@@ -143,25 +157,25 @@ function buyHealth() {
     }
 }
 
-function buyItemMenu() {
+function buyItemMenu() { // item menu for buying both weapons and speed boots
     dialogueText.style.display = "none";
     consoleText.innerText = "You may have to scroll down for more weapons!"
     itemMenu.style.display = "block";
 }
 
-function buyItem(itemToBuy) { // function is called when user clicks button to purchase a weapon
+function buyWeapon(weaponToBuy) { // function is called when user clicks button to purchase a weapon
     for (let i = 0; i<inventoryList.length; ++i) { // check if user already bought weapon
-        if (inventoryList[i].name == itemToBuy) {
+        if (inventoryList[i].name == weaponToBuy) {
             consoleText.innerText = "Weapon already bought!";
             return;
         }
     }
     
     // weaponsList is array of all possible weapon objects, each object is info on a weapon.
-    // loop through weaponsList, find the object w/ name matching itemToBuy, 
+    // loop through weaponsList, find the object w/ name matching weaponToBuy, 
     // and add it to inventory as long as user doesnt already have it
     for (let i = 0; i<weaponsList.length; ++i) { 
-        if (weaponsList[i].name == itemToBuy) { 
+        if (weaponsList[i].name == weaponToBuy) { 
             if (!weaponsList[i].unlocked) { // weapon is locked
                 consoleText.innerText = "Weapon is locked! Buy all the previous weapons first!";
             }
@@ -172,7 +186,7 @@ function buyItem(itemToBuy) { // function is called when user clicks button to p
                 gold -= weaponsList[i].price;
                 goldText.innerText = gold + " G";
                 inventoryList.push(weaponsList[i]); // add weapon to inventory
-                consoleText.innerText = "Successfully bought a " + itemToBuy + "!";
+                consoleText.innerText = "Successfully bought a " + weaponToBuy + "!";
                 localStorage.setItem("gold", JSON.stringify(gold)); // saving gold data
                 localStorage.setItem("inventory", JSON.stringify(inventoryList)); // saving inventory data
                 unlockWeapon(i); // unlocking weapon turns the weapon background from gray to green in weapon buy menu
@@ -207,6 +221,26 @@ function unlockWeapon(weaponIndex) {
         weaponBtn.classList.add("itemBtnUnlocked"); // make next weapon's button unlocked
 
         weaponPrice[weaponIndex+1].style.opacity = "100%"; // make next price unlocked
+    }
+}
+
+function buyBoots() { // note: speed boots are unlocked by default; all user has to do is buy them
+    if (haveBoots) { 
+        consoleText.innerText = "Speed boots already bought!";
+    }
+    else if (gold < 50) {
+        consoleText.innerText = "Insufficient gold!";
+    }
+    else { // successful purchase
+        bootsImg.style.background = "linear-gradient(0deg, rgba(10,96,9,1) 0%, rgba(24,222,14,1) 100%)"; // make background green
+
+        gold -= 50;
+        goldText.innerText = gold + " G";
+        localStorage.setItem("gold", JSON.stringify(gold)); // saving gold data
+        consoleText.innerText = "Successfully bought speed boots!";
+
+        haveBoots = true;
+        localStorage.setItem("boots", "true"); // saving data that user bought boots
     }
 }
 

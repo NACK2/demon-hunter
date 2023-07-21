@@ -27,38 +27,42 @@
             <figure>
                 <figcaption class="itemPrice" style="opacity: 100%"> 10 GOLD </figcaption>
                 <img src="img/weapons/slingshot.webp" class="itemImg" id="slingshotImg" title="Slingshot" style="opacity: 100%">
-                <!-- Sending weapon as paremeter to buyItem() upon btn click, the parameter string matches
+                <!-- Sending weapon as paremeter to buyWeapon() upon btn click, the parameter string matches
                 the names within weapons object in game.js -->
-                <figcaption> <button onclick="buyItem('slingshot')" class="itemBtnUnlocked"> Slingshot </button> </figcaption>
+                <figcaption> <button onclick="buyWeapon('slingshot')" class="itemBtnUnlocked"> Slingshot </button> </figcaption>
             </figure>
+
             <figure>
                 <figcaption class="itemPrice"> 30 GOLD </figcaption>
                 <img src="img/weapons/baseballBat.png" class="itemImg" id="baseballBatImg" title="Baseball bat">
-                <figcaption> <button onclick="buyItem('baseball bat')" class="itemBtnLocked"> Baseball bat </button> </figcaption>
+                <figcaption> <button onclick="buyWeapon('baseball bat')" class="itemBtnLocked"> Baseball bat </button> </figcaption>
             </figure>
+
             <figure>
                 <figcaption class="itemPrice"> 60 GOLD </figcaption>
                 <img src="img/weapons/woodSword.webp" class="itemImg" id="woodSwordImg" title="Wood sword">
-                <figcaption> <button onclick="buyItem('wood sword')" class="itemBtnLocked"> Wood sword </button> </figcaption>
+                <figcaption> <button onclick="buyWeapon('wood sword')" class="itemBtnLocked"> Wood sword </button> </figcaption>
             </figure>
+
             <figure>
                 <figcaption class="itemPrice"> 90 GOLD </figcaption>
                 <img src="img/weapons/stoneSword.webp" class="itemImg" id="stoneSwordImg" title="Stone sword">
-                <figcaption> <button onclick="buyItem('stone sword')" class="itemBtnLocked"> Stone sword </button> </figcaption>
+                <figcaption> <button onclick="buyWeapon('stone sword')" class="itemBtnLocked"> Stone sword </button> </figcaption>
             </figure>
+
             <figure>
                 <figcaption class="itemPrice"> 150 GOLD </figcaption>
                 <img src="img/weapons/dualWield.png" class="itemImg" id="dualWieldSwordImg" title="Dual wield sword">
-                <figcaption> <button onclick="buyItem('dual wield sword')" class="itemBtnLocked"> Dual wield </button> </figcaption>
+                <figcaption> <button onclick="buyWeapon('dual wield sword')" class="itemBtnLocked"> Dual wield </button> </figcaption>
+            </figure>
+
+            <br>
+            <figure>
+                <figcaption class="itemPrice" style="opacity: 100%"> 50 GOLD </figcaption>
+                <img src="img/boots.webp" class="itemImg" id="bootsImg" title="Speed Boots" style="opacity: 100%">
+                <figcaption> <button onclick="buyBoots()" id="bootsBtn"> Speed Boots </button> </figcaption>
             </figure>
         </div>
-
-        <!-- <div class="weaponsMenu">
-            <figure>
-                <figcaption id="bootsPrice"> 50 GOLD </figcaption>
-
-            </figure>
-        </div> -->
     </div>
 
     <div id="pathBtns">
