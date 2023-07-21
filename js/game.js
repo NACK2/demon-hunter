@@ -4,6 +4,10 @@ let health = 70;
 let gold = 50;
 let xp = 0;
 
+// we are exporting haveBoots, so that wilderness.js can import the haveBoots data, and if haveBoots = true,
+// it will give our user extra speed
+// export default haveBoots; 
+
 let weaponsList = [
     {
         name: "slingshot",
@@ -48,6 +52,7 @@ const quitBtn = document.querySelector("#quitBtn");
 const btn1 = document.querySelector("#btn1");
 const btn2 = document.querySelector("#btn2");
 const btn3 = document.querySelector("#btn3");
+const bootsBtn = document.querySelector("#bootsBtn");
 
 const dialogueText = document.querySelector("#dialogueText");
 const healthText = document.querySelector("#healthText");
@@ -63,6 +68,8 @@ function init() { // initialization
     btn1.onclick = store;
     btn2.onclick = inventory;
     btn3.onclick = wilderness;
+    bootsBtn.onclick = buyBoots;
+    bindUnlockedWeaponBtns();
 
     // getting any previously saved data such as inventory, gold, health, etc and loading them
     let savedHealth = localStorage.getItem("health"); // returns null if data key does not exist
@@ -84,11 +91,15 @@ function init() { // initialization
         xp = parseInt(savedXp);
     }
     if (savedInventory != null) {
-        inventoryList = JSON.parse(savedInventory); // turning into object because getItem() returns string
+        inventoryList = JSON.parse(savedInventory); // JSON.parse() turns into object because getItem() returns string
         // for each of previously bought weapons, making the background green in weapon store to show it was already bought
         for (let i=0; i<inventoryList.length; ++i) {
             unlockWeapon(i); 
         }
+
+        // if savedInventory != null, means user bought items on previous run, so must link all the new unlocked weapon btns 
+        // with buyWeapon() by calling bindUnlockedWeaponBtns()
+        bindUnlockedWeaponBtns(); 
     }
     if (savedBoots != null) {
         haveBoots = true;
@@ -96,6 +107,17 @@ function init() { // initialization
     }
 }
 init();
+
+// adds event listener to each buying weapon button with buyWeapon() 
+// every time weapon is bought, unlockWeapon() is called and the number of elements with
+// .itemBtnUnlocked increases by 1 each time, so have to do querySelectorAll(".itemBtnUnlocked") and relink each
+// button with buyWeapon() PLUS the new .itemBtnUnlocked element with buyWeapon()
+function bindUnlockedWeaponBtns() { 
+    let weaponUnlockedBtns = document.querySelectorAll(".itemBtnUnlocked"); // weaponUnlockedBtns is array of elements
+    for (let i=0; i<weaponUnlockedBtns.length; ++i) {
+        weaponUnlockedBtns[i].addEventListener("click", buyWeapon);
+    }
+}
 
 function quit() { // sends you back to home page
     window.location = "index.html";
@@ -163,30 +185,33 @@ function buyItemMenu() { // item menu for buying both weapons and speed boots
     itemMenu.style.display = "block";
 }
 
-function buyWeapon(weaponToBuy) { // function is called when user clicks button to purchase a weapon
+function buyWeapon() { // function is called when user clicks button to purchase a weapon
+
+    // the function (buyWeapon()) used for addEventListener will automatically have "this" bound to 
+    // the current btn element used as the event in the event listener
+    let weaponId = '#' + this.id; 
     for (let i = 0; i<inventoryList.length; ++i) { // check if user already bought weapon
-        if (inventoryList[i].name == weaponToBuy) {
-            consoleText.innerText = "Weapon already bought!";
+        if (inventoryList[i].id == weaponId) {
+            consoleText.innerText = "Already purchased " + inventoryList[i].name + "!";
             return;
         }
     }
     
     // weaponsList is array of all possible weapon objects, each object is info on a weapon.
-    // loop through weaponsList, find the object w/ name matching weaponToBuy, 
-    // and add it to inventory as long as user doesnt already have it
+    // loop through weaponsList, find the object w/ id matching weaponId and add it to inventory 
     for (let i = 0; i<weaponsList.length; ++i) { 
-        if (weaponsList[i].name == weaponToBuy) { 
-            if (!weaponsList[i].unlocked) { // weapon is locked
-                consoleText.innerText = "Weapon is locked! Buy all the previous weapons first!";
-            }
-            else if (weaponsList[i].price > gold) { 
+        if (weaponsList[i].id == weaponId) { 
+            // if (!weaponsList[i].unlocked) { // weapon is locked
+            //     consoleText.innerText = "Weapon is locked! Buy all the previous weapons first!";
+            // }
+            if (weaponsList[i].price > gold) { 
                 consoleText.innerText = "Insufficient gold!"
             }
             else { // successful purchase
                 gold -= weaponsList[i].price;
                 goldText.innerText = gold + " G";
                 inventoryList.push(weaponsList[i]); // add weapon to inventory
-                consoleText.innerText = "Successfully bought a " + weaponToBuy + "!";
+                consoleText.innerText = "Successfully bought a " + weaponsList[i].name + "!";
                 localStorage.setItem("gold", JSON.stringify(gold)); // saving gold data
                 localStorage.setItem("inventory", JSON.stringify(inventoryList)); // saving inventory data
                 unlockWeapon(i); // unlocking weapon turns the weapon background from gray to green in weapon buy menu
@@ -222,11 +247,13 @@ function unlockWeapon(weaponIndex) {
 
         weaponPrice[weaponIndex+1].style.opacity = "100%"; // make next price unlocked
     }
+
+    bindUnlockedWeaponBtns(); // since unlocking new weapon, want to make sure the new unlocked weapon gets binded to buyWeapon()
 }
 
 function buyBoots() { // note: speed boots are unlocked by default; all user has to do is buy them
     if (haveBoots) { 
-        consoleText.innerText = "Speed boots already bought!";
+        consoleText.innerText = "Already purchased speed boots!";
     }
     else if (gold < 50) {
         consoleText.innerText = "Insufficient gold!";

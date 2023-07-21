@@ -1,3 +1,5 @@
+// import haveBoots from '../js/game.js';
+
 const NUM_BUSHES = 15;
 const exitBtn = document.querySelector("#exitBtn");
 const land = document.querySelector("#land");
@@ -18,6 +20,11 @@ const playerVel = { // this is what will be used to move player
 };
 
 exitBtn.onclick = gameMenu;
+
+// if (haveBoots) 
+//     console.log("HAVE BOOTS");
+// else 
+//     console.log("DONT HAVE BOOTS");
 
 function gameMenu() {
     window.location = "game.html";
