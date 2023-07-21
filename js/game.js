@@ -1,12 +1,14 @@
-let inventoryList = []; // inventoryList only consists of weapons, doesnt include speed boots
 let haveBoots = false; // flag for if user bought speed boots
+
+// we are exporting haveBoots, so that wilderness.js can import the haveBoots data
+// note: calling localStorage.getItem("boots") here to upate haveBoots before exporting
+haveBoots = JSON.parse(localStorage.getItem("boots")); 
+export default haveBoots; 
+
+let inventoryList = []; // inventoryList only consists of weapons, doesnt include speed boots
 let health = 70;
 let gold = 50;
 let xp = 0;
-
-// we are exporting haveBoots, so that wilderness.js can import the haveBoots data, and if haveBoots = true,
-// it will give our user extra speed
-// export default haveBoots; 
 
 let weaponsList = [
     {
@@ -62,6 +64,13 @@ const consoleText = document.querySelector("#consoleText");
 const itemMenu = document.querySelector(".itemMenu");
 const bootsImg = document.querySelector("#bootsImg");
 
+// (could've chose any element but chose quitBtn by random) if quitBtn == null means game.js has been ran
+// as an import file in wilderness.html, wilderness.html doesnt have access to any elements of game.js bc
+// only game.html has the elements of game.js, therefore dont initalize anything as elements such as quitBtn will be null
+if (quitBtn != null) {
+    init();
+}
+
 function init() { // initialization
     // init buttons
     quitBtn.onclick = quit;
@@ -106,7 +115,6 @@ function init() { // initialization
         bootsImg.style.background = "linear-gradient(0deg, rgba(10,96,9,1) 0%, rgba(24,222,14,1) 100%)"; // make background green
     }
 }
-init();
 
 // adds event listener to each buying weapon button with buyWeapon() 
 // every time weapon is bought, unlockWeapon() is called and the number of elements with
@@ -126,7 +134,7 @@ function quit() { // sends you back to home page
 function store() {
     dialogueText.innerText = "Welcome to the store! \n\n\
     You can gain 10 health for 10 gold!\n\
-    For information on prices of weapons, click \"Buy Weapons\"!\n\
+    For information on prices of various items, click \"Buy Items\"!\n\
     To go back to the town, click \"Town\"!";
     
     btn1.onclick = buyHealth;
@@ -134,7 +142,7 @@ function store() {
     btn3.onclick = town;
 
     btn1.innerText = "Buy Health";
-    btn2.innerText = "Buy Weapons";
+    btn2.innerText = "Buy Items";
     btn3.innerText = "Town";
 }
 
@@ -267,7 +275,7 @@ function buyBoots() { // note: speed boots are unlocked by default; all user has
         consoleText.innerText = "Successfully bought speed boots!";
 
         haveBoots = true;
-        localStorage.setItem("boots", "true"); // saving data that user bought boots
+        localStorage.setItem("boots", haveBoots); // saving data that user bought boots
     }
 }
 
@@ -275,7 +283,7 @@ function town() {
     itemMenu.style.display = "none";
     dialogueText.style.display = "block";
     dialogueText.innerText = "Welcome to the town! \n\n\
-    Go to the store to buy health and weapons! \n\
+    Go to the store to buy health and items! \n\
     Go to the wilderness to fight some demons and earn gold!"
 
     btn1.onclick = store;

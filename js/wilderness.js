@@ -1,6 +1,8 @@
-// import haveBoots from '../js/game.js';
+import haveBoots from '../js/game.js'; // getting haveBoots variable from game.js
+console.log(JSON.parse(haveBoots));
 
 const NUM_BUSHES = 15;
+let PLAYER_SPEED = 1; // will be set to 3 if haveBoots is true
 const exitBtn = document.querySelector("#exitBtn");
 const land = document.querySelector("#land");
 const player = document.querySelector("#player");
@@ -18,13 +20,6 @@ const playerVel = { // this is what will be used to move player
     x: 0, // - is left, + is right
     y: 0 // - is up, + is down
 };
-
-exitBtn.onclick = gameMenu;
-
-// if (haveBoots) 
-//     console.log("HAVE BOOTS");
-// else 
-//     console.log("DONT HAVE BOOTS");
 
 function gameMenu() {
     window.location = "game.html";
@@ -55,11 +50,11 @@ function userMovement(e) {
 
     switch (e.key) {
         case 'w':
-            if (player.offsetTop < landCoords.top) {
+            if (player.offsetTop < landCoords.top) { // stop player if they hit border
                 playerVel.y = 0;
             }
             else {
-                playerVel.y = -1; // USE SPEED 3 AS A RUNNING UPGRADE LATER
+                playerVel.y = PLAYER_SPEED * -1;;
             }
             player.style.backgroundImage = "url('./img/wilderness/player_front.png')";
             break;
@@ -69,7 +64,7 @@ function userMovement(e) {
                 playerVel.x = 0;
             }
             else {
-                playerVel.x = -1;
+                playerVel.x = PLAYER_SPEED * -1;
             }
             player.style.backgroundImage = "url('./img/wilderness/player_left.png')";
             break;
@@ -79,7 +74,7 @@ function userMovement(e) {
                 playerVel.y = 0;
             }
             else {
-                playerVel.y = 1; 
+                playerVel.y = PLAYER_SPEED; 
             }
             player.style.backgroundImage = "url('./img/wilderness/player_back.png')";
             break;
@@ -89,7 +84,7 @@ function userMovement(e) {
                 playerVel.x = 0;
             }
             else {
-                playerVel.x = 1; 
+                playerVel.x = PLAYER_SPEED; 
             }
             player.style.backgroundImage = "url('./img/wilderness/player_right.png')";
             break;
@@ -115,6 +110,10 @@ window.addEventListener("keyup", userStopped); // when any key is let go userSto
 function init() {
     createBushes();
     run();
+    exitBtn.onclick = gameMenu;
+
+    if (haveBoots) 
+        PLAYER_SPEED = 3;
 }
 
 init();
