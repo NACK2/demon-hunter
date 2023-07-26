@@ -1,5 +1,5 @@
 import haveBoots from '../js/game.js'; // getting haveBoots variable from game.js
-console.log(JSON.parse(haveBoots));
+// console.log(JSON.parse(haveBoots));
 
 const NUM_BUSHES = 15;
 let PLAYER_SPEED = 1; // will be set to 3 if haveBoots is true
@@ -16,6 +16,7 @@ const playerPos = {
     x: parseInt(playerCoords.left - landCoords.left),
     y: parseInt(playerCoords.top - landCoords.top)
 };
+
 const playerVel = { // this is what will be used to move player
     x: 0, // - is left, + is right
     y: 0 // - is up, + is down
@@ -35,13 +36,19 @@ function run() {
     requestAnimationFrame(run); // will constantly call run() even when another function is running
 }
 
-function createBushes() {
+function createBushes() { // randomizes location of bushes
     for (let i=0; i<NUM_BUSHES; ++i) { 
         const div = document.createElement("div"); // creating element 
         div.id = "bush"; // giving element the bush id
         div.style.left = Math.random() * 100 + "%"; // random distance from left and top of screen
         div.style.top = Math.random() * 100 + "%";
         land.appendChild(div);
+    }
+}
+
+function randomSlimeSpawn() {
+    for (let i=0; i<3; ++i) {
+        const div = document.createElement("div");
     }
 }
 
@@ -108,11 +115,11 @@ function userStopped(e) {
 window.addEventListener("keyup", userStopped); // when any key is let go userStopped() will be called
 
 function init() {
-    createBushes();
-    run();
+    createBushes(); // random bush locations
+    run(); // player running
     exitBtn.onclick = gameMenu;
 
-    if (haveBoots) 
+    if (haveBoots) // if user bought speed boots, increase player speed from 1 to 3
         PLAYER_SPEED = 3;
 }
 

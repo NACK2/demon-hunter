@@ -99,3 +99,12 @@ body {
     background-position: -5px -15px;
 }
 
+#slime {
+    position: absolute;
+    background-image: url("../img/monsters/slime.webp");
+    
+    height: 70px;
+    width: 80px;
+    background-size: 80px 70px;
+    border: 2px red solid;
+}
