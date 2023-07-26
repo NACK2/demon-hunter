@@ -4,18 +4,17 @@ import haveBoots from '../js/game.js'; // getting haveBoots variable from game.j
 const NUM_BUSHES = 15;
 const NUM_SLIMES = 5;
 let PLAYER_SPEED = 1; // will be set to 3 if haveBoots is true
+
 const exitBtn = document.querySelector("#exitBtn");
 const land = document.querySelector("#land");
 const player = document.querySelector("#player");
+let slimes = []; // array of slime elements
 
 let landCoords = land.getBoundingClientRect(); // # of pixels land is from (0, 0) of the window
-let playerCoords = player.getBoundingClientRect(); // # of pixels player is from (0, 0) of the window
 
 const playerPos = {
-    // since there is space between land and window dimensions, 
-    // erasing that extra space to get player coords w.r.t. land and not player coords w.r.t. window
-    x: parseInt(playerCoords.left - landCoords.left),
-    y: parseInt(playerCoords.top - landCoords.top)
+    x: parseInt(player.getBoundingClientRect().left),
+    y: parseInt(player.getBoundingClientRect().top)
 };
 
 const playerVel = { // this is what will be used to move player
@@ -27,81 +26,110 @@ function gameMenu() {
     window.location = "game.html";
 }
 
+function checkCollision(mob) { // returns true if player and the parameter mob are colliding
+    let mobCoords = mob.getBoundingClientRect();
+    let playerCoords = player.getBoundingClientRect();
+    
+    let mobLeft = mobCoords.left;
+    let mobTop = mobCoords.top;
+    let mobRight = mobLeft + mobCoords.width;
+    let mobBot = mobTop + mobCoords.height;
+
+    let playerLeft = playerCoords.left;
+    let playerTop = playerCoords.top; 
+    let playerRight = playerLeft + playerCoords.width;
+    let playerBot = playerTop + playerCoords.height;
+    
+    if (mobBot >= playerTop && mobTop <= playerBot && mobRight >= playerLeft && mobLeft <= playerRight) // collision
+        return true;
+    
+    return false;
+}
+
 function run() {
     playerPos.x += playerVel.x;
     playerPos.y += playerVel.y;
 
     player.style.left = playerPos.x + "px";
     player.style.top = playerPos.y + "px";
-    // console.log("TEST");
+    // console.log("TEST"); // "TEST" will constantly be printed out in console
+
+    for (let i=0; i<slimes.length; ++i) { // checking if player is colliding with any slimes
+        if (checkCollision(slime[i])) {
+            console.log("Collision with slime, this is temporary");
+            slime[i].style.visibility = "visible";
+        }
+    }
     requestAnimationFrame(run); // will constantly call run() even when another function is running
 }
 
 function createBushes() { // randomizes location of bushes
     for (let i=0; i<NUM_BUSHES; ++i) { 
-        const div = document.createElement("div"); // creating element 
-        div.id = "bush"; // giving element the bush id
+        const bushDiv = document.createElement("bushDiv"); // creating element 
+        bushDiv.id = "bush"; // giving element the bush id
 
         // Math.random() gives number from 0 to < 1
-        div.style.left = Math.random() * 95 + "%"; // random distance from left and top of screen 
-        div.style.top = Math.random() * 93 + "%";
-        land.appendChild(div);
+        bushDiv.style.left = Math.random() * 95 + "%"; // random distance from left and top of screen 
+        bushDiv.style.top = Math.random() * 93 + "%";
+        land.appendChild(bushDiv);
     }
 }
 
 function randomSlimeSpawn() { // basically same as createBushes()
     for (let i=0; i<NUM_SLIMES; ++i) {
-        const div = document.createElement("div");
-        div.id = "slime";
-        div.style.left = Math.random() * 95 + "%";
-        div.style.top = Math.random() * 90 + "%";
-        land.appendChild(div);
+        const slimeDiv = document.createElement("slimeDiv");
+        slimeDiv.id = "slime";
+        let x = Math.random() * 95 + "%";
+        let y = Math.random() * 90 + "%";
+        slimeDiv.style.left = x;
+        slimeDiv.style.top = y;
+        land.appendChild(slimeDiv);
+
+        slimes.push(slimeDiv); // slimes will be array of slime elements
     }
 }
 
 function userMovement(e) {
     let validKey = true; 
+    let playerCoords = player.getBoundingClientRect();
 
     switch (e.key) {
         case 'w':
-            if (player.offsetTop < landCoords.top) { // stop player if they hit border
+            if (playerCoords.top <= landCoords.top) // stop player if they hit border
                 playerVel.y = 0;
-            }
-            else {
-                playerVel.y = PLAYER_SPEED * -1;;
-            }
+            else
+                playerVel.y = PLAYER_SPEED * -1;
+
             player.style.backgroundImage = "url('./img/wilderness/player_front.png')";
             break;
 
         case 'a':
-            if (player.offsetLeft < landCoords.left) {
+            if (playerCoords.left <= landCoords.left) 
                 playerVel.x = 0;
-            }
-            else {
+            else 
                 playerVel.x = PLAYER_SPEED * -1;
-            }
+            
             player.style.backgroundImage = "url('./img/wilderness/player_left.png')";
             break;
 
         case 's':
-            if (player.offsetTop + player.clientWidth > landCoords.bottom) {
+            if (playerCoords.top + playerCoords.height >= landCoords.bottom) 
                 playerVel.y = 0;
-            }
-            else {
+            else 
                 playerVel.y = PLAYER_SPEED; 
-            }
+            
             player.style.backgroundImage = "url('./img/wilderness/player_back.png')";
             break;
 
         case 'd':
-            if (player.offsetLeft + player.clientWidth > landCoords.right) {
+            if (playerCoords.left + playerCoords.width > landCoords.right) 
                 playerVel.x = 0;
-            }
-            else {
+            else 
                 playerVel.x = PLAYER_SPEED; 
-            }
+            
             player.style.backgroundImage = "url('./img/wilderness/player_right.png')";
             break;
+
         default:
             validKey = false;
             break;
@@ -125,6 +153,7 @@ function init() {
     createBushes(); // random bush locations
     run(); // player running
     randomSlimeSpawn();
+
     exitBtn.onclick = gameMenu;
 
     if (haveBoots) // if user bought speed boots, increase player speed from 1 to 3

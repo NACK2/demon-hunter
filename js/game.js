@@ -78,7 +78,7 @@ function init() { // initialization
     btn2.onclick = inventory;
     btn3.onclick = wilderness;
     bootsBtn.onclick = buyBoots;
-    bindUnlockedWeaponBtns();
+    bindWeaponBtns();
 
     // getting any previously saved data such as inventory, gold, health, etc and loading them
     let savedHealth = localStorage.getItem("health"); // returns null if data key does not exist
@@ -107,8 +107,8 @@ function init() { // initialization
         }
 
         // if savedInventory != null, means user bought items on previous run, so must link all the new unlocked weapon btns 
-        // with buyWeapon() by calling bindUnlockedWeaponBtns()
-        bindUnlockedWeaponBtns(); 
+        // with buyWeapon() by calling bindWeaponBtns()
+        bindWeaponBtns(); 
     }
     if (savedBoots != null) {
         haveBoots = true;
@@ -120,7 +120,7 @@ function init() { // initialization
 // every time weapon is bought, unlockWeapon() is called and the number of elements with
 // .itemBtnUnlocked increases by 1 each time, so have to do querySelectorAll(".itemBtnUnlocked") and relink each
 // button with buyWeapon() PLUS the new .itemBtnUnlocked element with buyWeapon()
-function bindUnlockedWeaponBtns() { 
+function bindWeaponBtns() { 
     let weaponUnlockedBtns = document.querySelectorAll(".itemBtnUnlocked"); // weaponUnlockedBtns is array of elements
     for (let i=0; i<weaponUnlockedBtns.length; ++i) {
         weaponUnlockedBtns[i].addEventListener("click", buyWeapon);
@@ -256,7 +256,7 @@ function unlockWeapon(weaponIndex) {
         weaponPrice[weaponIndex+1].style.opacity = "100%"; // make next price unlocked
     }
 
-    bindUnlockedWeaponBtns(); // since unlocking new weapon, want to make sure the new unlocked weapon gets binded to buyWeapon()
+    bindWeaponBtns(); // since unlocking new weapon, want to make sure the new unlocked weapon gets binded to buyWeapon()
 }
 
 function buyBoots() { // note: speed boots are unlocked by default; all user has to do is buy them
