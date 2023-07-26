@@ -2,6 +2,7 @@ import haveBoots from '../js/game.js'; // getting haveBoots variable from game.j
 // console.log(JSON.parse(haveBoots));
 
 const NUM_BUSHES = 15;
+const NUM_SLIMES = 5;
 let PLAYER_SPEED = 1; // will be set to 3 if haveBoots is true
 const exitBtn = document.querySelector("#exitBtn");
 const land = document.querySelector("#land");
@@ -40,15 +41,21 @@ function createBushes() { // randomizes location of bushes
     for (let i=0; i<NUM_BUSHES; ++i) { 
         const div = document.createElement("div"); // creating element 
         div.id = "bush"; // giving element the bush id
-        div.style.left = Math.random() * 100 + "%"; // random distance from left and top of screen
-        div.style.top = Math.random() * 100 + "%";
+
+        // Math.random() gives number from 0 to < 1
+        div.style.left = Math.random() * 95 + "%"; // random distance from left and top of screen 
+        div.style.top = Math.random() * 93 + "%";
         land.appendChild(div);
     }
 }
 
-function randomSlimeSpawn() {
-    for (let i=0; i<3; ++i) {
+function randomSlimeSpawn() { // basically same as createBushes()
+    for (let i=0; i<NUM_SLIMES; ++i) {
         const div = document.createElement("div");
+        div.id = "slime";
+        div.style.left = Math.random() * 95 + "%";
+        div.style.top = Math.random() * 90 + "%";
+        land.appendChild(div);
     }
 }
 
@@ -117,6 +124,7 @@ window.addEventListener("keyup", userStopped); // when any key is let go userSto
 function init() {
     createBushes(); // random bush locations
     run(); // player running
+    randomSlimeSpawn();
     exitBtn.onclick = gameMenu;
 
     if (haveBoots) // if user bought speed boots, increase player speed from 1 to 3
