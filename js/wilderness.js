@@ -2,7 +2,7 @@ import haveBoots from '../js/game.js'; // getting haveBoots variable from game.j
 // console.log(JSON.parse(haveBoots));
 
 const NUM_BUSHES = 15;
-const NUM_SLIMES = 5;
+const NUM_SLIMES = 7;
 let PLAYER_SPEED = 1; // will be set to 3 if haveBoots is true
 
 const exitBtn = document.querySelector("#exitBtn");
