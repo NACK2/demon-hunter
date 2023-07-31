@@ -8,6 +8,8 @@ let PLAYER_SPEED = 1; // will be set to 3 if haveBoots is true
 const exitBtn = document.querySelector("#exitBtn");
 const land = document.querySelector("#land");
 const player = document.querySelector("#player");
+const wildernessContainer = document.querySelector("#wildernessContainer"); // Container w/ everything on wilderness page
+const battleContainer = document.querySelector("#battleContainer");
 let slimes = []; // array of slime elements
 
 let landCoords = land.getBoundingClientRect(); // # of pixels land is from (0, 0) of the window
@@ -55,9 +57,10 @@ function run() {
     // console.log("TEST"); // "TEST" will constantly be printed out in console
 
     for (let i=0; i<slimes.length; ++i) { // checking if player is colliding with any slimes
-        if (checkCollision(slime[i])) {
-            console.log("Collision with slime, this is temporary");
-            slime[i].style.visibility = "visible";
+        if (checkCollision(slimes[i])) {
+            slimes[i].style.visibility = "visible";
+            wildernessContainer.style.display = "none"; // everything on screen will disappear (wilderness, exit btn, text)
+            battleContainer.style.display = "block"; // go to battle screen
         }
     }
     requestAnimationFrame(run); // will constantly call run() even when another function is running
@@ -78,7 +81,7 @@ function createBushes() { // randomizes location of bushes
 function randomSlimeSpawn() { // basically same as createBushes()
     for (let i=0; i<NUM_SLIMES; ++i) {
         const slimeDiv = document.createElement("slimeDiv");
-        slimeDiv.id = "slime";
+        slimeDiv.id = "wildSlime";
         let x = Math.random() * 95 + "%";
         let y = Math.random() * 90 + "%";
         slimeDiv.style.left = x;

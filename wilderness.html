@@ -9,11 +9,22 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide">
 </head>
 <body>
-    <div id="land">
-        <div id="player"></div>
+    <div id="wildernessContainer">
+        <div id="popupText">
+            <!-- after mob is encountered, put pop up text saying "Slime encountered!", and then slowly transition to battle screen -->
+            <!-- https://stackoverflow.com/questions/46798683/css-hide-element-after-5-seconds-show-it -->
+        </div>
+
+        <div id="land">
+            <div id="player"></div>
+        </div>
+        <button id="exitBtn"> EXIT </button>
+        <span id="text"> Use WASD keys to move! </span>
     </div>
-    <button id="exitBtn"> EXIT </button>
-    <span id="text"> Use WASD keys to move! </span>
+
+    <div id="battleContainer">
+        <div id="battleSlime"></div>
+    </div>
 
     <script type="module" src="js/wilderness.js"></script> <!-- type module allows us to import and export in js file -->
 </body>
