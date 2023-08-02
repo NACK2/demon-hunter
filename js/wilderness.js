@@ -5,6 +5,8 @@ const NUM_BUSHES = 15;
 const NUM_SLIMES = 7;
 let PLAYER_SPEED = 1; // will be set to 3 if haveBoots is true
 
+let slimeSpawningDone = false; // flag to show when all slimes have been spawned
+
 const exitBtn = document.querySelector("#exitBtn");
 const land = document.querySelector("#land");
 const player = document.querySelector("#player");
@@ -88,7 +90,7 @@ function getRandomCoords(entity) {
     return entity;
 }
 
-function createBushes() { // randomizes location of bushes
+function randomBushSpawn() { // randomizes location of bushes
     for (let i=0; i<NUM_BUSHES; ++i) { 
         let bushElement = document.createElement("bush"); // creating element 
         bushElement.id = "bush"; // giving element the bush id
@@ -113,7 +115,7 @@ function createBushes() { // randomizes location of bushes
     }
 }
 
-function randomSlimeSpawn() { // basically same as createBushes()
+function randomSlimeSpawn() { // basically same as randomBushSpawn()
     for (let i=0; i<NUM_SLIMES; ++i) {
         let slimeElement = document.createElement("slimeDiv");
         slimeElement.id = "wildSlime";
@@ -121,10 +123,7 @@ function randomSlimeSpawn() { // basically same as createBushes()
         slimeElement.style.top = Math.random() * 90 + "%";
         land.appendChild(slimeElement);
 
-        if (checkCollision(slimeElement, player)) {
-            console.log("spawned slime collides w player");
-        }
-
+        // checking if curr slime collides w ANY previously spawned slime, if so re-randomize coords for curr slime 
         for (let j=0; j<slimes.length; ++j) {
             while (checkCollision(slimes[j], slimeElement)) {
                 land.removeChild(slimeElement);
@@ -133,8 +132,19 @@ function randomSlimeSpawn() { // basically same as createBushes()
             land.appendChild(slimeElement);
         }
 
+        // checking if curr slime collides with player (this would be bad because all mobs are spawned before
+        // player can even move, meaning that player would collide with slime even tho player hasn't even moved yet,
+        // we want the player to have to MOVE around to encounter a mob, not encounter it as soon as spawning in)
+        while (checkCollision(slimeElement, player)) {
+            land.removeChild(slimeElement);
+            slimeElement = getRandomCoords(slimeElement);
+        }
+        land.appendChild(slimeElement);
+
         slimes.push(slimeElement); // slimes will be array of slime elements
     }
+
+    slimeSpawningDone = true;
 }
 
 function userMovement(e) {
@@ -198,9 +208,11 @@ function userStopped(e) {
 window.addEventListener("keyup", userStopped); // when any key is let go userStopped() will be called
 
 function init() {
-    createBushes(); // random bush locations
-    run(); // player running
+    randomBushSpawn(); 
     randomSlimeSpawn();
+
+    if (slimeSpawningDone) // player can only move around once all slime have been spawned
+        run(); // player running
 
     exitBtn.onclick = gameMenu;
 
