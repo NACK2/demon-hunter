@@ -73,7 +73,7 @@ function run() {
 function transitionAnimation() { // slowly blurs screen and switches from wilderness to battle screen
     requestAnimationFrame(userStopped); // stops user from moving during transition
     setTimeout(battleScreen, 1000); // after 1s delay battleScreen() will be called, switching from wilderness to battle screen
-    land.style.animation = "blur 2s linear"; // during the 1s delay doing the blur animation
+    land.style.animation = "blur 1s linear"; // during the 1s delay doing the blur animation
 }
 
 function battleScreen() { // function is called when player encounters a mob, switches from wilderness to battle screen
