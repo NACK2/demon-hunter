@@ -79,6 +79,15 @@ function battleScreen() { // function is called when player encounters a mob, sw
     battleContainer.style.display = "block"; // go to battle screen
 }
 
+function getRandomCoords(entity) {
+    let x = Math.random() * 95 + "%";
+    let y = Math.random() * 90 + "%";
+    entity.style.left = x;
+    entity.style.top = y;
+
+    return entity;
+}
+
 function createBushes() { // randomizes location of bushes
     for (let i=0; i<NUM_BUSHES; ++i) { 
         let bushElement = document.createElement("bush"); // creating element 
@@ -104,15 +113,6 @@ function createBushes() { // randomizes location of bushes
     }
 }
 
-function getRandomCoords(entity) {
-    let x = Math.random() * 95 + "%";
-    let y = Math.random() * 90 + "%";
-    entity.style.left = x;
-    entity.style.top = y;
-
-    return entity;
-}
-
 function randomSlimeSpawn() { // basically same as createBushes()
     for (let i=0; i<NUM_SLIMES; ++i) {
         let slimeElement = document.createElement("slimeDiv");
@@ -120,6 +120,10 @@ function randomSlimeSpawn() { // basically same as createBushes()
         slimeElement.style.left = Math.random() * 95 + "%";
         slimeElement.style.top = Math.random() * 90 + "%";
         land.appendChild(slimeElement);
+
+        if (checkCollision(slimeElement, player)) {
+            console.log("spawned slime collides w player");
+        }
 
         for (let j=0; j<slimes.length; ++j) {
             while (checkCollision(slimes[j], slimeElement)) {
