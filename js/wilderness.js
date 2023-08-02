@@ -54,16 +54,25 @@ function run() {
 
     player.style.left = playerPos.x + "px";
     player.style.top = playerPos.y + "px";
-    // console.log("TEST"); // "TEST" will constantly be printed out in console
 
     for (let i=0; i<slimes.length; ++i) { // checking if player is colliding with any slimes
         if (checkCollision(slimes[i])) {
             slimes[i].style.visibility = "visible";
-            wildernessContainer.style.display = "none"; // everything on screen will disappear (wilderness, exit btn, text)
-            battleContainer.style.display = "block"; // go to battle screen
+            transitionAnimation(); // transition from wilderness to battle screen
         }
     }
     requestAnimationFrame(run); // will constantly call run() even when another function is running
+}
+
+function transitionAnimation() { // slowly blurs screen and switches from wilderness to battle screen
+    requestAnimationFrame(userStopped); // stops user from moving during transition
+    setTimeout(battleScreen, 1000); // after 1s delay battleScreen() will be called, switching from wilderness to battle screen
+    land.style.animation = "blur 1s linear"; // during the 1s delay doing the blur animation
+}
+
+function battleScreen() { // function is called when player encounters a mob, switches from wilderness to battle screen
+    wildernessContainer.style.display = "none"; // everything on screen will disappear (such as wilderness, exit btn, text)
+    battleContainer.style.display = "block"; // go to battle screen
 }
 
 function createBushes() { // randomizes location of bushes

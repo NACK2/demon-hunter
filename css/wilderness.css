@@ -121,7 +121,27 @@ body {
     background-image: url("../img/monsters/slime.webp");
 }
 
+@keyframes unblur {
+    from {
+        filter:blur(100px);
+    }
+    to {
+        filter:blur(0px);
+    }
+}
+
+@keyframes blur {
+    from {
+        filter: blur(0px);
+    }
+    to {
+        filter: blur(100px);
+    }
+}
+
 #battleContainer {
+    animation: unblur 1s linear; /* everytime battle screen is started it will start by unblurring */
+
     display: none;
     position: absolute;
     top: 0;
