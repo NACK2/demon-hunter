@@ -128,7 +128,7 @@ body {
 }
 
 #battleContainer {
-    animation: unblur 1s linear; /* everytime battle screen is started it will start by unblurring */
+    /* animation: unblur 1s linear; everytime battle screen is started it will start by unblurring */
 
     display: none;
     position: absolute;
@@ -140,7 +140,28 @@ body {
     background-image: url("https://pokemonrevolution.net/forum/uploads/monthly_2021_03/DVMT-6OXcAE2rZY.jpg.afab972f972bd7fbd4253bc7aa1cf27f.jpg");
 }
 
+@keyframes bounce {
+    0% {
+        width: 230px;
+        height: 100px;
+        background-size: 230px 100px;
+    }
+    50% {
+        width: 130px;
+        height: 180px;
+        background-size: 130px 180px;
+        transform: translateY(-250px);
+    }
+    100% {
+        width: 230px;
+        height: 100px;
+        background-size: 230px 100px;
+    }
+}
+
 #battleSlime {
+    animation: bounce 1s infinite ease-in-out;
+
     position: relative;
     width: 200px;
     height: 160px;
