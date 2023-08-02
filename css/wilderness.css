@@ -61,7 +61,7 @@ body {
 }
 
 #player {
-    z-index: 999; /* assures player will always be in front of everything (ex. bushes) */
+    z-index: 3; /* assures player will always be in front of everything (ex. bushes) */
     background-image: url("../img/wilderness/player_front.png");
     position: absolute;
     top: 45%;
@@ -100,25 +100,13 @@ body {
 }
 
 #wildSlime { /* wilderness slime */
-    visibility: hidden;
+    /* visibility: hidden; */
     position: absolute;
     background-image: url("../img/monsters/slime.webp");
 
     width: 80px;
     height: 70px;
     background-size: 80px 70px;
-}
-
-#battleSlime {
-    position: relative;
-    width: 200px;
-    height: 160px;
-    background-size: 200px 160px;
-    
-    top: 50%;
-    margin: auto; /* centres slime on X axis */
-   
-    background-image: url("../img/monsters/slime.webp");
 }
 
 @keyframes unblur {
@@ -150,4 +138,16 @@ body {
     height: 100%;
     background-size: cover; /* image will stretch to fit screen */
     background-image: url("https://pokemonrevolution.net/forum/uploads/monthly_2021_03/DVMT-6OXcAE2rZY.jpg.afab972f972bd7fbd4253bc7aa1cf27f.jpg");
+}
+
+#battleSlime {
+    position: relative;
+    width: 200px;
+    height: 160px;
+    background-size: 200px 160px;
+    
+    top: 50%;
+    margin: auto; /* centres slime on X axis */
+   
+    background-image: url("../img/monsters/slime.webp");
 }

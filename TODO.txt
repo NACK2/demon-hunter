@@ -1,5 +1,4 @@
 To-Do List:
 
-- Slimes are invis by default, when player collides with one it will become visible, change this so that
-when player collides with one, it will become a fight instead of simply becoming visible
+- Try using checkCollision() to make bushes and slimes spawn farther from eachother
 - Add visible inventory (with grid layout)

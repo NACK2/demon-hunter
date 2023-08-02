@@ -8,8 +8,11 @@ let PLAYER_SPEED = 1; // will be set to 3 if haveBoots is true
 const exitBtn = document.querySelector("#exitBtn");
 const land = document.querySelector("#land");
 const player = document.querySelector("#player");
+const text = document.querySelector("#text");
 const wildernessContainer = document.querySelector("#wildernessContainer"); // Container w/ everything on wilderness page
 const battleContainer = document.querySelector("#battleContainer");
+
+let bushes = []; // array of bush elements
 let slimes = []; // array of slime elements
 
 let landCoords = land.getBoundingClientRect(); // # of pixels land is from (0, 0) of the window
@@ -28,21 +31,21 @@ function gameMenu() {
     window.location = "game.html";
 }
 
-function checkCollision(mob) { // returns true if player and the parameter mob are colliding
-    let mobCoords = mob.getBoundingClientRect();
-    let playerCoords = player.getBoundingClientRect();
+function checkCollision(entity1, entity2) { // returns true if entity1 and entity2 are colliding
+    let entityCoords1 = entity1.getBoundingClientRect();
+    let entityCoords2 = entity2.getBoundingClientRect();
     
-    let mobLeft = mobCoords.left;
-    let mobTop = mobCoords.top;
-    let mobRight = mobLeft + mobCoords.width;
-    let mobBot = mobTop + mobCoords.height;
+    let entityLeft1 = entityCoords1.left;
+    let entityTop1 = entityCoords1.top;
+    let entityRight1 = entityLeft1 + entityCoords1.width;
+    let entityBot1 = entityTop1 + entityCoords1.height;
 
-    let playerLeft = playerCoords.left;
-    let playerTop = playerCoords.top; 
-    let playerRight = playerLeft + playerCoords.width;
-    let playerBot = playerTop + playerCoords.height;
+    let entityLeft2 = entityCoords2.left;
+    let entityTop2 = entityCoords2.top; 
+    let entityRight2 = entityLeft2 + entityCoords2.width;
+    let entityBot2 = entityTop2 + entityCoords2.height;
     
-    if (mobBot >= playerTop && mobTop <= playerBot && mobRight >= playerLeft && mobLeft <= playerRight) // collision
+    if (entityBot1 >= entityTop2 && entityTop1 <= entityBot2 && entityRight1 >= entityLeft2 && entityLeft1 <= entityRight2) // collision
         return true;
     
     return false;
@@ -56,7 +59,8 @@ function run() {
     player.style.top = playerPos.y + "px";
 
     for (let i=0; i<slimes.length; ++i) { // checking if player is colliding with any slimes
-        if (checkCollision(slimes[i])) {
+        if (checkCollision(slimes[i], player)) {
+            text.innerText = "Slime Encountered!";
             slimes[i].style.visibility = "visible";
             transitionAnimation(); // transition from wilderness to battle screen
         }
@@ -67,7 +71,7 @@ function run() {
 function transitionAnimation() { // slowly blurs screen and switches from wilderness to battle screen
     requestAnimationFrame(userStopped); // stops user from moving during transition
     setTimeout(battleScreen, 1000); // after 1s delay battleScreen() will be called, switching from wilderness to battle screen
-    land.style.animation = "blur 1s linear"; // during the 1s delay doing the blur animation
+    land.style.animation = "blur 2s linear"; // during the 1s delay doing the blur animation
 }
 
 function battleScreen() { // function is called when player encounters a mob, switches from wilderness to battle screen
@@ -77,27 +81,55 @@ function battleScreen() { // function is called when player encounters a mob, sw
 
 function createBushes() { // randomizes location of bushes
     for (let i=0; i<NUM_BUSHES; ++i) { 
-        const bushDiv = document.createElement("bushDiv"); // creating element 
-        bushDiv.id = "bush"; // giving element the bush id
+        let bushElement = document.createElement("bush"); // creating element 
+        bushElement.id = "bush"; // giving element the bush id
 
         // Math.random() gives number from 0 to < 1
-        bushDiv.style.left = Math.random() * 95 + "%"; // random distance from left and top of screen 
-        bushDiv.style.top = Math.random() * 93 + "%";
-        land.appendChild(bushDiv);
+        bushElement.style.left = Math.random() * 95 + "%"; // random distance from left and top of screen 
+        bushElement.style.top = Math.random() * 93 + "%";
+        land.appendChild(bushElement);
+
+        // Bush Collision Checking: 
+        // if curr bush collides w/ previously spawned bushes, remove the curr bush from wilderness and 
+        // get it new coords, once coords that doesnt collide is found, add the bush to wilderness
+        for (let j=0; j<bushes.length; ++j) {
+            while (checkCollision(bushes[j], bushElement)) {
+                land.removeChild(bushElement);
+                bushElement = getRandomCoords(bushElement);
+            }
+            land.appendChild(bushElement);
+        }
+
+        bushes.push(bushElement);
     }
+}
+
+function getRandomCoords(entity) {
+    let x = Math.random() * 95 + "%";
+    let y = Math.random() * 90 + "%";
+    entity.style.left = x;
+    entity.style.top = y;
+
+    return entity;
 }
 
 function randomSlimeSpawn() { // basically same as createBushes()
     for (let i=0; i<NUM_SLIMES; ++i) {
-        const slimeDiv = document.createElement("slimeDiv");
-        slimeDiv.id = "wildSlime";
-        let x = Math.random() * 95 + "%";
-        let y = Math.random() * 90 + "%";
-        slimeDiv.style.left = x;
-        slimeDiv.style.top = y;
-        land.appendChild(slimeDiv);
+        let slimeElement = document.createElement("slimeDiv");
+        slimeElement.id = "wildSlime";
+        slimeElement.style.left = Math.random() * 95 + "%";
+        slimeElement.style.top = Math.random() * 90 + "%";
+        land.appendChild(slimeElement);
 
-        slimes.push(slimeDiv); // slimes will be array of slime elements
+        for (let j=0; j<slimes.length; ++j) {
+            while (checkCollision(slimes[j], slimeElement)) {
+                land.removeChild(slimeElement);
+                slimeElement = getRandomCoords(slimeElement);
+            }
+            land.appendChild(slimeElement);
+        }
+
+        slimes.push(slimeElement); // slimes will be array of slime elements
     }
 }
 
