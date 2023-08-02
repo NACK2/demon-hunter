@@ -1,9 +1,8 @@
-import haveBoots from '../js/game.js'; // getting haveBoots variable from game.js
-// console.log(JSON.parse(haveBoots));
+import haveBoots from './menu.js'; // getting haveBoots variable from game.js
 
 const NUM_BUSHES = 15;
 const NUM_SLIMES = 7;
-let PLAYER_SPEED = 1; // will be set to 3 if haveBoots is true
+let PLAYER_SPEED = 2; // will be set to 4 if haveBoots is true
 
 let slimeSpawningDone = false; // flag to show when all slimes have been spawned
 
@@ -30,7 +29,7 @@ const playerVel = { // this is what will be used to move player
 };
 
 function gameMenu() {
-    window.location = "game.html";
+    window.location = "menu.html";
 }
 
 function checkCollision(entity1, entity2) { // returns true if entity1 and entity2 are colliding
@@ -53,7 +52,7 @@ function checkCollision(entity1, entity2) { // returns true if entity1 and entit
     return false;
 }
 
-function run() {
+function userRun() {
     playerPos.x += playerVel.x;
     playerPos.y += playerVel.y;
 
@@ -67,7 +66,7 @@ function run() {
             transitionAnimation(); // transition from wilderness to battle screen
         }
     }
-    requestAnimationFrame(run); // will constantly call run() even when another function is running
+    requestAnimationFrame(userRun); // will constantly call userRun() even when another function is running
 }
 
 function transitionAnimation() { // slowly blurs screen and switches from wilderness to battle screen
@@ -82,7 +81,7 @@ function battleScreen() { // function is called when player encounters a mob, sw
 }
 
 function getRandomCoords(entity) {
-    let x = Math.random() * 95 + "%";
+    let x = Math.random() * 95 + "%"; // Math.random() gives number from 0 to < 1
     let y = Math.random() * 90 + "%";
     entity.style.left = x;
     entity.style.top = y;
@@ -94,10 +93,7 @@ function randomBushSpawn() { // randomizes location of bushes
     for (let i=0; i<NUM_BUSHES; ++i) { 
         let bushElement = document.createElement("bush"); // creating element 
         bushElement.id = "bush"; // giving element the bush id
-
-        // Math.random() gives number from 0 to < 1
-        bushElement.style.left = Math.random() * 95 + "%"; // random distance from left and top of screen 
-        bushElement.style.top = Math.random() * 93 + "%";
+        bushElement = getRandomCoords(bushElement); // gives bush random coords
         land.appendChild(bushElement);
 
         // Bush Collision Checking: 
@@ -119,8 +115,7 @@ function randomSlimeSpawn() { // basically same as randomBushSpawn()
     for (let i=0; i<NUM_SLIMES; ++i) {
         let slimeElement = document.createElement("slimeDiv");
         slimeElement.id = "wildSlime";
-        slimeElement.style.left = Math.random() * 95 + "%";
-        slimeElement.style.top = Math.random() * 90 + "%";
+        slimeElement = getRandomCoords(slimeElement);
         land.appendChild(slimeElement);
 
         // checking if curr slime collides w ANY previously spawned slime, if so re-randomize coords for curr slime 
@@ -198,26 +193,25 @@ function userMovement(e) {
         player.classList.add("running"); 
     }
 }
-window.addEventListener("keydown", userMovement); // when any key is pressed userMovement() will be called
 
 function userStopped(e) {
     playerVel.x = 0;
     playerVel.y = 0;
     player.classList.remove("running"); // running animation stops when key released
 }
-window.addEventListener("keyup", userStopped); // when any key is let go userStopped() will be called
 
 function init() {
     randomBushSpawn(); 
     randomSlimeSpawn();
-
-    if (slimeSpawningDone) // player can only move around once all slime have been spawned
-        run(); // player running
+    while (!slimeSpawningDone); // waiting loop: waiting for all slimes to be spawned before player can move around
+    userRun(); // player running
 
     exitBtn.onclick = gameMenu;
 
-    if (haveBoots) // if user bought speed boots, increase player speed from 1 to 3
-        PLAYER_SPEED = 3;
+    if (haveBoots) // if user bought speed boots, set player speed to 4
+        PLAYER_SPEED = 4;
 }
 
 init();
+window.addEventListener("keydown", userMovement); // when any key is pressed userMovement() will be called
+window.addEventListener("keyup", userStopped); // when any key is let go userStopped() will be called
