@@ -160,7 +160,7 @@ body {
     }
 }
 
-@keyframes groundShatter { /* slow transition from slime smashing into ground to regular slime*/
+@keyframes groundShatter { /* slime charges up a jump, and jumps high and smashes into ground */
     0% { /* starts off from where last bounce ended off */
         width: 230px;
         height: 90px;

@@ -113,8 +113,9 @@ function randomBushSpawn() { // randomizes location of bushes
 
 function randomSlimeSpawn() { // basically same as randomBushSpawn()
     for (let i=0; i<NUM_SLIMES; ++i) {
-        let slimeElement = document.createElement("slimeDiv");
-        slimeElement.id = "wildSlime";
+        let slime = new Slime();
+        let slimeElement = slime.getSlime();
+
         slimeElement = getRandomCoords(slimeElement);
         land.appendChild(slimeElement);
 
@@ -136,7 +137,7 @@ function randomSlimeSpawn() { // basically same as randomBushSpawn()
         }
         land.appendChild(slimeElement);
 
-        slimes.push(slimeElement); // slimes will be array of slime elements
+        slimes.push(slimeElement); // slimes will be array of slime instances
     }
 
     slimeSpawningDone = true;
