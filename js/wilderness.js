@@ -64,6 +64,7 @@ function userRun() {
             text.innerText = "Slime Encountered!";
             slimes[i].style.visibility = "visible";
             transitionAnimation(); // transition from wilderness to battle screen
+            battleSlime();
         }
     }
     requestAnimationFrame(userRun); // will constantly call userRun() even when another function is running
@@ -78,6 +79,10 @@ function transitionAnimation() { // slowly blurs screen and switches from wilder
 function battleScreen() { // function is called when player encounters a mob, switches from wilderness to battle screen
     wildernessContainer.style.display = "none"; // everything on screen will disappear (such as wilderness, exit btn, text)
     battleContainer.style.display = "block"; // go to battle screen
+}
+
+function battleSlime() {
+    
 }
 
 function getRandomCoords(entity) {

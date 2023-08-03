@@ -10,4 +10,6 @@ class Slime {
     getSlime() {
         return this.#slime;
     }
+
+    // add attacks
 }
