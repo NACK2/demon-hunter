@@ -1,14 +1,21 @@
 class Slime {
-    #slime;
+    #slimeElement;
     #health;
+    #xp; // this is the amount of XP slime gives when killed
 
     constructor() {
-        this.#slime = document.createElement("slimeDiv");
-        this.#slime.id = "wildSlime";
+        this.#slimeElement = document.createElement("slimeDiv");
+        this.#slimeElement.id = "wildSlime";
+        this.#health = 50; // subject to change
+        this.#xp = 20; // subject to change
     }
 
-    getSlime() {
-        return this.#slime;
+    getElement() {
+        return this.#slimeElement;
+    }
+
+    getHealth() {
+        return this.#health;
     }
 
     // add attacks

@@ -13,7 +13,6 @@ const battleContainer = document.querySelector("#battleContainer");
 
 let bushes = []; // array of bush elements
 let slimes = []; // array of slime elements
-
 let landCoords = land.getBoundingClientRect(); // # of pixels land is from (0, 0) of the window
 
 function gameMenu() {
@@ -41,23 +40,23 @@ function checkCollision(entity1, entity2) { // returns true if entity1 and entit
 }
 
 function userRun() {
-    player.updatePlayerPos(); // updates player's x and y with the velocity 
-    player.getPlayerElement().style.left = player.getPlayerPos().x + "px";
-    player.getPlayerElement().style.top = player.getPlayerPos().y + "px";
+    player.updatePos(); // updates player's x and y positions with the velocity 
+    player.getElement().style.left = player.getPos().x + "px";
+    player.getElement().style.top = player.getPos().y + "px";
+    let reqAnim = requestAnimationFrame(userRun); // will constantly call userRun() (even when another function is running)
 
     for (let i=0; i<slimes.length; ++i) { // checking if player is colliding with any slimes
-        if (checkCollision(slimes[i], player.getPlayerElement())) {
+        if (checkCollision(slimes[i], player.getElement())) {
             text.innerText = "Slime Encountered!";
             slimes[i].style.visibility = "visible";
+            cancelAnimationFrame(reqAnim); // will stop constantly calling userRun() bc don't need it anymore
             transitionAnimation(); // transition from wilderness to battle screen
             battleSlime();
         }
     }
-    requestAnimationFrame(userRun); // will constantly call userRun() even when another function is running
 }
 
 function transitionAnimation() { // slowly blurs screen and switches from wilderness to battle screen
-    requestAnimationFrame(userStopped); // stops user from moving during transition
     setTimeout(battleScreen, 1000); // after 1s delay battleScreen() will be called, switching from wilderness to battle screen
     land.style.animation = "blur 1s linear"; // during the 1s delay doing the blur animation
 }
@@ -68,7 +67,11 @@ function battleScreen() { // function is called when player encounters a mob, sw
 }
 
 function battleSlime() {
-    // TO-DO
+    let slime = new Slime();
+    // console.log("TEST");
+    // while (slime.getHealth() > 0) {
+
+    // }
 }
 
 function getRandomCoords(entity) {
@@ -105,7 +108,7 @@ function randomBushSpawn() { // randomizes location of bushes
 function randomSlimeSpawn() { // basically same as randomBushSpawn()
     for (let i=0; i<NUM_SLIMES; ++i) {
         let slime = new Slime();
-        let slimeElement = slime.getSlime();
+        let slimeElement = slime.getElement();
 
         slimeElement = getRandomCoords(slimeElement);
         land.appendChild(slimeElement);
@@ -122,7 +125,7 @@ function randomSlimeSpawn() { // basically same as randomBushSpawn()
         // checking if curr slime collides with player (this would be bad because all mobs are spawned before
         // player can even move, meaning that player would collide with slime even tho player hasn't even moved yet,
         // we want the player to have to MOVE around to encounter a mob, not encounter it as soon as spawning in)
-        while (checkCollision(slimeElement, player.getPlayerElement())) {
+        while (checkCollision(slimeElement, player.getElement())) {
             land.removeChild(slimeElement);
             slimeElement = getRandomCoords(slimeElement);
         }
@@ -136,44 +139,44 @@ function randomSlimeSpawn() { // basically same as randomBushSpawn()
 
 function userMovement(e) {
     let validKey = true; 
-    let playerCoords = player.getPlayerElement().getBoundingClientRect();
-    let PLAYER_SPEED = player.getPlayerSpeed();
+    let playerCoords = player.getElement().getBoundingClientRect();
+    let PLAYER_SPEED = player.getSpeed();
 
     switch (e.key) {
         case 'w':
             if (playerCoords.top <= landCoords.top) // stop player if they hit border
-                player.setPlayerVelY(0);
+                player.getVelY(0);
             else
-                player.setPlayerVelY(PLAYER_SPEED * -1);
+                player.getVelY(PLAYER_SPEED * -1);
                 
-            player.getPlayerElement().style.backgroundImage = "url('./img/wilderness/player_front.png')";
+            player.getElement().style.backgroundImage = "url('./img/wilderness/player_front.png')";
             break;
 
         case 'a':
             if (playerCoords.left <= landCoords.left) 
-                player.setPlayerVelX(0);
+                player.getVelX(0);
             else 
-                player.setPlayerVelX(PLAYER_SPEED * -1);
+                player.getVelX(PLAYER_SPEED * -1);
             
-            player.getPlayerElement().style.backgroundImage = "url('./img/wilderness/player_left.png')";
+            player.getElement().style.backgroundImage = "url('./img/wilderness/player_left.png')";
             break;
 
         case 's':
             if (playerCoords.top + playerCoords.height >= landCoords.bottom) 
-                player.setPlayerVelY(0);
+                player.getVelY(0);
             else 
-                player.setPlayerVelY(PLAYER_SPEED);
+                player.getVelY(PLAYER_SPEED);
             
-            player.getPlayerElement().style.backgroundImage = "url('./img/wilderness/player_back.png')";
+            player.getElement().style.backgroundImage = "url('./img/wilderness/player_back.png')";
             break;
 
         case 'd':
             if (playerCoords.left + playerCoords.width > landCoords.right) 
-                player.setPlayerVelX(0);
+                player.getVelX(0);
             else 
-                player.setPlayerVelX(PLAYER_SPEED);
+                player.getVelX(PLAYER_SPEED);
             
-            player.getPlayerElement().style.backgroundImage = "url('./img/wilderness/player_right.png')";
+            player.getElement().style.backgroundImage = "url('./img/wilderness/player_right.png')";
             break;
 
         default:
@@ -183,14 +186,14 @@ function userMovement(e) {
 
     // since userMovement() is called when ANY key is pressed, making sure running animation only plays for WASD
     if (validKey) { 
-        player.getPlayerElement().classList.add("running"); 
+        player.getElement().classList.add("running"); 
     }
 }
 
 function userStopped(e) {
-    player.setPlayerVelX(0);
-    player.setPlayerVelY(0);
-    player.getPlayerElement().classList.remove("running"); // running animation stops when key released
+    player.getVelX(0);
+    player.getVelY(0);
+    player.getElement().classList.remove("running"); // running animation stops when key released
 }
 
 function init() {
@@ -202,7 +205,7 @@ function init() {
     exitBtn.onclick = gameMenu;
 
     if (haveBoots) // if user bought speed boots, set player speed to 4
-        player.setPlayerSpeed(4);
+        player.setSpeed(4);
 }
 
 init();

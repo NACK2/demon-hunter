@@ -1,12 +1,12 @@
 class Player {
-    #playerElement;
+    #playerElement; // # means private field/class
     #playerPos;
     #playerVel;
     #health;
-    #weapon;
+    #weapons;
     #PLAYER_SPEED;
 
-    constructor() { // sets player element, player position on land, and player velocity
+    constructor() {
         this.#playerElement = document.querySelector("#player");
         this.#PLAYER_SPEED = 2; // default speed w/o speed boots
         this.#playerPos = {
@@ -19,41 +19,41 @@ class Player {
         };
     }
 
-    setPlayerVelX(x) { // didnt create a setPlayerVel() that sets both x and y bc we are always updating only one at a time 
+    getVelX(x) { // didnt create a setPlayerVel() that sets both x and y bc we are always updating only one at a time 
         this.#playerVel.x = x;
     }
 
-    setPlayerVelY(y) {
+    getVelY(y) {
         this.#playerVel.y = y;
     }
 
-    getPlayerVel() { 
+    getVel() { 
         return this.#playerVel; // remember, this returns object
     }
 
-    setPlayerPos(x, y) {
+    setPos(x, y) {
         this.#playerPos.x = x;
         this.#playerPos.y = y;
     }
 
-    updatePlayerPos() {
+    updatePos() {
         this.#playerPos.x += this.#playerVel.x;
         this.#playerPos.y += this.#playerVel.y;
     }
 
-    getPlayerPos() {
+    getPos() {
         return this.#playerPos; // remember, this returns object
     }
 
-    setPlayerSpeed(speed) {
+    setSpeed(speed) {
         this.#PLAYER_SPEED = speed;
     }
 
-    getPlayerSpeed() {
+    getSpeed() {
         return this.#PLAYER_SPEED;
     }
 
-    getPlayerElement() {
+    getElement() {
         return this.#playerElement;
     }
 
