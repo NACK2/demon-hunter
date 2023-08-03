@@ -1,10 +1,4 @@
 let haveBoots = false; // flag for if user bought speed boots
-
-// we are exporting haveBoots, so that wilderness.js can import the haveBoots data
-// note: calling localStorage.getItem("boots") here to upate haveBoots before exporting
-haveBoots = JSON.parse(localStorage.getItem("boots")); 
-export default haveBoots; 
-
 let inventoryList = []; // inventoryList only consists of weapons, doesnt include speed boots
 let health = 70;
 let gold = 50;
@@ -50,6 +44,7 @@ let weaponsList = [
     }
 ];
 
+haveBoots = JSON.parse(localStorage.getItem("boots"));
 const quitBtn = document.querySelector("#quitBtn");
 const btn1 = document.querySelector("#btn1");
 const btn2 = document.querySelector("#btn2");
@@ -64,9 +59,10 @@ const consoleText = document.querySelector("#consoleText");
 const itemMenu = document.querySelector(".itemMenu");
 const bootsImg = document.querySelector("#bootsImg");
 
-// (could've chose any element but chose quitBtn by random) if quitBtn == null means game.js has been ran
-// as an import file in wilderness.html, wilderness.html doesnt have access to any elements of game.js bc
-// only game.html has the elements of game.js, therefore dont initalize anything as elements such as quitBtn will be null
+// (could've chose any element but chose quitBtn by random) if quitBtn == null means menu.js has been opened from
+// wilderness.html, and since menu.js accesses elements of menu.html, those elements will be null as
+// wilderness.html doesn't have access to those elements, therefore dont call init() if quitBtn is null bc 
+//that means this file was ran from wilderness.html and we don't need to init anything
 if (quitBtn != null) {
     init();
 }
