@@ -66,9 +66,8 @@ function battleScreen() { // function is called when player encounters a mob, sw
     battleContainer.style.display = "block"; // go to battle screen
 }
 
-function battleSlime() {
+function battleSlime() { // fight with slime
     let slime = new Slime();
-    // console.log("TEST");
     // while (slime.getHealth() > 0) {
 
     // }
@@ -204,7 +203,7 @@ function init() {
 
     exitBtn.onclick = gameMenu;
 
-    if (haveBoots) // if user bought speed boots, set player speed to 4
+    if (player.getHaveBoots()) // if user bought speed boots, set player speed to 4
         player.setSpeed(4);
 }
 

@@ -44,7 +44,6 @@ let weaponsList = [
     }
 ];
 
-haveBoots = JSON.parse(localStorage.getItem("boots"));
 const quitBtn = document.querySelector("#quitBtn");
 const btn1 = document.querySelector("#btn1");
 const btn2 = document.querySelector("#btn2");

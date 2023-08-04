@@ -3,16 +3,20 @@ class Player {
     #playerPos;
     #playerVel;
     #health;
-    #weapons;
+    #weapon; // currently equipped weapon, not all weapons
     #PLAYER_SPEED;
+    #haveBoots
 
     constructor() {
         this.#playerElement = document.querySelector("#player");
         this.#PLAYER_SPEED = 2; // default speed w/o speed boots
+        this.#haveBoots = JSON.parse(localStorage.getItem("boots")); // checking if player bought speed boots 
+
         this.#playerPos = {
             x: parseInt(this.#playerElement.getBoundingClientRect().left),
             y: parseInt(this.#playerElement.getBoundingClientRect().top)
         };
+
         this.#playerVel = { // this is what will be used to move player
             x: 0, // - is left, + is right
             y: 0 // - is up, + is down
@@ -55,6 +59,10 @@ class Player {
 
     getElement() {
         return this.#playerElement;
+    }
+
+    getHaveBoots() {
+        return this.#haveBoots;
     }
 
     // add attacks
