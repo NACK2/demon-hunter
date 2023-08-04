@@ -140,7 +140,7 @@ figure {
     display: inline-block;
 }
 
-.itemMenu {
+#itemMenu {
     display: none;
     position: relative;
     text-align: center; /*center the images within the game menu*/
@@ -205,5 +205,49 @@ figure {
     position: relative;
     top: 5px;
 }
- 
-      
+
+#inventoryMenu {
+    display: none;
+    position: relative;
+    text-align: center; /*center the images within the game menu*/
+}
+
+.inventoryName {
+    margin: 10px 0 5px 0;
+    font-family: "DM Sans";
+    font-weight: bold;
+    font-size: 18px;
+    background: linear-gradient(0deg, rgba(80,78,78,1) 0%, rgba(203,201,201,1) 100%);
+    border: black solid 3px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.inventoryImg {
+    height: 200px;
+    background: linear-gradient(0deg, rgba(80,78,78,1) 0%, rgba(203,201,201,1) 100%);
+    border: black solid 5px; 
+    border-radius: 10px;
+}
+
+.equipBtn {
+    opacity: 100%;
+    height: 40px;
+    width: 180px;
+    font-family: "Audiowide";
+    font-size: 15px;
+
+    color: black;
+    background: linear-gradient(0deg, rgba(80,78,78,1) 0%, rgba(203,201,201,1) 100%);
+    border: #07159587 solid 5px;
+    box-shadow: 0 0 10px #eee;
+    border-radius: 10px;
+}
+
+.equipBtn:hover {
+    cursor:pointer;
+    color: white;
+    transition: 0.5s; 
+    position: relative;
+    top: 5px;
+}

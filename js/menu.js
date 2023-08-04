@@ -49,13 +49,16 @@ const btn1 = document.querySelector("#btn1");
 const btn2 = document.querySelector("#btn2");
 const btn3 = document.querySelector("#btn3");
 const bootsBtn = document.querySelector("#bootsBtn");
+// const equipBtn = document.querySelectorAll("equipBtn"); have to add eventListener
 
 const dialogueText = document.querySelector("#dialogueText");
 const healthText = document.querySelector("#healthText");
 const goldText = document.querySelector("#goldText");
 const xpText = document.querySelector("#xpText");
 const consoleText = document.querySelector("#consoleText");
-const itemMenu = document.querySelector(".itemMenu");
+const itemMenu = document.querySelector("#itemMenu");
+const inventoryMenu = document.querySelector("#inventoryMenu");
+
 const bootsImg = document.querySelector("#bootsImg");
 
 // (could've chose any element but chose quitBtn by random) if quitBtn == null means menu.js has been opened from
@@ -67,14 +70,6 @@ if (quitBtn != null) {
 }
 
 function init() { // initialization
-    // init buttons
-    quitBtn.onclick = quit;
-    btn1.onclick = store;
-    btn2.onclick = inventory;
-    btn3.onclick = wilderness;
-    bootsBtn.onclick = buyBoots;
-    bindWeaponBtns();
-
     // getting any previously saved data such as inventory, gold, health, etc and loading them
     let savedHealth = localStorage.getItem("health"); // returns null if data key does not exist
     let savedGold = localStorage.getItem("gold");
@@ -109,6 +104,14 @@ function init() { // initialization
         haveBoots = true;
         bootsImg.style.background = "linear-gradient(0deg, rgba(10,96,9,1) 0%, rgba(24,222,14,1) 100%)"; // make background green
     }
+
+    // init buttons
+    quitBtn.onclick = quit;
+    btn1.onclick = store;
+    btn2.onclick = inventory;
+    btn3.onclick = wilderness;
+    bootsBtn.onclick = buyBoots;
+    bindWeaponBtns();
 }
 
 // adds event listener to each buying weapon button with buyWeapon() 
@@ -127,6 +130,7 @@ function quit() { // sends you back to home page
 }
 
 function store() {
+    inventoryMenu.style.display = "none";
     dialogueText.innerText = "Welcome to the store! \n\n\
     You can gain 10 health for 10 gold!\n\
     For information on prices of various items, click \"Buy Items\"!\n\
@@ -142,21 +146,20 @@ function store() {
 }
 
 function inventory() {
-    dialogueText.innerText = "INVENTORY WILL LOOK BETTER, THIS IS TEMPORARY\n\n";
+    dialogueText.innerText = "***WORK IN PROGRESS***\n";
+    // dialogueText.innerText = "";
+    inventoryMenu.style.display = "block";
+    consoleText.innerText = "Equip a weapon!"
+
+    for (let i=0; i<inventoryList.length; ++i) { // makes all weapons that the player bought visible
+        document.querySelector(inventoryList[i].id + "Figure").style.display = "inline-block";
+    }
+    if (haveBoots) { // have to do this separately bc inventoryList doesnt include boots, only weapons
+        document.querySelector("#bootsFigure").style.display = "inline-block";
+    }
 
     if (!inventoryList.length && !haveBoots) {
-        alert("Empty Inventory :(");
-    }
-    else {
-        if (inventoryList.length > 0) { // NOTE: inventoryList ONLY includes weapons, not speed boots
-            for (let i=0; i<inventoryList.length; ++i) {
-                dialogueText.innerText += "- " + inventoryList[i].name + '\n';
-            }
-        }
-
-        if (haveBoots) {
-            dialogueText.innerText += "- speed boots" + '\n';
-        }
+        dialogueText.innerText += "Empty Inventory :(";
     }
 }
 

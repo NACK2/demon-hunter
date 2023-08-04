@@ -23,37 +23,35 @@
             Go to the wilderness to fight some demons and earn gold!
         </p>
 
-        <div class="itemMenu">
+        <div id="itemMenu"> <!-- For buying items menu -->
             <figure>
                 <figcaption class="itemPrice" style="opacity: 100%"> 10 GOLD </figcaption>
                 <img src="img/weapons/slingshot.webp" class="itemImg" id="slingshotImg" title="Slingshot" style="opacity: 100%">
-                <!-- Sending weapon as paremeter to buyWeapon() upon btn click, the parameter string matches
-                the names within weapons object in game.js -->
                 <figcaption> <button class="itemBtnUnlocked" id="slingshot"> Slingshot </button> </figcaption>
             </figure>
 
             <figure>
                 <figcaption class="itemPrice"> 30 GOLD </figcaption>
                 <img src="img/weapons/baseballBat.png" class="itemImg" id="baseballBatImg" title="Baseball bat">
-                <figcaption> <button class="itemBtnLocked" id="baseballBat"> Baseball bat </button> </figcaption>
+                <figcaption> <button class="itemBtnLocked" id="baseballBat"> Baseball Bat </button> </figcaption>
             </figure>
 
             <figure>
                 <figcaption class="itemPrice"> 60 GOLD </figcaption>
                 <img src="img/weapons/woodSword.webp" class="itemImg" id="woodSwordImg" title="Wood sword">
-                <figcaption> <button class="itemBtnLocked" id="woodSword"> Wood sword </button> </figcaption>
+                <figcaption> <button class="itemBtnLocked" id="woodSword"> Wood Sword </button> </figcaption>
             </figure>
 
             <figure>
                 <figcaption class="itemPrice"> 90 GOLD </figcaption>
                 <img src="img/weapons/stoneSword.webp" class="itemImg" id="stoneSwordImg" title="Stone sword">
-                <figcaption> <button class="itemBtnLocked" id="stoneSword"> Stone sword </button> </figcaption>
+                <figcaption> <button class="itemBtnLocked" id="stoneSword"> Stone Sword </button> </figcaption>
             </figure>
 
             <figure>
                 <figcaption class="itemPrice"> 150 GOLD </figcaption>
                 <img src="img/weapons/dualWield.png" class="itemImg" id="dualWieldSwordImg" title="Dual wield sword">
-                <figcaption> <button class="itemBtnLocked" id="dualWieldSword"> Dual wield </button> </figcaption>
+                <figcaption> <button class="itemBtnLocked" id="dualWieldSword"> Dual Wield </button> </figcaption>
             </figure>
 
             <br>
@@ -61,6 +59,46 @@
                 <figcaption class="itemPrice" style="opacity: 100%"> 50 GOLD </figcaption>
                 <img src="img/boots.webp" class="itemImg" id="bootsImg" title="Speed Boots" style="opacity: 100%">
                 <figcaption> <button id="bootsBtn"> Speed Boots </button> </figcaption>
+            </figure>
+        </div>
+
+        <div id="inventoryMenu">  <!-- For inventory menu -->
+            <!-- Each figure correlated to an item the player has bought will be made visible within menu.js -->
+            <figure id="slingshotFigure" style="display: none">
+                <figcaption class="inventoryName"> Slingshot </figcaption>
+                <img src="img/weapons/slingshot.webp" class="inventoryImg" title="Slingshot">
+                <figcaption> <button class="equipBtn" id="slingshotEquipBtn"> Equip </button> </figcaption>
+            </figure>
+    
+            <figure id="baseballBatFigure" style="display: none">
+                <figcaption class="inventoryName"> Baseball Bat </figcaption>
+                <img src="img/weapons/baseballBat.png" class="inventoryImg" title="Baseball bat">
+                <figcaption> <button class="equipBtn" id="baseballBatEquipBtn"> Equip </button> </figcaption>
+            </figure>
+    
+            <figure id="woodSwordFigure" style="display: none">
+                <figcaption class="inventoryName"> Wood Sword</figcaption>
+                <img src="img/weapons/woodSword.webp" class="inventoryImg" title="Wood sword">
+                <figcaption> <button class="equipBtn" id="woodSwordEquipBtn"> Equip </button> </figcaption>
+            </figure>
+    
+            <figure id="stoneSwordFigure" style="display: none">
+                <figcaption class="inventoryName"> Stone Sword </figcaption>
+                <img src="img/weapons/stoneSword.webp" class="inventoryImg" title="Stone sword">
+                <figcaption> <button class="equipBtn" id="stoneSwordEquipBtn"> Equip </button> </figcaption>
+            </figure>
+    
+            <figure id="dualWieldSwordFigure" style="display: none">
+                <figcaption class="inventoryName"> Dual Wield </figcaption>
+                <img src="img/weapons/dualWield.png" class="inventoryImg" title="Dual wield sword">
+                <figcaption> <button class="equipBtn" id="dualWieldSwordEquipBtn"> Equip </button> </figcaption>
+            </figure>
+    
+            <br>
+            <figure id="bootsFigure" style="display: none">
+                <figcaption class="inventoryName"> Speed Boots </figcaption>
+                <img src="img/boots.webp" class="inventoryImg">
+                <figcaption> <button class="equipBtn" id="bootsEquipBtn"> Equip </button> </figcaption>
             </figure>
         </div>
     </div>
