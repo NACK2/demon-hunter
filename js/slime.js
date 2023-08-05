@@ -6,7 +6,7 @@ class Slime {
     constructor() {
         this.#slimeElement = document.createElement("slimeDiv");
         this.#slimeElement.id = "wildSlime";
-        this.#health = 50; // subject to change
+        this.#health = 20; // subject to change
         this.#xp = 20; // subject to change
     }
 

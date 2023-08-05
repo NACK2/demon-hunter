@@ -1,9 +1,10 @@
 class Player {
-    #playerElement; // # means private field/class
+    // # means private field/class
+    #playerElement; 
     #playerPos;
     #playerVel;
     #health;
-    #weapon; // currently equipped weapon, not all weapons
+    #equippedWeapon; // user's currently equipped weapon, not all weapons
     #PLAYER_SPEED;
     #haveBoots
 
@@ -12,7 +13,17 @@ class Player {
         this.#PLAYER_SPEED = 2; // default speed w/o speed boots
         this.#haveBoots = JSON.parse(localStorage.getItem("boots")); // checking if player bought speed boots 
 
-        this.#playerPos = {
+        if (localStorage.getItem("equippedWeapon") == null) // returns null if user hasn't bought any weapons
+            this.#equippedWeapon = "fists"; // fists is default starter weapon
+        else 
+            this.#equippedWeapon = localStorage.getItem("equippedWeapon");
+
+        if (localStorage.getItem("health") == null) // returns null if user hasn't bought extra health yet
+            this.#health = 50; // default health
+        else
+            this.#health = parseInt(localStorage.getItem("health"));
+
+        this.#playerPos = { // players coordinates 
             x: parseInt(this.#playerElement.getBoundingClientRect().left),
             y: parseInt(this.#playerElement.getBoundingClientRect().top)
         };
@@ -59,6 +70,18 @@ class Player {
 
     getElement() {
         return this.#playerElement;
+    }
+
+    setWeapon(weapon) {
+        this.#equippedWeapon = weapon;
+    }
+
+    getWeapon() {
+        return this.#equippedWeapon;
+    }
+
+    getHealth() {
+        return this.#health;
     }
 
     getHaveBoots() {

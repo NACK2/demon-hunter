@@ -196,6 +196,8 @@ function userStopped(e) {
 }
 
 function init() {
+    console.log(player.getHealth());
+
     randomBushSpawn(); 
     randomSlimeSpawn();
     while (!slimeSpawningDone); // waiting loop: waiting for all slimes to be spawned before player can move around

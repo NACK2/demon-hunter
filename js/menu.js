@@ -1,7 +1,8 @@
 let haveBoots = false; // flag for if user bought speed boots
 let inventoryList = []; // inventoryList only consists of weapons, doesnt include speed boots
-let health = 70;
-let gold = 50;
+let equippedWeapon = "fists"; // stores currently equipped weapon's id, the default weapon is fists
+let health = 50;
+let gold = 30;
 let xp = 0;
 
 let weaponsList = [
@@ -56,9 +57,9 @@ const healthText = document.querySelector("#healthText");
 const goldText = document.querySelector("#goldText");
 const xpText = document.querySelector("#xpText");
 const consoleText = document.querySelector("#consoleText");
+
 const itemMenu = document.querySelector("#itemMenu");
 const inventoryMenu = document.querySelector("#inventoryMenu");
-
 const bootsImg = document.querySelector("#bootsImg");
 
 // (could've chose any element but chose quitBtn by random) if quitBtn == null means menu.js has been opened from
@@ -195,7 +196,7 @@ function buyWeapon() { // function is called when user clicks button to purchase
 
     // the function (buyWeapon()) used for addEventListener will automatically have "this" bound to 
     // the current btn element used as the event in the event listener
-    let weaponId = '#' + this.id; 
+    let weaponId = '#' + this.id; // weaponId is ID of the weapon that user is trying to buy
     for (let i = 0; i<inventoryList.length; ++i) { // check if user already bought weapon
         if (inventoryList[i].id == weaponId) {
             consoleText.innerText = "Already purchased " + inventoryList[i].name + "!";
@@ -214,12 +215,15 @@ function buyWeapon() { // function is called when user clicks button to purchase
                 consoleText.innerText = "Insufficient gold!"
             }
             else { // successful purchase
-                gold -= weaponsList[i].price;
+                gold -= weaponsList[i].price; 
                 goldText.innerText = gold + " G";
+                equippedWeapon = weaponsList[i].id; // do this bc by default equips most recently bought weapon
                 inventoryList.push(weaponsList[i]); // add weapon to inventory
-                consoleText.innerText = "Successfully bought a " + weaponsList[i].name + "!";
+                consoleText.innerText = "Successfully bought and equipped a " + weaponsList[i].name + "!";
+
                 localStorage.setItem("gold", JSON.stringify(gold)); // saving gold data
                 localStorage.setItem("inventory", JSON.stringify(inventoryList)); // saving inventory data
+                localStorage.setItem("equippedWeapon", equippedWeapon); // saving equipped weapon data
                 unlockWeapon(i); // unlocking weapon turns the weapon background from gray to green in weapon buy menu
             }
         }
@@ -241,8 +245,8 @@ function unlockWeapon(weaponIndex) {
     weaponImg.style.background = "linear-gradient(0deg, rgba(10,96,9,1) 0%, rgba(24,222,14,1) 100%)"; // make background green
     weaponPrice[weaponIndex].style.opacity = "100%"; // price is unlocked
 
-    // conditional is weaponIndex != weaponsList.length-1 bc we are accessing next element of array, 
-    // thus statement doesnt run on last element
+    // conditional is weaponIndex != weaponsList.length-1; since we are accessing next element of array, 
+    // making sure statement doesnt run on last element
     if (weaponIndex != weaponsList.length-1) { 
         weaponsList[weaponIndex+1].unlocked = true; // unlocking the next weapon now that current weapon is bought
         weaponImg = document.querySelector(weaponsList[weaponIndex+1].id + "Img");
