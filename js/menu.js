@@ -1,6 +1,6 @@
 let haveBoots = false; // flag for if user bought speed boots
 let inventoryList = []; // inventoryList only consists of weapons, doesnt include speed boots
-let equippedWeapon = "fists"; // stores currently equipped weapon's id, the default weapon is fists
+let equippedWeaponId = "fists"; // stores currently equipped weapon's id, the default weapon is fists
 let health = 50;
 let gold = 30;
 let xp = 0;
@@ -72,11 +72,12 @@ if (quitBtn != null) {
 
 function init() { // initialization
     // getting any previously saved data such as inventory, gold, health, etc and loading them
-    let savedHealth = localStorage.getItem("health"); // returns null if data key does not exist
+    let savedHealth = localStorage.getItem("health"); // getItem() returns null if data key does not exist
     let savedGold = localStorage.getItem("gold");
     let savedXp = localStorage.getItem("xp");
     let savedInventory = localStorage.getItem("inventory"); // remember, savedInventory only has weapons, no boots
     let savedBoots = localStorage.getItem("boots");
+    let savedEquippedWeapon = localStorage.getItem("equippedWeaponId");
 
     if (savedHealth != null) { // check that key exists
         healthText.innerText = savedHealth + " HP";
@@ -105,6 +106,9 @@ function init() { // initialization
         haveBoots = true;
         bootsImg.style.background = "linear-gradient(0deg, rgba(10,96,9,1) 0%, rgba(24,222,14,1) 100%)"; // make background green
     }
+    if (savedEquippedWeapon != null) {
+        equippedWeaponId = savedEquippedWeapon; 
+    }
 
     // init buttons
     quitBtn.onclick = quit;
@@ -132,6 +136,7 @@ function quit() { // sends you back to home page
 
 function store() {
     inventoryMenu.style.display = "none";
+    consoleText.innerText = "Made by NACK2!";
     dialogueText.innerText = "Welcome to the store! \n\n\
     You can gain 10 health for 10 gold!\n\
     For information on prices of various items, click \"Buy Items\"!\n\
@@ -152,15 +157,27 @@ function inventory() {
     inventoryMenu.style.display = "block";
     consoleText.innerText = "Equip a weapon!"
 
-    for (let i=0; i<inventoryList.length; ++i) { // makes all weapons that the player bought visible
-        document.querySelector(inventoryList[i].id + "Figure").style.display = "inline-block";
-    }
-    if (haveBoots) { // have to do this separately bc inventoryList doesnt include boots, only weapons
-        document.querySelector("#bootsFigure").style.display = "inline-block";
+    if (!inventoryList.length && !haveBoots) { // empty inventory
+        dialogueText.innerText += "Empty Inventory :(";
     }
 
-    if (!inventoryList.length && !haveBoots) {
-        dialogueText.innerText += "Empty Inventory :(";
+    for (let i=0; i<inventoryList.length; ++i) { // makes all weapons that the player bought visible in inventory
+        document.querySelector(inventoryList[i].id + "Figure").style.display = "inline-block";
+
+        if (inventoryList[i].id == equippedWeaponId) { // make equipped weapon's background green
+             // make background green
+            document.querySelector(equippedWeaponId + "InvImg").style.background = "linear-gradient(0deg, rgba(10,96,9,1) 0%, rgba(24,222,14,1) 100%)";
+        }
+        else {
+            // default colour
+            document.querySelector(inventoryList[i].id + "InvImg").style.background = "linear-gradient(0deg, rgba(80,78,78,1) 0%, rgba(203,201,201,1) 100%)"; 
+        }
+    }
+
+    if (haveBoots) { // have to do this separately bc inventoryList doesnt include boots, only weapons
+        document.querySelector("#bootsFigure").style.display = "inline-block";
+        // boots are always equipped by default once youve bought them
+        document.querySelector("#bootsInvImg").style.background = "linear-gradient(0deg, rgba(10,96,9,1) 0%, rgba(24,222,14,1) 100%)";
     }
 }
 
@@ -217,13 +234,13 @@ function buyWeapon() { // function is called when user clicks button to purchase
             else { // successful purchase
                 gold -= weaponsList[i].price; 
                 goldText.innerText = gold + " G";
-                equippedWeapon = weaponsList[i].id; // do this bc by default equips most recently bought weapon
+                equippedWeaponId = weaponsList[i].id; // do this bc by default equips most recently bought weapon
                 inventoryList.push(weaponsList[i]); // add weapon to inventory
                 consoleText.innerText = "Successfully bought and equipped a " + weaponsList[i].name + "!";
 
                 localStorage.setItem("gold", JSON.stringify(gold)); // saving gold data
                 localStorage.setItem("inventory", JSON.stringify(inventoryList)); // saving inventory data
-                localStorage.setItem("equippedWeapon", equippedWeapon); // saving equipped weapon data
+                localStorage.setItem("equippedWeaponId", equippedWeaponId); // saving equipped weapon data
                 unlockWeapon(i); // unlocking weapon turns the weapon background from gray to green in weapon buy menu
             }
         }
@@ -283,6 +300,7 @@ function buyBoots() { // note: speed boots are unlocked by default; all user has
 
 function town() {
     itemMenu.style.display = "none";
+    consoleText.innerText = "Made by NACK2!";
     dialogueText.style.display = "block";
     dialogueText.innerText = "Welcome to the town! \n\n\
     Go to the store to buy health and items! \n\
