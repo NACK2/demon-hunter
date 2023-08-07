@@ -50,7 +50,7 @@ const btn1 = document.querySelector("#btn1");
 const btn2 = document.querySelector("#btn2");
 const btn3 = document.querySelector("#btn3");
 const bootsBtn = document.querySelector("#bootsBtn");
-// const equipBtn = document.querySelectorAll("equipBtn"); have to add eventListener
+const equipBtns = document.querySelectorAll(".equipBtn"); // array of all .equipBtn btn's
 
 const dialogueText = document.querySelector("#dialogueText");
 const healthText = document.querySelector("#healthText");
@@ -98,7 +98,7 @@ function init() { // initialization
             unlockWeapon(i); 
         }
 
-        // if savedInventory != null, means user bought items on previous run, so must link all the new unlocked weapon btns 
+        // if savedInventory != null, means user bought items previously, so must link all the new unlocked weapon btns 
         // with buyWeapon() by calling bindWeaponBtns()
         bindWeaponBtns(); 
     }
@@ -116,13 +116,17 @@ function init() { // initialization
     btn2.onclick = inventory;
     btn3.onclick = wilderness;
     bootsBtn.onclick = buyBoots;
+    for (let i=0; i<equipBtns.length; ++i) { // link each equip button with equipWeapon()
+        equipBtns[i].addEventListener("click", equipWeapon);
+    }
+
     bindWeaponBtns();
 }
 
-// adds event listener to each buying weapon button with buyWeapon() 
+// adds event listener to each ".itemBtnUnlocked" button with buyWeapon(), 
 // every time weapon is bought, unlockWeapon() is called and the number of elements with
 // .itemBtnUnlocked increases by 1 each time, so have to do querySelectorAll(".itemBtnUnlocked") and relink each
-// button with buyWeapon() PLUS the new .itemBtnUnlocked element with buyWeapon()
+// unlocked weapon button with buyWeapon() PLUS the new .itemBtnUnlocked element with buyWeapon()
 function bindWeaponBtns() { 
     let weaponUnlockedBtns = document.querySelectorAll(".itemBtnUnlocked"); // weaponUnlockedBtns is array of elements
     for (let i=0; i<weaponUnlockedBtns.length; ++i) {
@@ -151,9 +155,9 @@ function store() {
     btn3.innerText = "Town";
 }
 
+// inventory screen
 function inventory() {
-    dialogueText.innerText = "***WORK IN PROGRESS***\n";
-    // dialogueText.innerText = "";
+    dialogueText.innerText = "";
     inventoryMenu.style.display = "block";
     consoleText.innerText = "Equip a weapon!"
 
@@ -179,6 +183,25 @@ function inventory() {
         // boots are always equipped by default once youve bought them
         document.querySelector("#bootsInvImg").style.background = "linear-gradient(0deg, rgba(10,96,9,1) 0%, rgba(24,222,14,1) 100%)";
     }
+}
+
+// called when user clicks on a button to equip a weapon
+function equipWeapon() {
+    // "this" will be binded to the button element that was clicked because of addEventListener()
+    let weaponId = '#' + this.id;
+    if (weaponId != equippedWeaponId) { // equipping new weapon
+        // change prev equipped weapon's background image to gray (default colour)
+        document.querySelector(equippedWeaponId + "InvImg").style.background = "linear-gradient(0deg, rgba(80,78,78,1) 0%, rgba(203,201,201,1) 100%)"; 
+
+        equippedWeaponId = weaponId; // update equipped weapon id
+
+        // making new equipped weapon's background image to green
+        document.querySelector(weaponId + "InvImg").style.background = "linear-gradient(0deg, rgba(10,96,9,1) 0%, rgba(24,222,14,1) 100%)";
+        consoleText.innerText = "Weapon equipped!";
+        localStorage.setItem("equippedWeaponId", equippedWeaponId); // saving equipped weapon data
+    }
+    else  // weapon chosen is already equipped
+        consoleText.innerText = "Weapon already equipped!";
 }
 
 function wilderness() {
@@ -209,8 +232,8 @@ function buyItemMenu() { // item menu for buying both weapons and speed boots
     itemMenu.style.display = "block";
 }
 
-function buyWeapon() { // function is called when user clicks button to purchase a weapon
-
+// function is called when user clicks button to purchase a weapon
+function buyWeapon() {
     // the function (buyWeapon()) used for addEventListener will automatically have "this" bound to 
     // the current btn element used as the event in the event listener
     let weaponId = '#' + this.id; // weaponId is ID of the weapon that user is trying to buy
@@ -252,7 +275,7 @@ function buyWeapon() { // function is called when user clicks button to purchase
 function unlockWeapon(weaponIndex) {
     let weaponImg = document.querySelector(weaponsList[weaponIndex].id + "Img");
 
-    // removing .itemBtnLocked class from an element each time, so each time we 
+    // since we are removing .itemBtnLocked class from an element each iteration, in every iteration we 
     // call document.querySelector(".itemBtnLocked") the next element will be called as it always returns 
     // the first element w the corresponding class
     let weaponBtn = document.querySelector(".itemBtnLocked"); 
