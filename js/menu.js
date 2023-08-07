@@ -123,10 +123,10 @@ function init() { // initialization
     bindWeaponBtns();
 }
 
-// adds event listener to each ".itemBtnUnlocked" button with buyWeapon(), 
-// every time weapon is bought, unlockWeapon() is called and the number of elements with
-// .itemBtnUnlocked increases by 1 each time, so have to do querySelectorAll(".itemBtnUnlocked") and relink each
-// unlocked weapon button with buyWeapon() PLUS the new .itemBtnUnlocked element with buyWeapon()
+// this function is called on initilization and when a new button is unlocked
+// each button with .itemBtnUnlocked class will be binded to buyWeapon(), when a weapon is bought
+// is will unlock the next weapon and give the next weapon the class .itemBtnUnlocked, thus having to 
+// call this function again to link the new button
 function bindWeaponBtns() { 
     let weaponUnlockedBtns = document.querySelectorAll(".itemBtnUnlocked"); // weaponUnlockedBtns is array of elements
     for (let i=0; i<weaponUnlockedBtns.length; ++i) {

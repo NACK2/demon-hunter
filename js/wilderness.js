@@ -15,6 +15,18 @@ let bushes = []; // array of bush elements
 let slimes = []; // array of slime elements
 let landCoords = land.getBoundingClientRect(); // # of pixels land is from (0, 0) of the window
 
+function init() {
+    randomBushSpawn(); 
+    randomSlimeSpawn();
+    while (!slimeSpawningDone); // waiting loop: waiting for all slimes to be spawned before player can move around
+    userRun(); // player running
+
+    exitBtn.onclick = gameMenu;
+
+    if (player.getHaveBoots()) // if user bought speed boots, set player speed to 4
+        player.setSpeed(4);
+}
+
 function gameMenu() {
     window.location = "menu.html";
 }
@@ -39,6 +51,8 @@ function checkCollision(entity1, entity2) { // returns true if entity1 and entit
     return false;
 }
 
+// this function is constantly being called to updates user's coords when running, and checks if user is colliding
+// with any mobs 
 function userRun() {
     player.updatePos(); // updates player's x and y positions with the velocity 
     player.getElement().style.left = player.getPos().x + "px";
@@ -69,7 +83,7 @@ function battleScreen() { // function is called when player encounters a mob, sw
 function battleSlime() { // fight with slime
     let slime = new Slime();
     // while (slime.getHealth() > 0) {
-
+        
     // }
 }
 
@@ -193,18 +207,6 @@ function userStopped(e) {
     player.getVelX(0);
     player.getVelY(0);
     player.getElement().classList.remove("running"); // running animation stops when key released
-}
-
-function init() {
-    randomBushSpawn(); 
-    randomSlimeSpawn();
-    while (!slimeSpawningDone); // waiting loop: waiting for all slimes to be spawned before player can move around
-    userRun(); // player running
-
-    exitBtn.onclick = gameMenu;
-
-    if (player.getHaveBoots()) // if user bought speed boots, set player speed to 4
-        player.setSpeed(4);
 }
 
 init();
