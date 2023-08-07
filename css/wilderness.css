@@ -1,4 +1,9 @@
 @font-face {
+    font-family: "pixelFont";
+    src: url(../fonts/Px437_AMI_EGA_9x14.ttf); 
+}
+
+@font-face {
     font-family: "pressStart2P";
     src: url(../fonts/PressStart2P-Regular.ttf);
 }
@@ -127,20 +132,21 @@ body {
     }
 }
 
-#battleContainer {
-     animation: unblur 1s linear; /* everytime battle screen is started it will start by unblurring */
-
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    background-size: cover; /* image will stretch to fit screen */
-    background-image: url("https://pokemonrevolution.net/forum/uploads/monthly_2021_03/DVMT-6OXcAE2rZY.jpg.afab972f972bd7fbd4253bc7aa1cf27f.jpg");
+/* should do this to transition slime from default position to bounce starting position*/
+@keyframes regularToBounce {
+    from {
+        width: 200px;
+        height: 160px;
+        background-size: 200px 160px; 
+    }
+    to {
+        width: 230px;
+        height: 90px;
+        background-size: 230px 90px;
+    }
 }
 
+/* default slime bounce */
 @keyframes bounce {
     0% {
         width: 230px;
@@ -194,13 +200,29 @@ body {
     }
 }
 
+#battleContainer {
+    display: none;
+    animation: unblur 1s linear; /* we verytime battle screen is started it will start by unblurring */
+}
+
+#battleBackground {
+    position: relative;
+    top: 0;
+    left: 0;
+    background-size: 100vw 80vh; /* vw = viewport width, vh = viewport height*/
+    height: 80vh;
+    background-image: url("https://pokemonrevolution.net/forum/uploads/monthly_2021_03/DVMT-6OXcAE2rZY.jpg.afab972f972bd7fbd4253bc7aa1cf27f.jpg");
+}
+
 #battleSlime {
-    animation: bounce 1s 3 ease-in-out, groundShatter 1.5s 3s ease-in-out; /* groundShatter starts after 3s delay */
+    /* regularToBounce for 0.5s after 1.5s delay (2s total), 
+    bounce starts after 2s delay (so right after regularToBounce finishes) for 3 iterations, each iteration is 1s (3s total),
+    groundShatter starts 5s delay (so right after the first two animations are finished) for 1.5s */
+    animation: regularToBounce 0.5s 1.5s, bounce 1s 3 2s ease-in-out, groundShatter 1.5s 5s ease-in-out;
     position: relative;
     width: 200px;
     height: 160px;
     background-size: 200px 160px;
-    
     top: 50%;
     margin: auto; /* centres slime on X axis */
    
@@ -222,6 +244,19 @@ body {
 
     font-size: 20px;
     font-family: "Audiowide";
+}
 
+#battleConsoleMenu {
+    margin-top: 5px;
+    height: 160px;
+    background-color: rgb(30, 30, 30);
+    border: black solid 5px;
+    border-radius: 10px;
+}
 
+#battleConsoleText {
+    font-family: "pixelFont";
+    font-size: 25px;
+    color: white;
+    padding-left: 20px;
 }

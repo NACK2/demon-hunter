@@ -6,10 +6,13 @@ let slimeSpawningDone = false; // flag to show when all slimes have been spawned
 const player = new Player();
 
 const exitBtn = document.querySelector("#exitBtn");
+const runBtn = document.querySelector("#runBtn");
+
 const land = document.querySelector("#land");
 const text = document.querySelector("#text");
 const wildernessContainer = document.querySelector("#wildernessContainer"); // Container w/ everything on wilderness page
 const battleContainer = document.querySelector("#battleContainer");
+const battleConsoleText = document.querySelector("#battleConsoleText");
 
 let bushes = []; // array of bush elements
 let slimes = []; // array of slime elements
@@ -22,6 +25,7 @@ function init() {
     userRun(); // player running
 
     exitBtn.onclick = gameMenu;
+    // runBtn.onclick = wildernessScreen; FIX THIS
 
     if (player.getHaveBoots()) // if user bought speed boots, set player speed to 4
         player.setSpeed(4);
@@ -70,20 +74,42 @@ function userRun() {
     }
 }
 
-function transitionAnimation() { // slowly blurs screen and switches from wilderness to battle screen
+// slowly blurs screen and switches from wilderness to battle screen
+function transitionAnimation() { 
     setTimeout(battleScreen, 1000); // after 1s delay battleScreen() will be called, switching from wilderness to battle screen
     land.style.animation = "blur 1s linear"; // during the 1s delay doing the blur animation
 }
 
-function battleScreen() { // function is called when player encounters a mob, switches from wilderness to battle screen
+// function is called when player encounters a mob, switches from wilderness to battle screen
+function battleScreen() { 
     wildernessContainer.style.display = "none"; // everything on screen will disappear (such as wilderness, exit btn, text)
     battleContainer.style.display = "block"; // go to battle screen
 }
 
+// // function is called when player is running from battle encounter with mob
+// function wildernessScreen() {
+//     battleContainer.style.display = "none"; 
+//     wildernessContainer.style.display = "block";
+
+//     // removing old bushes and slimes and spawning new ones 
+//     for (let i=0; i<NUM_BUSHES; ++i) {
+//         land.removeChild(bushes[i]);
+//     }
+//     for (let i=0; i<NUM_SLIMES; ++i) {
+//         land.removeChild(slimes[i]);
+//     }
+
+//     bushes = []; // emptying arrays
+//     slimes = [];
+
+//     init();
+// }
+
 function battleSlime() { // fight with slime
     let slime = new Slime();
+    battleConsoleText.innerText = "Attacks are not implemented yet!";
     // while (slime.getHealth() > 0) {
-        
+
     // }
 }
 
