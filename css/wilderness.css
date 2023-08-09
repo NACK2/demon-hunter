@@ -225,6 +225,7 @@ body {
     margin: auto;
     
     top: 35%;
+    border: rgb(25, 25, 25) 3px solid;
     background-color: black;
     vertical-align: middle;
     text-align: center;
@@ -250,8 +251,10 @@ body {
 #healthBarGreen {
     background: linear-gradient(0deg, rgba(12,119,33,1) 0%, rgba(9,235,54,1) 100%);
     border-radius: 10px;
+    /* 100% height and width means 100% of the parents height and width, and the parent is #healthBarRed, so this 
+    will perfectly overlap #healthBarRed */
     height: 100%;
-    width: 100%;
+    width: 100%
 }
 
 #battleSlime {
@@ -279,11 +282,37 @@ body {
 .battleBtns {
     vertical-align: middle; /* to make sure all the buttons are on same vertical alignment */
     margin: 0 10px 10px 0;
-    width: 200px;
+    width: 210px;
     height: 70px;
-
     font-size: 20px;
     font-family: "Audiowide";
+
+    background: linear-gradient(0deg, rgba(73,71,71,1) 0%, rgba(196,187,187,1) 100%);
+    border: black solid 5px;
+    box-shadow: 0 0 10px #eee;
+    border-radius: 10px;
+}
+
+#runBtn {
+    vertical-align: middle; /* to make sure all the buttons are on same vertical alignment */
+    margin: 0 10px 10px 0;
+    width: 210px;
+    height: 70px;
+    font-size: 20px;
+    font-family: "Audiowide";
+
+    background: linear-gradient(0deg, rgba(168,9,9,1) 0%, rgba(227,12,12,1) 100%);
+    border: black 5px solid;
+    box-shadow: 0 0 10px #eee;
+    border-radius: 10px;
+}
+
+/* text shrinking animation upon hovering on button */
+.battleBtns:hover, #runBtn:hover {
+    cursor: cell;
+    color: white;
+    transition: 0.5s; 
+    font-size: 17px;
 }
 
 #battleConsoleMenu {

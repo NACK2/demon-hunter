@@ -22,7 +22,7 @@ let landCoords = land.getBoundingClientRect(); // # of pixels land is from (0, 0
 function init() {
     spawnEntities(); // spawns mobs and init's player running
     exitBtn.onclick = gameMenu;
-    runBtn.onclick = wildernessScreen; // FIX THIS
+    runBtn.onclick = wildernessScreen;
 
     if (player.getHaveBoots()) // if user bought speed boots, set player speed to 4
         player.setSpeed(4);
