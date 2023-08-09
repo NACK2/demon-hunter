@@ -219,16 +219,51 @@ body {
     background-image: url("https://pokemonrevolution.net/forum/uploads/monthly_2021_03/DVMT-6OXcAE2rZY.jpg.afab972f972bd7fbd4253bc7aa1cf27f.jpg");
 }
 
+/* black background of health bar*/
+#healthBarContainer {
+    position: relative;
+    margin: auto;
+    
+    top: 35%;
+    background-color: black;
+    vertical-align: middle;
+    text-align: center;
+    border-radius: 10px;
+    width: 15%;
+    height: 7%;
+
+    /* centres health progress bar in the middle of container*/
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+/* this is the red part that shows of the health progress bar when there is damage inflicted*/
+#healthBarRed {
+    background: linear-gradient(0deg, rgba(238,10,10,1) 0%, rgba(142,11,11,1) 100%);
+    border-radius: 10px;
+    height: 50%;
+    width: 90%;
+}
+
+/* actual health of the health progress bar, change the width to change the health */
+#healthBarGreen {
+    background: linear-gradient(0deg, rgba(12,119,33,1) 0%, rgba(9,235,54,1) 100%);
+    border-radius: 10px;
+    height: 100%;
+    width: 100%;
+}
+
 #battleSlime {
     /* regularToBounce for 0.5s after 1.5s delay (2s total), 
     bounce starts after 2s delay (so right after regularToBounce finishes) for 3 iterations, each iteration is 1s (3s total),
     groundShatter starts 5s delay (so right after the first two animations are finished) for 1.5s */
-    animation: regularToBounce 0.5s 1.5s, bounce 1s 3 2s ease-in-out, groundShatter 1.5s 5s ease-in-out;
+    /* animation: regularToBounce 0.5s 1.5s, bounce 1s 3 2s ease-in-out, groundShatter 1.5s 5s ease-in-out; */
     position: relative;
     width: 200px;
     height: 160px;
     background-size: 200px 160px;
-    top: 50%;
+    top: 40%;
     margin: auto; /* centres slime on X axis */
    
     background-image: url("../img/monsters/slime.webp");

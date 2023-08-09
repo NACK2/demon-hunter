@@ -13,6 +13,7 @@ const text = document.querySelector("#text");
 const wildernessContainer = document.querySelector("#wildernessContainer"); // Container w/ everything on wilderness page
 const battleContainer = document.querySelector("#battleContainer");
 const battleConsoleText = document.querySelector("#battleConsoleText");
+const healthBar = document.querySelector("#healthBarGreen");
 
 let bushes = []; // array of bush elements
 let slimes = []; // array of slime elements
@@ -120,6 +121,7 @@ function wildernessScreen() {
 function battleSlime() { // fight with slime
     let slime = new Slime();
     battleConsoleText.innerText = "Attacks are not implemented yet!";
+    // healthBar.style.width = "70%";
     // while (slime.getHealth() > 0) {
 
     // }
