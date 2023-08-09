@@ -200,6 +200,11 @@ body {
     }
 }
 
+/* will be used as transition effect when going from wilderness to battle screen */
+.blurAnimation {
+    animation: blur 1s linear;
+}
+
 #battleContainer {
     display: none;
     animation: unblur 1s linear; /* we verytime battle screen is started it will start by unblurring */

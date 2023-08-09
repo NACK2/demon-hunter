@@ -19,16 +19,25 @@ let slimes = []; // array of slime elements
 let landCoords = land.getBoundingClientRect(); // # of pixels land is from (0, 0) of the window
 
 function init() {
-    randomBushSpawn(); 
-    randomSlimeSpawn();
-    while (!slimeSpawningDone); // waiting loop: waiting for all slimes to be spawned before player can move around
-    userRun(); // player running
-
+    spawnEntities(); // spawns mobs and init's player running
     exitBtn.onclick = gameMenu;
-    // runBtn.onclick = wildernessScreen; FIX THIS
+    runBtn.onclick = wildernessScreen; // FIX THIS
 
     if (player.getHaveBoots()) // if user bought speed boots, set player speed to 4
         player.setSpeed(4);
+}
+
+// this function will spawn all entities and init player running abilities, function is called upon init or 
+// when player is returning from the battle screen 
+function spawnEntities() {
+    // altho default value of slimeSpawningDone is already false, could have been set 
+    // to true on a previous call to randomSlimeSpawn();
+    slimeSpawningDone = false; 
+
+    randomBushSpawn(); 
+    randomSlimeSpawn(); // slimeSpawningDone will be set true at the end of randomSlimeSpawn()
+    while (!slimeSpawningDone); // polling loop: waiting for all slimes to be spawned before player can move around
+    userRun(); // init player running abilities
 }
 
 function gameMenu() {
@@ -76,34 +85,37 @@ function userRun() {
 
 // slowly blurs screen and switches from wilderness to battle screen
 function transitionAnimation() { 
-    setTimeout(battleScreen, 1000); // after 1s delay battleScreen() will be called, switching from wilderness to battle screen
-    land.style.animation = "blur 1s linear"; // during the 1s delay doing the blur animation
+    // setTimeout will call battleScreen() after a 1s delay which will switch from wilderness to battle screen, before 
+    // that 1s is finished there will be a blur effect
+    setTimeout(battleScreen, 1000);
+    land.classList.add("blurAnimation"); // blur effect
 }
 
 // function is called when player encounters a mob, switches from wilderness to battle screen
 function battleScreen() { 
+    land.classList.remove("blurAnimation");
     wildernessContainer.style.display = "none"; // everything on screen will disappear (such as wilderness, exit btn, text)
     battleContainer.style.display = "block"; // go to battle screen
 }
 
-// // function is called when player is running from battle encounter with mob
-// function wildernessScreen() {
-//     battleContainer.style.display = "none"; 
-//     wildernessContainer.style.display = "block";
+// function is called when player is running away from battle encounter with mob
+function wildernessScreen() {
+    battleContainer.style.display = "none"; 
+    wildernessContainer.style.display = "block";
 
-//     // removing old bushes and slimes and spawning new ones 
-//     for (let i=0; i<NUM_BUSHES; ++i) {
-//         land.removeChild(bushes[i]);
-//     }
-//     for (let i=0; i<NUM_SLIMES; ++i) {
-//         land.removeChild(slimes[i]);
-//     }
+    // removing old bushes and slimes and spawning new ones 
+    for (let i=0; i<NUM_BUSHES; ++i) {
+        land.removeChild(bushes[i]);
+    }
+    for (let i=0; i<NUM_SLIMES; ++i) {
+        land.removeChild(slimes[i]);
+    }
 
-//     bushes = []; // emptying arrays
-//     slimes = [];
+    bushes = []; // emptying arrays
+    slimes = [];
 
-//     init();
-// }
+    spawnEntities(); // respawn new locations for mobs
+}
 
 function battleSlime() { // fight with slime
     let slime = new Slime();
@@ -126,6 +138,7 @@ function randomBushSpawn() { // randomizes location of bushes
     for (let i=0; i<NUM_BUSHES; ++i) { 
         let bushElement = document.createElement("bush"); // creating element 
         bushElement.id = "bush"; // giving element the bush id
+
         bushElement = getRandomCoords(bushElement); // gives bush random coords
         land.appendChild(bushElement);
 
@@ -152,23 +165,15 @@ function randomSlimeSpawn() { // basically same as randomBushSpawn()
         slimeElement = getRandomCoords(slimeElement);
         land.appendChild(slimeElement);
 
-        // checking if curr slime collides w ANY previously spawned slime, if so re-randomize coords for curr slime 
+        // checking if curr slime collides player or any previously spawned slime, if so re-randomize coords for curr slime,
+        // while loop will go until no entities are colliding 
         for (let j=0; j<slimes.length; ++j) {
-            while (checkCollision(slimes[j], slimeElement)) {
+            while (checkCollision(slimes[j], slimeElement) || checkCollision(slimeElement, player.getElement())) {
                 land.removeChild(slimeElement);
                 slimeElement = getRandomCoords(slimeElement);
             }
             land.appendChild(slimeElement);
         }
-
-        // checking if curr slime collides with player (this would be bad because all mobs are spawned before
-        // player can even move, meaning that player would collide with slime even tho player hasn't even moved yet,
-        // we want the player to have to MOVE around to encounter a mob, not encounter it as soon as spawning in)
-        while (checkCollision(slimeElement, player.getElement())) {
-            land.removeChild(slimeElement);
-            slimeElement = getRandomCoords(slimeElement);
-        }
-        land.appendChild(slimeElement);
 
         slimes.push(slimeElement); // slimes will be array of slime instances
     }
