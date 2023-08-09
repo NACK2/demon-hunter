@@ -7,6 +7,9 @@ const player = new Player();
 
 const exitBtn = document.querySelector("#exitBtn");
 const runBtn = document.querySelector("#runBtn");
+const basicAttackBtn = document.querySelector("#basicAttackBtn");
+const chargedAttackBtn = document.querySelector("#chargedAttackBtn");
+const ultimateAttackBtn = document.querySelector("#ultimateAttackBtn");
 
 const land = document.querySelector("#land");
 const text = document.querySelector("#text");
@@ -121,10 +124,15 @@ function wildernessScreen() {
 function battleSlime() { // fight with slime
     let slime = new Slime();
     battleConsoleText.innerText = "Attacks are not implemented yet!";
+    basicAttackBtn.onclick = doBasicAttack();
     // healthBar.style.width = "70%";
     // while (slime.getHealth() > 0) {
 
     // }
+}
+
+function doBasicAttack() {
+    // console.log(player.getWeapon());
 }
 
 function getRandomCoords(entity) {

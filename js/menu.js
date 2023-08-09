@@ -1,6 +1,12 @@
 let haveBoots = false; // flag for if user bought speed boots
 let inventoryList = []; // inventoryList only consists of weapons, doesnt include speed boots
-let equippedWeaponId = "fists"; // stores currently equipped weapon's id, the default weapon is fists
+let equippedWeapon = { // stores currently equipped weapon's id, the default weapon is fists
+    name: "fists",
+    id: "#fists",
+    price: 0,
+    power: 5,
+    unlocked: true
+}; 
 let health = 50;
 let gold = 30;
 let xp = 0;
@@ -10,7 +16,7 @@ let weaponsList = [
         name: "slingshot",
         id: "#slingshot",
         price: 10,
-        power: 5,
+        power: 10,
         // to buy a weapon you must buy every weapon weaker than that weapon first, 
         // hence you start off only being able to buy the first, so unlocked = true only for first weapon
         unlocked: true 
@@ -19,7 +25,7 @@ let weaponsList = [
         name: "baseball bat",
         id: "#baseballBat",
         price: 30,
-        power: 10, 
+        power: 15, 
         unlocked: false
     },
     {
@@ -77,7 +83,7 @@ function init() { // initialization
     let savedXp = localStorage.getItem("xp");
     let savedInventory = localStorage.getItem("inventory"); // remember, savedInventory only has weapons, no boots
     let savedBoots = localStorage.getItem("boots");
-    let savedEquippedWeapon = localStorage.getItem("equippedWeaponId");
+    let savedEquippedWeapon = localStorage.getItem("equippedWeapon");
 
     if (savedHealth != null) { // check that key exists
         healthText.innerText = savedHealth + " HP";
@@ -107,7 +113,7 @@ function init() { // initialization
         bootsImg.style.background = "linear-gradient(0deg, rgba(10,96,9,1) 0%, rgba(24,222,14,1) 100%)"; // make background green
     }
     if (savedEquippedWeapon != null) {
-        equippedWeaponId = savedEquippedWeapon; 
+        equippedWeapon = JSON.parse(savedEquippedWeapon); 
     }
 
     // init buttons
@@ -168,9 +174,9 @@ function inventory() {
     for (let i=0; i<inventoryList.length; ++i) { // makes all weapons that the player bought visible in inventory
         document.querySelector(inventoryList[i].id + "Figure").style.display = "inline-block";
 
-        if (inventoryList[i].id == equippedWeaponId) { // make equipped weapon's background green
+        if (inventoryList[i].id == equippedWeapon.id) { // make equipped weapon's background green
              // make background green
-            document.querySelector(equippedWeaponId + "InvImg").style.background = "linear-gradient(0deg, rgba(10,96,9,1) 0%, rgba(24,222,14,1) 100%)";
+            document.querySelector(equippedWeapon.id + "InvImg").style.background = "linear-gradient(0deg, rgba(10,96,9,1) 0%, rgba(24,222,14,1) 100%)";
         }
         else {
             // default colour
@@ -187,21 +193,28 @@ function inventory() {
 
 // called when user clicks on a button to equip a weapon
 function equipWeapon() {
-    // "this" will be binded to the button element that was clicked because of addEventListener()
+    // addEventListener() will make it so that "this" will be binded to the button element that was clicked
     let weaponId = '#' + this.id;
-    if (weaponId != equippedWeaponId) { // equipping new weapon
-        // change prev equipped weapon's background image to gray (default colour)
-        document.querySelector(equippedWeaponId + "InvImg").style.background = "linear-gradient(0deg, rgba(80,78,78,1) 0%, rgba(203,201,201,1) 100%)"; 
 
-        equippedWeaponId = weaponId; // update equipped weapon id
+    if (weaponId != equippedWeapon.id) { // equipping new weapon
+        let weaponToEquip; // using weaponId we are finding the weapon object with that id within our inventory
+        for (let i=0; i<inventoryList.length; ++i) {
+            if (weaponId == inventoryList[i].id) 
+                weaponToEquip = inventoryList[i];
+        }
+
+        // change prev equipped weapon's background image to gray (default colour)
+        document.querySelector(equippedWeapon.id + "InvImg").style.background = "linear-gradient(0deg, rgba(80,78,78,1) 0%, rgba(203,201,201,1) 100%)"; 
+
+        equippedWeapon = weaponToEquip; // update equipped weapon 
 
         // making new equipped weapon's background image to green
-        document.querySelector(weaponId + "InvImg").style.background = "linear-gradient(0deg, rgba(10,96,9,1) 0%, rgba(24,222,14,1) 100%)";
-        consoleText.innerText = "Weapon equipped!";
-        localStorage.setItem("equippedWeaponId", equippedWeaponId); // saving equipped weapon data
+        document.querySelector(equippedWeapon.id + "InvImg").style.background = "linear-gradient(0deg, rgba(10,96,9,1) 0%, rgba(24,222,14,1) 100%)";
+        consoleText.innerText = "Successfully equipped a " + equippedWeapon.name + "!";
+        localStorage.setItem("equippedWeapon", JSON.stringify(equippedWeapon)); // saving equipped weapon data
     }
     else  // weapon chosen is already equipped
-        consoleText.innerText = "Weapon already equipped!";
+        consoleText.innerText = "Already equipped " + equippedWeapon.name + "!";
 }
 
 function wilderness() {
@@ -257,13 +270,13 @@ function buyWeapon() {
             else { // successful purchase
                 gold -= weaponsList[i].price; 
                 goldText.innerText = gold + " G";
-                equippedWeaponId = weaponsList[i].id; // do this bc by default equips most recently bought weapon
+                equippedWeapon = weaponsList[i]; // do this bc by default equips most recently bought weapon
                 inventoryList.push(weaponsList[i]); // add weapon to inventory
                 consoleText.innerText = "Successfully bought and equipped a " + weaponsList[i].name + "!";
 
                 localStorage.setItem("gold", JSON.stringify(gold)); // saving gold data
                 localStorage.setItem("inventory", JSON.stringify(inventoryList)); // saving inventory data
-                localStorage.setItem("equippedWeaponId", equippedWeaponId); // saving equipped weapon data
+                localStorage.setItem("equippedWeapon", JSON.stringify(equippedWeapon)); // saving equipped weapon data
                 unlockWeapon(i); // unlocking weapon turns the weapon background from gray to green in weapon buy menu
             }
         }

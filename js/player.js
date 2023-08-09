@@ -4,7 +4,7 @@ class Player {
     #playerPos;
     #playerVel;
     #health;
-    #equippedWeaponId; // user's currently equipped weapon, not all weapons
+    #equippedWeapon; // user's currently equipped weapon, not all weapons
     #PLAYER_SPEED;
     #haveBoots
 
@@ -13,10 +13,16 @@ class Player {
         this.#PLAYER_SPEED = 2; // default speed w/o speed boots
         this.#haveBoots = JSON.parse(localStorage.getItem("boots")); // checking if player bought speed boots 
 
-        if (localStorage.getItem("equippedWeaponId") == null) // returns null if user hasn't bought any weapons
-            this.#equippedWeaponId = "fists"; // fists is default starter weapon
+        if (localStorage.getItem("equippedWeapon") == null) // returns null if user hasn't bought any weapons
+            this.#equippedWeapon = { // fists is default starter weapon
+            name: "fists",
+            id: "#fists",
+            price: 0,
+            power: 5,
+            unlocked: true
+        };
         else 
-            this.#equippedWeaponId = localStorage.getItem("equippedWeaponId");
+            this.#equippedWeapon = JSON.parse(localStorage.getItem("equippedWeapon"));
 
         if (localStorage.getItem("health") == null) // returns null if user hasn't bought extra health yet
             this.#health = 50; // default health
@@ -73,11 +79,11 @@ class Player {
     }
 
     setWeapon(weapon) {
-        this.#equippedWeaponId = weapon;
+        this.#equippedWeapon = weapon;
     }
 
     getWeapon() {
-        return this.#equippedWeaponId;
+        return this.#equippedWeapon;
     }
 
     getHealth() {
@@ -87,6 +93,12 @@ class Player {
     getHaveBoots() {
         return this.#haveBoots;
     }
+
+    // basicAttack() {
+    //     if ("#slingshot" == this.getWeapon()) {
+
+    //     }
+    // }
 
     // add attacks
 }
