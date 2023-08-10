@@ -15,8 +15,9 @@ const land = document.querySelector("#land");
 const text = document.querySelector("#text");
 const wildernessContainer = document.querySelector("#wildernessContainer"); // Container w/ everything on wilderness page
 const battleContainer = document.querySelector("#battleContainer");
+const battleBackground = document.querySelector("#battleBackground");
 const battleConsoleText = document.querySelector("#battleConsoleText");
-const healthBar = document.querySelector("#healthBarGreen");
+// const healthBar = document.querySelector("#healthBarGreen");
 
 let bushes = []; // array of bush elements
 let slimes = []; // array of slime elements
@@ -121,18 +122,20 @@ function wildernessScreen() {
     spawnEntities(); // respawn new locations for mobs
 }
 
-function battleSlime() { // fight with slime
-    let slime = new Slime();
-    battleConsoleText.innerText = "Attacks are not implemented yet!";
-    basicAttackBtn.onclick = doBasicAttack();
-    // healthBar.style.width = "70%";
-    // while (slime.getHealth() > 0) {
-
-    // }
+function initBattleBtns(mob) {
+    basicAttackBtn.addEventListener("click", function() {
+        player.basicAttack(mob);
+    })
 }
 
-function doBasicAttack() {
-    // console.log(player.getWeapon());
+function battleSlime() { // fight with slime
+    let slime = new Slime("battleSlime"); // battleSlime is an ID
+    battleBackground.appendChild(slime.getElement());
+    initBattleBtns(slime);
+
+    battleConsoleText.innerText = "*****PAGE IS WORK IN PROGRESS*****";
+
+    // slime.getElement().style.animation = "regularToBounce 0.5s 1.5s, bounce 1s 3 2s ease-in-out, groundShatter 1.5s 5s ease-in-out";
 }
 
 function getRandomCoords(entity) {
@@ -146,7 +149,7 @@ function getRandomCoords(entity) {
 
 function randomBushSpawn() { // randomizes location of bushes
     for (let i=0; i<NUM_BUSHES; ++i) { 
-        let bushElement = document.createElement("bush"); // creating element 
+        let bushElement = document.createElement("div"); // creating element 
         bushElement.id = "bush"; // giving element the bush id
 
         bushElement = getRandomCoords(bushElement); // gives bush random coords
@@ -169,7 +172,7 @@ function randomBushSpawn() { // randomizes location of bushes
 
 function randomSlimeSpawn() { // basically same as randomBushSpawn()
     for (let i=0; i<NUM_SLIMES; ++i) {
-        let slime = new Slime();
+        let slime = new Slime("wildSlime"); // wildSlime is an ID
         let slimeElement = slime.getElement();
 
         slimeElement = getRandomCoords(slimeElement);

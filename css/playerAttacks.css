@@ -1,0 +1,16 @@
+@keyframes basicAttackAnimation {
+    from {
+        background-image: url("../img/attacks/basicAttack.gif");
+    }
+    to {
+        background-image: url("../img/attacks/basicAttack.gif");
+    }
+}
+
+#basicAttack {
+    animation: basicAttackAnimation 0.5s linear;
+    height: 100%;
+
+    background-size:cover; 
+    width: 90%;
+}

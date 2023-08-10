@@ -94,11 +94,18 @@ class Player {
         return this.#haveBoots;
     }
 
-    // basicAttack() {
-    //     if ("#slingshot" == this.getWeapon()) {
+    // THESE ATTACKS WILL BE CHANGED LATER ON TO VARY DEPENDING ON WHAT WEAPON USER HAS
+    basicAttack(mob) {
+       // must make sure the mob has 0 children, if it has > 0 that means another attack is in progress
+       if (mob.getElement().childNodes.length == 0) { 
+            let basicAttack = document.createElement("div");
+            basicAttack.id = "basicAttack";
+            mob.getElement().appendChild(basicAttack); // layering basicAttack animation on top of mob 
 
-    //     }
-    // }
+            mob.decHealth(this.#equippedWeapon.power); // remove mob's health from health and health bar
 
-    // add attacks
+            // after attack animation is done, remove the attack animation from the mob
+            setTimeout(function() { mob.getElement().removeChild(basicAttack); }, 1000); 
+       }
+    }
 }

@@ -75,14 +75,6 @@ body {
     height: 100px;
     background-size: 240px 100px; /* Bigger player */
     background-position: -80px 0;
-
-    /* commenting this out because player won't be running by default */
-    /*
-    animation: run;
-    animation-duration: 0.3s;
-    animation-iteration-count: infinite; /* animation runs forever 
-    animation-timing-function: linear; /* speed of the animation, linear means constant animation speed throughout
-    border: 2px red solid;*/
 }
 
 .running {
@@ -129,74 +121,6 @@ body {
     }
     to {
         filter: blur(100px);
-    }
-}
-
-/* should do this to transition slime from default position to bounce starting position*/
-@keyframes regularToBounce {
-    from {
-        width: 200px;
-        height: 160px;
-        background-size: 200px 160px; 
-    }
-    to {
-        width: 230px;
-        height: 90px;
-        background-size: 230px 90px;
-    }
-}
-
-/* default slime bounce */
-@keyframes bounce {
-    0% {
-        width: 230px;
-        height: 90px;
-        background-size: 230px 90px;
-    }
-    50% {
-        width: 120px;
-        height: 190px;
-        background-size: 120px 190px;
-        transform: translateY(-250px);
-    }
-    100% {
-        width: 230px;
-        height: 90px;
-        background-size: 230px 90px;
-        transform: translateY(0px);
-    }
-}
-
-@keyframes groundShatter { /* slime charges up a jump, and jumps high and smashes into ground */
-    0% { /* starts off from where last bounce ended off */
-        width: 230px;
-        height: 90px;
-        background-size: 230px 90px;
-        top: 50%
-    }
-    30%, 60% { /* slime digs into ground, preparing to jump high */
-        width: 270px;
-        height: 70px;
-        background-size: 270px 70px;
-        top: 60%
-    }
-    70%, 80% { /* high jump */
-        width: 100px;
-        height: 200px;
-        background-size: 100px 200px;
-        top: 5%
-    }
-    85% { /* smash into ground */
-        width: 280px;
-        height: 60px;
-        background-size: 280px 60px;
-        top: 70%
-    }
-    100% { /* regular slime state */
-        width: 200px;
-        height: 160px;
-        background-size: 200px 160px;
-        top: 50%
     }
 }
 
@@ -257,18 +181,14 @@ body {
     width: 100%
 }
 
-#battleSlime {
-    /* regularToBounce for 0.5s after 1.5s delay (2s total), 
-    bounce starts after 2s delay (so right after regularToBounce finishes) for 3 iterations, each iteration is 1s (3s total),
-    groundShatter starts 5s delay (so right after the first two animations are finished) for 1.5s */
-    /* animation: regularToBounce 0.5s 1.5s, bounce 1s 3 2s ease-in-out, groundShatter 1.5s 5s ease-in-out; */
+#battleSlime { /* slime on battle screen */
     position: relative;
     width: 200px;
     height: 160px;
     background-size: 200px 160px;
     top: 40%;
     margin: auto; /* centres slime on X axis */
-   
+    
     background-image: url("../img/monsters/slime.webp");
 }
 
