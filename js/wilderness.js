@@ -17,7 +17,6 @@ const wildernessContainer = document.querySelector("#wildernessContainer"); // C
 const battleContainer = document.querySelector("#battleContainer");
 const battleBackground = document.querySelector("#battleBackground");
 const battleConsoleText = document.querySelector("#battleConsoleText");
-// const healthBar = document.querySelector("#healthBarGreen");
 
 let bushes = []; // array of bush elements
 let slimes = []; // array of slime elements
@@ -107,7 +106,7 @@ function battleScreen() {
 function wildernessScreen() {
     battleContainer.style.display = "none"; 
     wildernessContainer.style.display = "block";
-
+    
     // removing old bushes and slimes and spawning new ones 
     for (let i=0; i<NUM_BUSHES; ++i) {
         land.removeChild(bushes[i]);
@@ -122,6 +121,7 @@ function wildernessScreen() {
     spawnEntities(); // respawn new locations for mobs
 }
 
+// parameter mob is the mob the player will be fighting
 function initBattleBtns(mob) {
     basicAttackBtn.addEventListener("click", function() {
         player.basicAttack(mob);
@@ -129,8 +129,7 @@ function initBattleBtns(mob) {
 }
 
 function battleSlime() { // fight with slime
-    let slime = new Slime("battleSlime"); // battleSlime is an ID
-    battleBackground.appendChild(slime.getElement());
+    let slime = new Slime(); 
     initBattleBtns(slime);
 
     battleConsoleText.innerText = "*****PAGE IS WORK IN PROGRESS*****";
@@ -151,7 +150,6 @@ function randomBushSpawn() { // randomizes location of bushes
     for (let i=0; i<NUM_BUSHES; ++i) { 
         let bushElement = document.createElement("div"); // creating element 
         bushElement.id = "bush"; // giving element the bush id
-
         bushElement = getRandomCoords(bushElement); // gives bush random coords
         land.appendChild(bushElement);
 
@@ -172,9 +170,8 @@ function randomBushSpawn() { // randomizes location of bushes
 
 function randomSlimeSpawn() { // basically same as randomBushSpawn()
     for (let i=0; i<NUM_SLIMES; ++i) {
-        let slime = new Slime("wildSlime"); // wildSlime is an ID
-        let slimeElement = slime.getElement();
-
+        let slimeElement = document.createElement("div");
+        slimeElement.id = "wildSlime";
         slimeElement = getRandomCoords(slimeElement);
         land.appendChild(slimeElement);
 

@@ -97,7 +97,7 @@ body {
 }
 
 #wildSlime { /* wilderness slime */
-    visibility: hidden;
+    /* visibility: hidden; */
     position: absolute;
     background-image: url("../img/monsters/slime.webp");
 

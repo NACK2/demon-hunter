@@ -1,3 +1,19 @@
+@keyframes death {
+    0% {
+        filter: opacity(0%);
+    }
+    50% {
+        filter: opacity(100%);
+    }
+    100% {
+        filter: opacity(0%);
+    }
+}
+
+.deathAnimation {
+    animation: death 1s 2 linear;
+}
+
 /* -=SLIME ATTACKS=- */
 
 /* should do this to transition slime from default position to bounce starting position*/
