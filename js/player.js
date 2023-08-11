@@ -96,12 +96,13 @@ class Player {
 
     // THESE ATTACKS WILL BE CHANGED LATER ON TO VARY DEPENDING ON WHAT WEAPON USER HAS
     basicAttack(mob) {
-        // in order to have basicAttackHit animation every time, have to remove it then readd it each time
-        mob.getElement().classList.remove("basicAttackHit");   
-
         // must make sure the mob has 0 children, if it # of children > 0 that means another attack is in progress
         if (mob.getElement().childNodes.length == 0 && mob.getHealth() > 0) { 
-            mob.decHealth(this.#equippedWeapon.power); // remove mob's health from health and health bar
+            mob.decHealth(this.#equippedWeapon.power); // mob's health decreases from being attacked
+
+            // in order to have basicAttackHit animation every time, have to remove it then readd it each time
+            mob.getElement().classList.remove("basicAttackHit");   
+            mob.getElement().classList.remove("ultimateAttackHit");   
 
             let basicAttack = document.createElement("div");
             basicAttack.id = "basicAttack";
@@ -110,12 +111,37 @@ class Player {
             // after attack animation is done, remove the attack animation from the mob
             setTimeout(function() { mob.getElement().removeChild(basicAttack); }, 1000); 
 
-            if (mob.getHealth() > 0)  { // getting hit by basic attack animation, won't occur if mob dies
+            if (mob.getHealth() > 0)  { // mob getting hit by basic attack animation, won't occur if mob dies
                 // https://www.harrytheo.com/blog/2021/02/restart-a-css-animation-with-javascript/
                 // according to that link, to restart animation have to trigger "DOM Overflow" by calling element.offsetWidth
                 mob.getElement().offsetWidth;
                 mob.getElement().classList.add("basicAttackHit");
             }
        }
+    }
+
+    // MAYBE CREATE attack(level) function cuz ultimate and basic  attacks are basically exact same funciton
+    ultimateAttack(mob) { 
+        if (mob.getElement().childNodes.length == 0 && mob.getHealth() > 0) { 
+            mob.decHealth(this.#equippedWeapon.power * 1.5);
+            
+            mob.getElement().classList.remove("ultimateAttackHit");  
+            mob.getElement().classList.remove("basicAttackHit");   
+
+            let ultimateAttack = document.createElement("div");
+            ultimateAttack.id = "ultimateAttack";
+            mob.getElement().appendChild(ultimateAttack); 
+
+            setTimeout(function() { mob.getElement().removeChild(ultimateAttack); }, 1500); 
+
+            if (mob.getHealth() > 0) {
+                mob.getElement().offsetWidth;
+                mob.getElement().classList.add("ultimateAttackHit");
+            }
+            // if (mob.getHealth() <= 0) {
+            //     this.#healthBarContainer.style.visibility = "hidden"; // make health bar invisible when slime dies
+            //     setTimeout(mob.death, 1500, mob.getElement());
+            // }
+        }
     }
 }

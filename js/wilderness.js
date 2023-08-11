@@ -126,6 +126,10 @@ function initBattleBtns(mob) {
     basicAttackBtn.addEventListener("click", function() {
         player.basicAttack(mob);
     })
+
+    ultimateAttackBtn.addEventListener("click", function() {
+        player.ultimateAttack(mob);
+    })
 }
 
 function battleSlime() { // fight with slime

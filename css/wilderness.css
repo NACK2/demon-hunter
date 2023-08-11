@@ -183,6 +183,7 @@ body {
 
 #battleSlime { /* slime on battle screen */
     position: relative;
+    
     width: 200px;
     height: 160px;
     background-size: 200px 160px;
@@ -245,7 +246,7 @@ body {
 
 #battleConsoleText {
     font-family: "pixelFont";
-    font-size: 25px;
+    font-size: 50px;
     color: white;
     padding-left: 20px;
 }

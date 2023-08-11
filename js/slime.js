@@ -42,6 +42,15 @@ class Slime {
         }
     }
 
+    // death(slimeElem) {
+    //     slimeElem.classList.add("deathAnimation");
+    //     this.#healthBarContainer.style.visibility = "hidden"; // make health bar invisible when slime dies
+
+    //     // after deathAnimation is finished, will go back to wilderness screen and remove death animation
+    //     setTimeout(wildernessScreen, 1500);
+    //     setTimeout(this.removeDeathAnimation, 1500, slimeElem); // slime element is argument
+    // }
+
     removeDeathAnimation(slimeElem) { 
         slimeElem.classList.remove("deathAnimation");
     }
