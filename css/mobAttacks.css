@@ -1,18 +1,50 @@
 @keyframes death {
     0% {
         filter: opacity(0%);
+        transform: scale(1);
     }
     50% {
         filter: opacity(100%);
+        transform: scale(1.1);
     }
     100% {
         filter: opacity(0%);
+        transform: scale(1);
     }
 }
 
 .deathAnimation {
-    animation: death 1s 2 linear;
+    animation: death 0.5s 0.1s 3 ease-in-out forwards; /* forwards maintains final state of animation */
 }
+
+/* animation when mob gets hit by basic attack */
+@keyframes basicAttackHit {
+    0% {
+        transform: translateX(0px);
+        filter:blur(0px);
+    }
+    50% {
+        transform: translateX(-40px);
+        filter:blur(20px);
+    }
+    100% {
+        transform: translateX(0px);
+        filter:blur(0px);
+    }
+}
+
+/* IDEA FOR ULT ATTACK HIT EFFECT: USE INVERT AND SPAM LEFT RIGHT TRANSLATEX*/
+
+
+/* IDEA FOR SLIME ATTACKS:
+-ground shatter
+- confusion (slime slides side to side very quickly, use translateX filter
+-confusion + attack?: blur filter
+ */
+
+
+
+
 
 /* -=SLIME ATTACKS=- */
 

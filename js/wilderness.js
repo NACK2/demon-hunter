@@ -106,7 +106,7 @@ function battleScreen() {
 function wildernessScreen() {
     battleContainer.style.display = "none"; 
     wildernessContainer.style.display = "block";
-    
+
     // removing old bushes and slimes and spawning new ones 
     for (let i=0; i<NUM_BUSHES; ++i) {
         land.removeChild(bushes[i]);
@@ -117,7 +117,7 @@ function wildernessScreen() {
 
     bushes = []; // emptying arrays
     slimes = [];
-
+  
     spawnEntities(); // respawn new locations for mobs
 }
 
@@ -178,7 +178,7 @@ function randomSlimeSpawn() { // basically same as randomBushSpawn()
         // checking if curr slime collides player or any previously spawned slime, if so re-randomize coords for curr slime,
         // while loop will go until no entities are colliding 
         for (let j=0; j<slimes.length; ++j) {
-            while (checkCollision(slimes[j], slimeElement) || checkCollision(slimeElement, player.getElement())) {
+            while (checkCollision(slimeElement, slimes[j]) || checkCollision(slimeElement, player.getElement())) {
                 land.removeChild(slimeElement);
                 slimeElement = getRandomCoords(slimeElement);
             }
@@ -254,4 +254,4 @@ init();
 window.addEventListener("keydown", userMovement); // when any key is pressed userMovement() will be called
 window.addEventListener("keyup", userStopped); // when any key is let go userStopped() will be called
 
-// player movement basics is inspired from "Tech2 etc"
+// userMovement() userStopped() checkCollision() inspired from "Tech2 etc"
