@@ -14,7 +14,7 @@
 }
 
 .deathAnimation {
-    animation: death 0.5s 0.1s 3 ease-in-out forwards; /* forwards maintains final state of animation */
+    animation: death 0.7s 2 ease-in-out forwards; /* forwards maintains final state of animation */
 }
 
 /* animation when mob gets hit by basic attack */
@@ -31,6 +31,10 @@
         transform: translateX(0px);
         filter:blur(0px);
     }
+}
+
+.basicAttackHit {
+    animation: basicAttackHit 0.1s 1 linear;
 }
 
 /* IDEA FOR ULT ATTACK HIT EFFECT: USE INVERT AND SPAM LEFT RIGHT TRANSLATEX*/

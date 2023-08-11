@@ -35,8 +35,8 @@ class Slime {
             this.#healthBarContainer.style.visibility = "hidden"; // make health bar invisible when slime dies
 
             // after deathAnimation is finished, will go back to wilderness screen and remove death animation
-            setTimeout(wildernessScreen, 2000);
-            setTimeout(this.removeDeathAnimation, 2000, this.#slimeElement); // slime element is argument
+            setTimeout(wildernessScreen, 1500);
+            setTimeout(this.removeDeathAnimation, 1500, this.#slimeElement); // slime element is argument
 
             //player.updateXP(3532y460);
         }

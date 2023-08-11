@@ -96,21 +96,26 @@ class Player {
 
     // THESE ATTACKS WILL BE CHANGED LATER ON TO VARY DEPENDING ON WHAT WEAPON USER HAS
     basicAttack(mob) {
-       // must make sure the mob has 0 children, if it # of children > 0 that means another attack is in progress
-       if (mob.getElement().childNodes.length == 0 && mob.getHealth() > 0) { 
+        // in order to have basicAttackHit animation every time, have to remove it then readd it each time
+        mob.getElement().classList.remove("basicAttackHit");   
+
+        // must make sure the mob has 0 children, if it # of children > 0 that means another attack is in progress
+        if (mob.getElement().childNodes.length == 0 && mob.getHealth() > 0) { 
             mob.decHealth(this.#equippedWeapon.power); // remove mob's health from health and health bar
 
             let basicAttack = document.createElement("div");
             basicAttack.id = "basicAttack";
             mob.getElement().appendChild(basicAttack); // layering basicAttack animation on top of mob 
             
-             // after attack animation is done, remove the attack animation from the mob
-             setTimeout(function() { mob.getElement().removeChild(basicAttack); }, 1000); 
+            // after attack animation is done, remove the attack animation from the mob
+            setTimeout(function() { mob.getElement().removeChild(basicAttack); }, 1000); 
 
-            if (mob.getHealth() > 0) // default getting hit by basic attack animation
-                mob.getElement().style.animation = "basicAttackHit 0.1s 1 linear";
-            else // if mob died, dont do default hit animation
-                mob.getElement().style.animation = "";
+            if (mob.getHealth() > 0)  { // getting hit by basic attack animation, won't occur if mob dies
+                // https://www.harrytheo.com/blog/2021/02/restart-a-css-animation-with-javascript/
+                // according to that link, to restart animation have to trigger "DOM Overflow" by calling element.offsetWidth
+                mob.getElement().offsetWidth;
+                mob.getElement().classList.add("basicAttackHit");
+            }
        }
     }
 }

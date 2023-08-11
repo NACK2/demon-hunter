@@ -10,7 +10,6 @@
 #basicAttack {
     animation: basicAttackAnimation 0.5s linear;
     height: 100%;
-
-    background-size:cover; 
     width: 90%;
+    background-size:cover; 
 }
