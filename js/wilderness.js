@@ -2,6 +2,7 @@ const NUM_BUSHES = 15;
 const NUM_SLIMES = 7;
 
 let slimeSpawningDone = false; // flag to show when all slimes have been spawned
+let currMob; // is current mob that player is fighting
 
 const player = new Player();
 
@@ -121,20 +122,31 @@ function wildernessScreen() {
     spawnEntities(); // respawn new locations for mobs
 }
 
-// parameter mob is the mob the player will be fighting
-function initBattleBtns(mob) {
-    basicAttackBtn.addEventListener("click", function() {
-        player.basicAttack(mob);
-    })
+// binds each attack button on the battle screen
+function initBattleBtns() {
+    basicAttackBtn.addEventListener("click", basicAttackEventHandler);
+    ultimateAttackBtn.addEventListener("click", ultimateAttackEventHandler);
+}
 
-    ultimateAttackBtn.addEventListener("click", function() {
-        player.ultimateAttack(mob);
-    })
+function basicAttackEventHandler(e) {
+    player.basicAttack(currMob);
+}
+
+function ultimateAttackEventHandler(e) {
+    player.ultimateAttack(currMob);
+}
+
+// unbinds each attack button on the battle screen
+function unbindBattleBtns(mob) {
+    basicAttackBtn.removeEventListener("click", basicAttackEventHandler);
+    ultimateAttackBtn.removeEventListener("click", ultimateAttackEventHandler);
+    // currMob = null;
 }
 
 function battleSlime() { // fight with slime
     let slime = new Slime(); 
-    initBattleBtns(slime);
+    currMob = slime; // sets current mob player is fighting
+    initBattleBtns();
 
     battleConsoleText.innerText = "*****PAGE IS WORK IN PROGRESS*****";
 
