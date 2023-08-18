@@ -4,6 +4,8 @@ class Player {
     #playerPos;
     #playerVel;
     #health;
+    #gold;
+    #xp;
     #equippedWeapon; // user's currently equipped weapon, not all weapons
     #PLAYER_SPEED;
     #haveBoots
@@ -28,6 +30,16 @@ class Player {
             this.#health = 50; // default health
         else
             this.#health = parseInt(localStorage.getItem("health"));
+
+        if (localStorage.getItem("gold") == null) 
+            this.#gold = 30;
+        else 
+            this.#gold = parseInt(localStorage.getItem("gold"));
+
+        if (localStorage.getItem("xp") == null) 
+            this.#xp = 0;
+        else 
+            this.#xp = parseInt(localStorage.getItem("xp"));    
 
         this.#playerPos = { // players coordinates 
             x: parseInt(this.#playerElement.getBoundingClientRect().left),
@@ -88,6 +100,14 @@ class Player {
 
     getHealth() {
         return this.#health;
+    }
+
+    getGold() {
+        return this.#gold;
+    }
+
+    getXp() {
+        return this.#xp;
     }
 
     getHaveBoots() {

@@ -16,7 +16,7 @@ class Slime {
         this.#healthBar.style.width = "100%"; // making health bar 100% health/green
         this.#MAX_HEALTH = 30; // default health
         this.#health = 30;
-        this.#xp = 20; 
+        this.#xp = 10; 
     }
 
     getElement() {

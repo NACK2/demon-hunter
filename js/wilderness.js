@@ -28,16 +28,9 @@ function init() {
     exitBtn.onclick = gameMenu;
     runBtn.onclick = wildernessScreen;
 
-    let savedHealth = localStorage.getItem("health"); // getItem() returns null if data key does not exist
-    let savedGold = localStorage.getItem("gold");
-    let savedXp = localStorage.getItem("xp");
-
-    if (savedHealth != null)  // check that key exists
-        healthText.innerText = savedHealth + " HP";
-    if (savedGold != null) 
-        goldText.innerText = savedGold + " G";
-    if (savedXp != null) 
-        xpText.innerText = savedXp + " XP";
+    healthText.innerText = player.getHealth() + " HP";
+    goldText.innerText = player.getGold() + " G";
+    xpText.innerText = player.getXp() + " XP";
 
     if (player.getHaveBoots()) // if user bought speed boots, set player speed to 4
         player.setSpeed(4);
