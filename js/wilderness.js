@@ -129,15 +129,15 @@ function initBattleBtns() {
 }
 
 function basicAttackEventHandler(e) {
-    player.basicAttack(currMob);
+    player.basicAttack();
 }
 
 function ultimateAttackEventHandler(e) {
-    player.ultimateAttack(currMob);
+    player.ultimateAttack();
 }
 
 // unbinds each attack button on the battle screen
-function unbindBattleBtns(mob) {
+function unbindBattleBtns() {
     basicAttackBtn.removeEventListener("click", basicAttackEventHandler);
     ultimateAttackBtn.removeEventListener("click", ultimateAttackEventHandler);
     // currMob = null;
@@ -146,7 +146,7 @@ function unbindBattleBtns(mob) {
 function battleSlime() { // fight with slime
     let slime = new Slime(); 
     currMob = slime; // sets current mob player is fighting
-    initBattleBtns();
+    initBattleBtns(slime);
 
     battleConsoleText.innerText = "*****PAGE IS WORK IN PROGRESS*****";
 
@@ -215,36 +215,35 @@ function userMovement(e) {
     switch (e.key) {
         case 'w':
             if (playerCoords.top <= landCoords.top) // stop player if they hit border
-                player.getVelY(0);
+                player.setVelY(0);
             else
-                player.getVelY(PLAYER_SPEED * -1);
+                player.setVelY(PLAYER_SPEED * -1);
                 
             player.getElement().style.backgroundImage = "url('./img/wilderness/player_front.png')";
             break;
 
         case 'a':
             if (playerCoords.left <= landCoords.left) 
-                player.getVelX(0);
+                player.setVelX(0);
             else 
-                player.getVelX(PLAYER_SPEED * -1);
+                player.setVelX(PLAYER_SPEED * -1);
             
             player.getElement().style.backgroundImage = "url('./img/wilderness/player_left.png')";
             break;
 
         case 's':
             if (playerCoords.top + playerCoords.height >= landCoords.bottom) 
-                player.getVelY(0);
+                player.setVelY(0);
             else 
-                player.getVelY(PLAYER_SPEED);
-            
+                player.setVelY(PLAYER_SPEED);
             player.getElement().style.backgroundImage = "url('./img/wilderness/player_back.png')";
             break;
 
         case 'd':
             if (playerCoords.left + playerCoords.width > landCoords.right) 
-                player.getVelX(0);
+                player.setVelX(0);
             else 
-                player.getVelX(PLAYER_SPEED);
+                player.setVelX(PLAYER_SPEED);
             
             player.getElement().style.backgroundImage = "url('./img/wilderness/player_right.png')";
             break;
@@ -261,8 +260,8 @@ function userMovement(e) {
 }
 
 function userStopped(e) {
-    player.getVelX(0);
-    player.getVelY(0);
+    player.setVelX(0);
+    player.setVelY(0);
     player.getElement().classList.remove("running"); // running animation stops when key released
 }
 

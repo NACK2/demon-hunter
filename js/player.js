@@ -40,11 +40,11 @@ class Player {
         };
     }
 
-    getVelX(x) { // didnt create a setPlayerVel() that sets both x and y bc we are always updating only one at a time 
+    setVelX(x) { // didnt create a setPlayerVel() that sets both x and y bc we are always updating only one at a time 
         this.#playerVel.x = x;
     }
 
-    getVelY(y) {
+    setVelY(y) {
         this.#playerVel.y = y;
     }
 
@@ -83,7 +83,7 @@ class Player {
     }
 
     getWeapon() {
-        return this.#equippedWeapon;
+        return equippedWeapon;
     }
 
     getHealth() {
@@ -95,53 +95,55 @@ class Player {
     }
 
     // THESE ATTACKS WILL BE CHANGED LATER ON TO VARY DEPENDING ON WHAT WEAPON USER HAS
-    basicAttack(mob) {
+    basicAttack() { 
         // must make sure the mob has 0 children, if it # of children > 0 that means another attack is in progress
-        if (mob.getElement().childNodes.length == 0 && mob.getHealth() > 0) { 
-            mob.decHealth(this.#equippedWeapon.power); // mob's health decreases from being attacked
-
-            // in order to have basicAttackHit animation every time, have to remove it then readd it each time
-            mob.getElement().classList.remove("basicAttackHit");   
-            mob.getElement().classList.remove("ultimateAttackHit");   
-
+        if (currMob.getElement().childNodes.length == 0) { 
+            currMob.decHealth(this.#equippedWeapon.power); // currMob's health decreases from being attacked
+            
             let basicAttack = document.createElement("div");
             basicAttack.id = "basicAttack";
-            mob.getElement().appendChild(basicAttack); // layering basicAttack animation on top of mob 
+            currMob.getElement().appendChild(basicAttack); // layering basicAttack animation on top of currMob 
             
-            // after attack animation is done, remove the attack animation from the mob
-            setTimeout(function() { mob.getElement().removeChild(basicAttack); }, 1000); 
+            // after attack animation is done, remove the attack animation from the currMob
+            setTimeout(function() { currMob.getElement().removeChild(basicAttack); }, 500); 
 
-            if (mob.getHealth() > 0)  { // mob getting hit by basic attack animation, won't occur if mob dies
-                // https://www.harrytheo.com/blog/2021/02/restart-a-css-animation-with-javascript/
-                // according to that link, to restart animation have to trigger "DOM Overflow" by calling element.offsetWidth
-                mob.getElement().offsetWidth;
-                mob.getElement().classList.add("basicAttackHit");
-            }
+            // https://www.harrytheo.com/blog/2021/02/restart-a-css-animation-with-javascript/
+            // according to that link, to restart animation have to trigger "DOM Overflow" by calling element.offsetWidth
+            currMob.getElement().offsetWidth;
+            currMob.getElement().classList.add("basicAttackHit"); // animation mob makes when getting hit
+
+            // remove mob getting hit animation
+            setTimeout(function() { currMob.getElement().classList.remove("basicAttackHit"); }, 500);
+
+            if (currMob.getHealth() <= 0) // if mob dies, do death animation after player attack animations are finished
+                setTimeout(this.mobDeath, 500); 
        }
     }
 
     // MAYBE CREATE attack(level) function cuz ultimate and basic  attacks are basically exact same funciton
-    ultimateAttack(mob) { 
-        if (mob.getElement().childNodes.length == 0 && mob.getHealth() > 0) { 
-            mob.decHealth(this.#equippedWeapon.power * 1.5);
+    ultimateAttack() { 
+        if (currMob.getElement().childNodes.length == 0) { 
+            currMob.decHealth(this.#equippedWeapon.power * 1.5);
             
-            mob.getElement().classList.remove("ultimateAttackHit");  
-            mob.getElement().classList.remove("basicAttackHit");   
-
             let ultimateAttack = document.createElement("div");
             ultimateAttack.id = "ultimateAttack";
-            mob.getElement().appendChild(ultimateAttack); 
+            currMob.getElement().appendChild(ultimateAttack); 
+            setTimeout(function() { currMob.getElement().removeChild(ultimateAttack); }, 1400); 
 
-            setTimeout(function() { mob.getElement().removeChild(ultimateAttack); }, 1500); 
+            currMob.getElement().offsetWidth;
+            currMob.getElement().classList.add("ultimateAttackHit");
+            setTimeout(function() { currMob.getElement().classList.remove("ultimateAttackHit"); }, 1400); 
 
-            if (mob.getHealth() > 0) {
-                mob.getElement().offsetWidth;
-                mob.getElement().classList.add("ultimateAttackHit");
-            }
-            // if (mob.getHealth() <= 0) {
-            //     this.#healthBarContainer.style.visibility = "hidden"; // make health bar invisible when slime dies
-            //     setTimeout(mob.death, 1500, mob.getElement());
-            // }
+            if (currMob.getHealth() <= 0)
+                setTimeout(this.mobDeath, 1500);
         }
     }
+
+    mobDeath() {
+        // SHOULD GIVE PLAYER GOLD AND EXPERIENCE HERE FOR KILLING MOB
+        currMob.getElement().classList.add("deathAnimation"); 
+        setTimeout(wildernessScreen, 1500);
+        setTimeout(function() {currMob.getElement().classList.remove("deathAnimation");}, 1500); // slime element is argument
+        unbindBattleBtns(); // unbinds the battle screen buttons
+    }    
 }

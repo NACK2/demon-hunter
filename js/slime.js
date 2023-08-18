@@ -27,32 +27,12 @@ class Slime {
     // return to wilderness screen 
     decHealth(dmg) {
         this.#health -= dmg;
-        this.#healthBar.style.width = this.#health / this.#MAX_HEALTH * 100 + "%";
+        let healthBarPercent = this.#health / this.#MAX_HEALTH * 100 + "%";
 
-        // slime died
-        if (this.#health <= 0) {
-            this.#slimeElement.classList.add("deathAnimation");
-            this.#healthBarContainer.style.visibility = "hidden"; // make health bar invisible when slime dies
-
-            // after deathAnimation is finished, will go back to wilderness screen and remove death animation
-            setTimeout(wildernessScreen, 1500);
-            setTimeout(this.removeDeathAnimation, 1500, this.#slimeElement); // slime element is argument
-
-            //player.updateXP(3532y460);
-        }
-    }
-
-    // death(slimeElem) {
-    //     slimeElem.classList.add("deathAnimation");
-    //     this.#healthBarContainer.style.visibility = "hidden"; // make health bar invisible when slime dies
-
-    //     // after deathAnimation is finished, will go back to wilderness screen and remove death animation
-    //     setTimeout(wildernessScreen, 1500);
-    //     setTimeout(this.removeDeathAnimation, 1500, slimeElem); // slime element is argument
-    // }
-
-    removeDeathAnimation(slimeElem) { 
-        slimeElem.classList.remove("deathAnimation");
+        if (healthBarPercent < "0%") // health bar won't recognize number if it's negative
+            this.#healthBar.style.width = "0%";
+        else 
+            this.#healthBar.style.width = healthBarPercent;
     }
 
     getHealth() {
