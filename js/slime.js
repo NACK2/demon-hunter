@@ -3,9 +3,10 @@ class Slime {
     #healthBarContainer;
     #healthBar;
     #slimeElement;
-    #health;
+    #health; // slimes health
     #MAX_HEALTH;
-    #xp; // this is the amount of XP slime gives when killed
+    #gold // amount of gold slime gives when killed
+    #xp; // amount of XP slime gives when killed
 
     constructor() {
         this.#slimeElement = document.querySelector("#battleSlime");
@@ -16,6 +17,7 @@ class Slime {
         this.#healthBar.style.width = "100%"; // making health bar 100% health/green
         this.#MAX_HEALTH = 30; // default health
         this.#health = 30;
+        this.#gold = 10;
         this.#xp = 10; 
     }
 
@@ -35,11 +37,15 @@ class Slime {
             this.#healthBar.style.width = healthBarPercent;
     }
 
-    getHealth() {
+    getHealth() { // slimes health
         return this.#health;
     }
 
-    getXp() {
+    dropGold() { // amount of gold dropped when slime is killed
+        return this.#gold;
+    }
+
+    dropXp() { // amount of xp dropped when slime is killed
         return this.#xp;
     }
 }

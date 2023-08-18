@@ -102,8 +102,16 @@ class Player {
         return this.#health;
     }
 
+    incGold(gold) {
+        this.#gold += gold;
+    }
+
     getGold() {
         return this.#gold;
+    }
+
+    incXp(xp) {
+        this.#xp += xp
     }
 
     getXp() {
@@ -137,7 +145,7 @@ class Player {
 
             // if mob dies, do death animation after player attack animations are finished
             if (currMob.getHealth() <= 0)
-                setTimeout(this.mobDeath, 500); 
+                setTimeout(this.mobDeath, 500, this); // sending player class as a parameter 
        }
     }
 
@@ -155,7 +163,7 @@ class Player {
             setTimeout(function() { currMob.getElement().classList.remove("chargedAttackHit"); }, 1000);
             
             if (currMob.getHealth() <= 0)
-                setTimeout(this.mobDeath, 1000);
+                setTimeout(this.mobDeath, 1000, this);
         }
     }
 
@@ -174,13 +182,20 @@ class Player {
             setTimeout(function() { currMob.getElement().classList.remove("ultimateAttackHit"); }, 1400); 
 
             if (currMob.getHealth() <= 0)
-                setTimeout(this.mobDeath, 1400);
+                setTimeout(this.mobDeath, 1400, this);
         }
     }
 
-    // called when mob dies
-    mobDeath() {
-        // SHOULD GIVE PLAYER GOLD AND EXPERIENCE HERE FOR KILLING MOB
+    // called when mob dies, gives player gold and xp, plays death animation
+    mobDeath(player) {
+        player.incGold(currMob.dropGold()); // player gains the gold that mob dropped after mob was killed
+        goldText.innerText = player.getGold() + " XP"; // update battle screen gold text
+        localStorage.setItem("gold", JSON.stringify(player.getGold())); // save data
+
+        player.incXp(currMob.dropXp());
+        xpText.innerText = player.getXp() + " XP"; 
+        localStorage.setItem("xp", JSON.stringify(player.getXp())); 
+
         currMob.getElement().classList.add("death"); 
         setTimeout(function() {currMob.getElement().classList.remove("death");}, 1500);
         setTimeout(wildernessScreen, 1500); // go back to wilderness screen after death animation finishes
