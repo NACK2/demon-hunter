@@ -114,6 +114,10 @@ class Player {
         this.#xp += xp
     }
 
+    decXp(xp) {
+        this.#xp -= xp;
+    }
+
     getXp() {
         return this.#xp;
     }
@@ -150,7 +154,12 @@ class Player {
     }
 
     chargedAttack() {
-        if (currMob.getElement().childNodes.length == 0) {
+        // cost of charged attack is 10 xp
+        if (currMob.getElement().childNodes.length == 0 && this.#xp >= 10) {
+            this.#xp -= 10; // remove xp
+            xpText.innerText = this.#xp + " XP"; // update xp text
+            // NOTE: xp will be saved to localStorage AFTER mob dies, so dont have to save each time player attacks
+
             currMob.decHealth(this.#equippedWeapon.power * 1.2);
 
             let chargedAttack = document.createElement("div");
@@ -169,7 +178,11 @@ class Player {
 
     // MAYBE CREATE attack(level) function cuz ultimate and basic  attacks are basically exact same funciton
     ultimateAttack() { 
-        if (currMob.getElement().childNodes.length == 0) { 
+        // cost of ult attack is 20 xp
+        if (currMob.getElement().childNodes.length == 0 && this.#xp >= 20) { 
+            this.#xp -= 20;
+            xpText.innerText = this.#xp + " XP"; 
+
             currMob.decHealth(this.#equippedWeapon.power * 1.5);
             
             let ultimateAttack = document.createElement("div");
@@ -189,7 +202,7 @@ class Player {
     // called when mob dies, gives player gold and xp, plays death animation
     mobDeath(player) {
         player.incGold(currMob.dropGold()); // player gains the gold that mob dropped after mob was killed
-        goldText.innerText = player.getGold() + " XP"; // update battle screen gold text
+        goldText.innerText = player.getGold() + " G"; // update battle screen gold text
         localStorage.setItem("gold", JSON.stringify(player.getGold())); // save data
 
         player.incXp(currMob.dropXp());
