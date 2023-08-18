@@ -28,6 +28,17 @@ function init() {
     exitBtn.onclick = gameMenu;
     runBtn.onclick = wildernessScreen;
 
+    let savedHealth = localStorage.getItem("health"); // getItem() returns null if data key does not exist
+    let savedGold = localStorage.getItem("gold");
+    let savedXp = localStorage.getItem("xp");
+
+    if (savedHealth != null)  // check that key exists
+        healthText.innerText = savedHealth + " HP";
+    if (savedGold != null) 
+        goldText.innerText = savedGold + " G";
+    if (savedXp != null) 
+        xpText.innerText = savedXp + " XP";
+
     if (player.getHaveBoots()) // if user bought speed boots, set player speed to 4
         player.setSpeed(4);
 }
@@ -153,8 +164,6 @@ function battleSlime() { // fight with slime
     let slime = new Slime(); 
     currMob = slime; // sets current mob player is fighting
     initBattleBtns(slime);
-
-    battleConsoleText.innerText = "*****PAGE IS WORK IN PROGRESS*****";
 
     // slime.getElement().style.animation = "regularToBounce 0.5s 1.5s, bounce 1s 3 2s ease-in-out, groundShatter 1.5s 5s ease-in-out";
 }

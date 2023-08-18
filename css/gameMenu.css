@@ -45,12 +45,12 @@ body {
 #healthImg {
     position: relative;
     left: 5px;
-    padding: 10px 10px 5px 10px;
+    margin: 10px 10px 5px 10px;
     height: 30px;
 }
 
 #goldImg {
-    padding: 0 7px 3px 0;
+    margin: 0 7px 3px 0;
     height: 34px;
 }
 

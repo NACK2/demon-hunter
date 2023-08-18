@@ -131,7 +131,7 @@ body {
 
 #battleContainer {
     display: none;
-    animation: unblur 1s linear; /* we verytime battle screen is started it will start by unblurring */
+    animation: unblur 1s linear; /* everytime battle screen is started it will start by unblurring */
 }
 
 #battleBackground {
@@ -151,8 +151,8 @@ body {
     top: 35%;
     border: rgb(25, 25, 25) 3px solid;
     background-color: black;
-    vertical-align: middle;
-    text-align: center;
+    /* vertical-align: middle;
+    text-align: center; */
     border-radius: 10px;
     width: 15%;
     height: 7%;
@@ -236,17 +236,33 @@ body {
     font-size: 17px;
 }
 
-#battleConsoleMenu {
+#statsContainer {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+
     margin-top: 5px;
-    height: 160px;
+    height: 120px;
     background-color: rgb(30, 30, 30);
     border: black solid 5px;
     border-radius: 10px;
 }
 
-#battleConsoleText {
-    font-family: "pixelFont";
-    font-size: 50px;
+#healthImg, #goldImg {
+    position: relative;
+    margin-right: 10px;
+    height: 45px;
+}
+
+#xpImg {
+    position: relative;
+    height: 45px;
+}
+
+#healthText, #goldText, #xpText {
     color: white;
-    padding-left: 20px;
+    font-family: "Audiowide";
+    font-size: 35px;
+    margin-right: 80px;
 }
