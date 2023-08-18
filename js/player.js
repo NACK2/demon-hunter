@@ -94,8 +94,8 @@ class Player {
         return this.#haveBoots;
     }
 
-    // THESE ATTACKS WILL BE CHANGED LATER ON TO VARY DEPENDING ON WHAT WEAPON USER HAS
     basicAttack() { 
+        // currMob is set to the mob that the player is fighting 
         // must make sure the mob has 0 children, if it # of children > 0 that means another attack is in progress
         if (currMob.getElement().childNodes.length == 0) { 
             currMob.decHealth(this.#equippedWeapon.power); // currMob's health decreases from being attacked
@@ -115,9 +115,28 @@ class Player {
             // remove mob getting hit animation
             setTimeout(function() { currMob.getElement().classList.remove("basicAttackHit"); }, 500);
 
-            if (currMob.getHealth() <= 0) // if mob dies, do death animation after player attack animations are finished
+            // if mob dies, do death animation after player attack animations are finished
+            if (currMob.getHealth() <= 0)
                 setTimeout(this.mobDeath, 500); 
        }
+    }
+
+    chargedAttack() {
+        if (currMob.getElement().childNodes.length == 0) {
+            currMob.decHealth(this.#equippedWeapon.power * 1.2);
+
+            let chargedAttack = document.createElement("div");
+            chargedAttack.id = "chargedAttack";
+            currMob.getElement().appendChild(chargedAttack); 
+            setTimeout(function() {currMob.getElement().removeChild(chargedAttack); }, 1000);
+
+            currMob.getElement().offsetWidth;
+            currMob.getElement().classList.add("chargedAttackHit");
+            setTimeout(function() { currMob.getElement().classList.remove("chargedAttackHit"); }, 1000);
+            
+            if (currMob.getHealth() <= 0)
+                setTimeout(this.mobDeath, 1000);
+        }
     }
 
     // MAYBE CREATE attack(level) function cuz ultimate and basic  attacks are basically exact same funciton
@@ -135,15 +154,16 @@ class Player {
             setTimeout(function() { currMob.getElement().classList.remove("ultimateAttackHit"); }, 1400); 
 
             if (currMob.getHealth() <= 0)
-                setTimeout(this.mobDeath, 1500);
+                setTimeout(this.mobDeath, 1400);
         }
     }
 
+    // called when mob dies
     mobDeath() {
         // SHOULD GIVE PLAYER GOLD AND EXPERIENCE HERE FOR KILLING MOB
-        currMob.getElement().classList.add("deathAnimation"); 
-        setTimeout(wildernessScreen, 1500);
-        setTimeout(function() {currMob.getElement().classList.remove("deathAnimation");}, 1500); // slime element is argument
+        currMob.getElement().classList.add("death"); 
+        setTimeout(function() {currMob.getElement().classList.remove("death");}, 1500);
+        setTimeout(wildernessScreen, 1500); // go back to wilderness screen after death animation finishes
         unbindBattleBtns(); // unbinds the battle screen buttons
     }    
 }

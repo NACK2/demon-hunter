@@ -1,4 +1,4 @@
-@keyframes death {
+@keyframes deathAnimation {
     0% {
         filter: opacity(0%);
         transform: scale(1);
@@ -13,12 +13,12 @@
     }
 }
 
-.deathAnimation {
-    animation: death 0.7s 0.1s 2 ease-in-out forwards; /* forwards maintains final state of animation */
+.death {
+    animation: deathAnimation 0.7s 0.1s 2 ease-in-out forwards; /* forwards maintains final state of animation */
 }
 
 /* animation when mob gets hit by basic attack */
-@keyframes basicAttackHit {
+@keyframes basicAttackHitAnimation {
     0% {
         transform: translateX(0px);
         filter:blur(0px);
@@ -34,10 +34,37 @@
 }
 
 .basicAttackHit {
-    animation: basicAttackHit 0.1s 1 linear;
+    animation: basicAttackHitAnimation 0.1s 1 linear;
 }
 
-@keyframes ultimateAttackHit {
+@keyframes chargedAttackHitAnimation {
+    0% {
+        filter:blur(0px);
+    }
+    20% {
+        transform: translateX(-20px);
+    }
+    40% {
+        transform: translateX(20px);
+        filter:blur(20px);
+    }
+    60% {
+        transform: translateY(-20px);
+        filter:blur(20px);
+    }
+    80% {
+        transform: translateY(20px);
+    }
+    100% {
+        filter:blur(0px);
+    }
+}
+
+.chargedAttackHit {
+    animation: chargedAttackHitAnimation 0.2s 5 linear;
+}
+
+@keyframes ultimateAttackHitAnimation {
     0% {
         transform: translateX(0px);
         filter:invert(0%);
@@ -56,7 +83,7 @@
 }
 
 .ultimateAttackHit {
-    animation: ultimateAttackHit 0.15s 9 linear;
+    animation: ultimateAttackHitAnimation 0.15s 9 linear;
 }
 
 /* IDEA FOR ULT ATTACK HIT EFFECT: USE INVERT AND SPAM LEFT RIGHT TRANSLATEX*/

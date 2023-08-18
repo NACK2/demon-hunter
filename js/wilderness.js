@@ -125,11 +125,16 @@ function wildernessScreen() {
 // binds each attack button on the battle screen
 function initBattleBtns() {
     basicAttackBtn.addEventListener("click", basicAttackEventHandler);
+    chargedAttackBtn.addEventListener("click", chargedAttackEventHandler);
     ultimateAttackBtn.addEventListener("click", ultimateAttackEventHandler);
 }
 
 function basicAttackEventHandler(e) {
     player.basicAttack();
+}
+
+function chargedAttackEventHandler(e) {
+    player.chargedAttack();
 }
 
 function ultimateAttackEventHandler(e) {
@@ -139,6 +144,7 @@ function ultimateAttackEventHandler(e) {
 // unbinds each attack button on the battle screen
 function unbindBattleBtns() {
     basicAttackBtn.removeEventListener("click", basicAttackEventHandler);
+    chargedAttackBtn.removeEventListener("click", chargedAttackEventHandler);
     ultimateAttackBtn.removeEventListener("click", ultimateAttackEventHandler);
     // currMob = null;
 }
