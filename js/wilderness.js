@@ -156,7 +156,7 @@ function unbindBattleBtns() {
 function battleSlime() { // fight with slime
     let slime = new Slime(); 
     currMob = slime; // sets current mob player is fighting
-    initBattleBtns(slime);
+    initBattleBtns();
 
     // slime.getElement().style.animation = "regularToBounce 0.5s 1.5s, bounce 1s 3 2s ease-in-out, groundShatter 1.5s 5s ease-in-out";
 }

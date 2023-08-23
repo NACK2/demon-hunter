@@ -137,19 +137,27 @@ class Player {
             currMob.getElement().appendChild(basicAttack); // layering basicAttack animation on top of currMob 
             
             // after attack animation is done, remove the attack animation from the currMob
-            setTimeout(function() { currMob.getElement().removeChild(basicAttack); }, 500); 
+            basicAttack.onanimationend = () => {
+                currMob.getElement().removeChild(basicAttack);
+            }
 
             // https://www.harrytheo.com/blog/2021/02/restart-a-css-animation-with-javascript/
             // according to that link, to restart animation have to trigger "DOM Overflow" by calling element.offsetWidth
             currMob.getElement().offsetWidth;
             currMob.getElement().classList.add("basicAttackHit"); // animation mob makes when getting hit
 
-            // remove mob getting hit animation
-            setTimeout(function() { currMob.getElement().classList.remove("basicAttackHit"); }, 500);
+             // FIX THIS BUG: currMob.getElement().onanimationend is being called twice because
+            // it calls once when basicAttack ends, and calls agai when basicAttackHit ends, try to figure
+            // out a way so that we can do something like basicAttackHit.onanimationend, similar to basicAttack.onanimationend
 
-            // if mob dies, do death animation after player attack animations are finished
-            if (currMob.getHealth() <= 0)
-                setTimeout(this.mobDeath, 500, this); // sending player class as a parameter 
+            // remove mob getting hit animation
+            currMob.getElement().onanimationend = () => {
+                currMob.getElement().classList.remove("basicAttackHit");
+
+                 // if mob dies, do death animation after player attack animations are finished
+                if (currMob.getHealth() <= 0) 
+                    this.mobDeath();
+            };
        }
     }
 
@@ -165,14 +173,17 @@ class Player {
             let chargedAttack = document.createElement("div");
             chargedAttack.id = "chargedAttack";
             currMob.getElement().appendChild(chargedAttack); 
-            setTimeout(function() {currMob.getElement().removeChild(chargedAttack); }, 1000);
+            chargedAttack.onanimationend = () => {
+                currMob.getElement().removeChild(chargedAttack);
+            }
 
             currMob.getElement().offsetWidth;
             currMob.getElement().classList.add("chargedAttackHit");
-            setTimeout(function() { currMob.getElement().classList.remove("chargedAttackHit"); }, 1000);
-            
-            if (currMob.getHealth() <= 0)
-                setTimeout(this.mobDeath, 1000, this);
+            currMob.getElement().onanimationend = () => {
+                currMob.getElement().classList.remove("chargedAttackHit");
+                if (currMob.getHealth() <= 0) 
+                    this.mobDeath();
+            };
         }
     }
 
@@ -188,30 +199,38 @@ class Player {
             let ultimateAttack = document.createElement("div");
             ultimateAttack.id = "ultimateAttack";
             currMob.getElement().appendChild(ultimateAttack); 
-            setTimeout(function() { currMob.getElement().removeChild(ultimateAttack); }, 1400); 
+            ultimateAttack.onanimationend = () => {
+                currMob.getElement().removeChild(ultimateAttack);
+            }
 
             currMob.getElement().offsetWidth;
             currMob.getElement().classList.add("ultimateAttackHit");
-            setTimeout(function() { currMob.getElement().classList.remove("ultimateAttackHit"); }, 1400); 
-
-            if (currMob.getHealth() <= 0)
-                setTimeout(this.mobDeath, 1400, this);
+            currMob.getElement().onanimationend = () => {
+                currMob.getElement().classList.remove("ultimateAttackHit");
+                if (currMob.getHealth() <= 0) 
+                    this.mobDeath();
+            };
         }
     }
 
     // called when mob dies, gives player gold and xp, plays death animation
-    mobDeath(player) {
-        player.incGold(currMob.dropGold()); // player gains the gold that mob dropped after mob was killed
-        goldText.innerText = player.getGold() + " G"; // update battle screen gold text
-        localStorage.setItem("gold", JSON.stringify(player.getGold())); // save data
+    mobDeath() {
 
-        player.incXp(currMob.dropXp());
-        xpText.innerText = player.getXp() + " XP"; 
-        localStorage.setItem("xp", JSON.stringify(player.getXp())); 
+        this.incGold(currMob.dropGold()); // player gains the gold that mob dropped after mob was killed
+        goldText.innerText = this.getGold() + " G"; // update battle screen gold text
+        localStorage.setItem("gold", JSON.stringify(this.getGold())); // save data
+
+        this.incXp(currMob.dropXp());
+        xpText.innerText = this.getXp() + " XP"; 
+        localStorage.setItem("xp", JSON.stringify(this.getXp())); 
 
         currMob.getElement().classList.add("death"); 
+
+        // FIGURE OUT A WAY TO onanimationend THE DEATH SCREEN ANIMATION REMOVAL
+        
         setTimeout(function() {currMob.getElement().classList.remove("death");}, 1500);
         setTimeout(wildernessScreen, 1500); // go back to wilderness screen after death animation finishes
+
         unbindBattleBtns(); // unbinds the battle screen buttons
     }    
 }

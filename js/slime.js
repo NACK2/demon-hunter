@@ -48,4 +48,9 @@ class Slime {
     dropXp() { // amount of xp dropped when slime is killed
         return this.#xp;
     }
+
+    attack() {
+        // this.#slimeElement.classList.add("groundShatter");
+        // setTimeout(function() { currMob.getElement().classList.remove("groundShatter"); }, 7000);
+    }
 }

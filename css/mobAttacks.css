@@ -136,7 +136,7 @@
     }
 }
 
-@keyframes groundShatter { /* slime charges up a jump, and jumps high and smashes into ground */
+@keyframes smash { /* slime charges up a jump, and jumps high and smashes into ground */
     0% { /* starts off from where last bounce ended off */
         width: 230px;
         height: 90px;
@@ -168,6 +168,11 @@
         /* top: 40%   */
     }
 }
+
+.groundShatter {
+    animation: regularToBounce 0.5s 1.5s, bounce 1s 3 2s ease-in-out, smash 1.5s 5s ease-in-out;
+}
+
 
 /* regularToBounce for 0.5s after 1.5s delay (2s total), 
     bounce starts after 2s delay (so right after regularToBounce finishes) for 3 iterations, each iteration is 1s (3s total),
