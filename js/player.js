@@ -148,7 +148,7 @@ class Player {
 
             currMob.getElement().classList.add("basicAttackHit"); // animation mob makes when getting hit
 
-            // remove mob getting hit animation after its finished
+            // after mob getting hit aniamtion is done, remove the animation
             currMob.getElement().onanimationend = () => {
                 currMob.getElement().classList.remove("basicAttackHit");
                 
@@ -211,7 +211,7 @@ class Player {
         }
     }
 
-    // called when mob dies, gives player gold and xp, plays death animation
+    // called when mob dies, gives player gold and xp, plays death animation, and goes back to wilderness screen
     mobDeath() {
         this.incGold(currMob.dropGold()); // player gains the gold that mob dropped after mob was killed
         goldText.innerText = this.getGold() + " G"; // update battle screen gold text
@@ -223,11 +223,11 @@ class Player {
 
         currMob.getElement().classList.add("death"); 
 
-        // FIGURE OUT A WAY TO onanimationend THE DEATH SCREEN ANIMATION REMOVAL
-        
-        
-        setTimeout(function() {currMob.getElement().classList.remove("death");}, 1500);
-        setTimeout(wildernessScreen, 1500); // go back to wilderness screen after death animation finishes
+        // after death animation is done, remove animation and go back to wilderness screen
+        currMob.getElement().onanimationend = () => {
+            currMob.getElement().classList.remove("death")
+            wildernessScreen();
+        }
 
         unbindBattleBtns(); // unbinds the battle screen buttons
     }    
