@@ -127,34 +127,32 @@ class Player {
     }
 
     basicAttack() { 
-        // currMob is set to the mob that the player is fighting 
+        // currMob is set to the mob that the player is curr fighting 
         // must make sure the mob has 0 children, if it # of children > 0 that means another attack is in progress
         if (currMob.getElement().childNodes.length == 0) { 
             currMob.decHealth(this.#equippedWeapon.power); // currMob's health decreases from being attacked
-            
+
             let basicAttack = document.createElement("div");
             basicAttack.id = "basicAttack";
-            currMob.getElement().appendChild(basicAttack); // layering basicAttack animation on top of currMob 
-            
+            currMob.getElement().appendChild(basicAttack); // making basicAttack animation a child of currMob 
+    
             // after attack animation is done, remove the attack animation from the currMob
-            basicAttack.onanimationend = () => {
+            basicAttack.onanimationend = (event) => { // () => is shorthand for function()
                 currMob.getElement().removeChild(basicAttack);
+
+                // https://stackoverflow.com/questions/71015850/how-to-stop-a-parents-onanimationend-from-running-when-a-child-run-an-animation
+                // "adding the stopPropagation on the child should stop the parent from triggering their event when the child finishes"
+                // since basicAttack is a child of basicAttackHit, we don't want basicAttack to trigger basicAttackHit's onanimationend
+                event.stopPropagation();
             }
 
-            // https://www.harrytheo.com/blog/2021/02/restart-a-css-animation-with-javascript/
-            // according to that link, to restart animation have to trigger "DOM Overflow" by calling element.offsetWidth
-            currMob.getElement().offsetWidth;
             currMob.getElement().classList.add("basicAttackHit"); // animation mob makes when getting hit
 
-             // FIX THIS BUG: currMob.getElement().onanimationend is being called twice because
-            // it calls once when basicAttack ends, and calls agai when basicAttackHit ends, try to figure
-            // out a way so that we can do something like basicAttackHit.onanimationend, similar to basicAttack.onanimationend
-
-            // remove mob getting hit animation
+            // remove mob getting hit animation after its finished
             currMob.getElement().onanimationend = () => {
                 currMob.getElement().classList.remove("basicAttackHit");
-
-                 // if mob dies, do death animation after player attack animations are finished
+                
+                // if mob dies, do death animation after player attack animations are finished
                 if (currMob.getHealth() <= 0) 
                     this.mobDeath();
             };
@@ -173,11 +171,11 @@ class Player {
             let chargedAttack = document.createElement("div");
             chargedAttack.id = "chargedAttack";
             currMob.getElement().appendChild(chargedAttack); 
-            chargedAttack.onanimationend = () => {
+            chargedAttack.onanimationend = (event) => {
                 currMob.getElement().removeChild(chargedAttack);
+                event.stopPropagation();
             }
 
-            currMob.getElement().offsetWidth;
             currMob.getElement().classList.add("chargedAttackHit");
             currMob.getElement().onanimationend = () => {
                 currMob.getElement().classList.remove("chargedAttackHit");
@@ -199,13 +197,13 @@ class Player {
             let ultimateAttack = document.createElement("div");
             ultimateAttack.id = "ultimateAttack";
             currMob.getElement().appendChild(ultimateAttack); 
-            ultimateAttack.onanimationend = () => {
+            ultimateAttack.onanimationend = (event) => {
                 currMob.getElement().removeChild(ultimateAttack);
+                event.stopPropagation();
             }
 
-            currMob.getElement().offsetWidth;
             currMob.getElement().classList.add("ultimateAttackHit");
-            currMob.getElement().onanimationend = () => {
+            currMob.getElement().onanimationend = () => { 
                 currMob.getElement().classList.remove("ultimateAttackHit");
                 if (currMob.getHealth() <= 0) 
                     this.mobDeath();
@@ -215,7 +213,6 @@ class Player {
 
     // called when mob dies, gives player gold and xp, plays death animation
     mobDeath() {
-
         this.incGold(currMob.dropGold()); // player gains the gold that mob dropped after mob was killed
         goldText.innerText = this.getGold() + " G"; // update battle screen gold text
         localStorage.setItem("gold", JSON.stringify(this.getGold())); // save data
@@ -227,6 +224,7 @@ class Player {
         currMob.getElement().classList.add("death"); 
 
         // FIGURE OUT A WAY TO onanimationend THE DEATH SCREEN ANIMATION REMOVAL
+        
         
         setTimeout(function() {currMob.getElement().classList.remove("death");}, 1500);
         setTimeout(wildernessScreen, 1500); // go back to wilderness screen after death animation finishes

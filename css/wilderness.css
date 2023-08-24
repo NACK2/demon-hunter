@@ -183,7 +183,7 @@ body {
 
 #battleSlime { /* slime on battle screen */
     position: relative;
-    
+
     width: 200px;
     height: 160px;
     background-size: 200px 160px;
