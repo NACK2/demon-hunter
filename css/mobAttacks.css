@@ -18,76 +18,6 @@
     animation: deathAnimation 0.7s 0.1s 2 ease-in-out forwards; 
 }
 
-/* animation when mob gets hit by basic attack */
-@keyframes basicAttackHitAnimation {
-    0% {
-        transform: translateX(0px);
-        filter:blur(0px);
-    }
-    50% {
-        transform: translateX(-40px);
-        filter:blur(20px);
-    }
-    100% {
-        transform: translateX(0px);
-        filter:blur(0px);
-    }
-}
-
-.basicAttackHit {
-    animation: basicAttackHitAnimation 0.1s 1 linear;
-}
-
-@keyframes chargedAttackHitAnimation {
-    0% {
-        filter:blur(0px);
-    }
-    20% {
-        transform: translateX(-20px);
-    }
-    40% {
-        transform: translateX(20px);
-        filter:blur(20px);
-    }
-    60% {
-        transform: translateY(-20px);
-        filter:blur(20px);
-    }
-    80% {
-        transform: translateY(20px);
-    }
-    100% {
-        filter:blur(0px);
-    }
-}
-
-.chargedAttackHit {
-    animation: chargedAttackHitAnimation 0.2s 5 linear;
-}
-
-@keyframes ultimateAttackHitAnimation {
-    0% {
-        transform: translateX(0px);
-        filter:invert(0%);
-    }
-    25% {
-        transform: translateX(-40px);
-        filter:invert(100%);
-    }
-    75% {
-        transform: translateX(40px);
-    }
-    100% {
-        transform: translateX(0px);
-        filter:blur(0%);
-    }
-}
-
-.ultimateAttackHit {
-    animation: ultimateAttackHitAnimation 0.15s 9 linear;
-}
-
-/* IDEA FOR ULT ATTACK HIT EFFECT: USE INVERT AND SPAM LEFT RIGHT TRANSLATEX*/
 
 
 /* IDEA FOR SLIME ATTACKS:
@@ -95,12 +25,9 @@
 - confusion (slime slides side to side very quickly, use translateX filter
 -confusion + attack?: blur filter
  */
-
-
-
-
-
-/* -=SLIME ATTACKS=- */
+/*-=-=-=-=-=-=-=-*/
+/* Slime Attacks */
+/*-=-=-=-=-=-=-=*/
 
 /* should do this to transition slime from default position to bounce starting position*/
 @keyframes regularToBounce {
@@ -173,5 +100,27 @@
 }
 
 .groundShatter {
-    animation: regularToBounce 0.5s 1s, bounce 1s 1.5s 2 ease-in-out, smash 1.5s 3.5s ease-in-out;
+    animation: regularToBounce 0.5s 0.5s, bounce 1s 1s 1 ease-in-out, smash 1.5s 2s ease-in-out;
+}
+
+
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+/* Animations player makes when attacked by mob */
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+
+@keyframes groundShatterHitAnimation {
+    0% {
+        filter: grayscale(0%);
+    }
+    50% {
+        filter: grayscale(100%);
+    }
+    100% {
+        filter: grayscale(0%);
+    }
+}
+
+/* when hit by groound shatter */
+.groundShatterHit { 
+    animation: groundShatterHitAnimation 1s 1 linear;
 }

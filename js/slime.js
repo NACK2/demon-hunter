@@ -49,23 +49,38 @@ class Slime {
         return this.#xp;
     }
 
+    // will randomly choose an attack to use against player
     attack() {
+        this.groundShatter();
+    }
+
+    groundShatter() {
         // groundShatter is 3 animations in one class, after animation ends onanimationend() is triggered and
         // the groundShatter class is removed, but in this case onanimationend() is triggered only when the first animation
         // is finished, so using animationCount iterator to make sure to wait for all 3 animations to finish
         let animationCount = 0; 
         this.#slimeElement.classList.add("groundShatter"); // slimes ground shatter attack
-        
-        this.#slimeElement.onanimationstart = () => { 
-            this.#healthBarContainer.style.visibility = "hidden";
-        }
 
-        this.#slimeElement.onanimationend = () => {
+        this.#slimeElement.onanimationend = (event) => {
+            event.stopPropagation(); // to stop the ending of ground shatter from triggering its parents (battleBackground) onanimationend()
+
             ++animationCount;
-            if (animationCount == 3) {
-                currMob.getElement().classList.remove("groundShatter");
-                this.#healthBarContainer.style.visibility = "visible";
+            if (animationCount == 1) { // remove health bar in first part of attack animation
+                this.#healthBarContainer.style.visibility = "hidden";
             }
+            else if (animationCount == 3) { 
+                currMob.getElement().classList.remove("groundShatter");
+                this.#healthBarContainer.style.visibility = "visible"; // health bar comes back once entire animation is finished
+                this.groundShatterHit(); // animation screen makes when hit by ground shatter
+            }
+        }
+    }
+
+    // hit by a ground shatter, grayscale screen
+    groundShatterHit() {
+        battleBackground.classList.add("groundShatterHit");
+        battleBackground.onanimationend = () => {
+            battleBackground.classList.remove("groundShatterHit");
         }
     }
 }

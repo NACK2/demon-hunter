@@ -1,3 +1,7 @@
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+/* Animations when player attacks mob */
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+
 @keyframes basicAttackAnimation {
     from {
         background-image: url("../img/attacks/basicAttack.gif");
@@ -57,4 +61,77 @@
     transform: scale(1.5);
     background-size: contain; 
     background-size: 100% 100%;
+}
+
+
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+/* Animations mob makes when attacked by player */
+/*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
+
+@keyframes basicAttackHitAnimation {
+    0% {
+        transform: translateX(0px);
+        filter:blur(0px);
+    }
+    50% {
+        transform: translateX(-40px);
+        filter:blur(20px);
+    }
+    100% {
+        transform: translateX(0px);
+        filter:blur(0px);
+    }
+}
+
+.basicAttackHit {
+    animation: basicAttackHitAnimation 0.1s 1 linear;
+}
+
+@keyframes chargedAttackHitAnimation {
+    0% {
+        filter:blur(0px);
+    }
+    20% {
+        transform: translateX(-20px);
+    }
+    40% {
+        transform: translateX(20px);
+        filter:blur(20px);
+    }
+    60% {
+        transform: translateY(-20px);
+        filter:blur(20px);
+    }
+    80% {
+        transform: translateY(20px);
+    }
+    100% {
+        filter:blur(0px);
+    }
+}
+
+.chargedAttackHit {
+    animation: chargedAttackHitAnimation 0.2s 5 linear;
+}
+
+@keyframes ultimateAttackHitAnimation {
+    0% {
+        transform: translateX(0px);
+        filter:invert(0%);
+    }
+    25% {
+        transform: translateX(-40px);
+        filter:invert(100%);
+    }
+    75% {
+        transform: translateX(40px);
+    }
+    100% {
+        transform: translateX(0px);
+        filter:blur(0%);
+    }
+}
+
+.ultimateAttackHit {
+    animation: ultimateAttackHitAnimation 0.15s 9 linear;
 }
