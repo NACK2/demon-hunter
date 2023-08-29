@@ -128,8 +128,8 @@ class Player {
 
     basicAttack() { 
         // currMob is set to the mob that the player is curr fighting 
-        // must make sure the mob has 0 children, if it # of children > 0 that means another attack is in progress
-        if (currMob.getElement().childNodes.length == 0) { 
+        // must make sure the mob has 0 children and classes, if its > 0 that means another attack is in progress
+        if (currMob.getElement().childNodes.length == 0 && currMob.getElement().classList.length == 0) { 
             currMob.decHealth(this.#equippedWeapon.power); // currMob's health decreases from being attacked
 
             let basicAttack = document.createElement("div");
@@ -152,19 +152,21 @@ class Player {
             currMob.getElement().onanimationend = () => {
                 currMob.getElement().classList.remove("basicAttackHit");
                 
-                // if mob dies, do death animation after player attack animations are finished
+                // if mob dies, do death animation after player attack animations are finished, if not, mob attacks
                 if (currMob.getHealth() <= 0) 
                     this.mobDeath();
+                else 
+                    currMob.attack();
             };
        }
     }
 
     chargedAttack() {
         // cost of charged attack is 10 xp
-        if (currMob.getElement().childNodes.length == 0 && this.#xp >= 10) {
+        if (currMob.getElement().childNodes.length == 0 && currMob.getElement().classList.length == 0 && this.#xp >= 10) {
             this.#xp -= 10; // remove xp
             xpText.innerText = this.#xp + " XP"; // update xp text
-            // NOTE: xp will be saved to localStorage AFTER mob dies, so dont have to save each time player attacks
+            // NOTE: updated xp will be saved to localStorage when mob dies, so dont have to save each time player attacks
 
             currMob.decHealth(this.#equippedWeapon.power * 1.2);
 
@@ -179,8 +181,11 @@ class Player {
             currMob.getElement().classList.add("chargedAttackHit");
             currMob.getElement().onanimationend = () => {
                 currMob.getElement().classList.remove("chargedAttackHit");
+
                 if (currMob.getHealth() <= 0) 
                     this.mobDeath();
+                else 
+                    currMob.attack();
             };
         }
     }
@@ -188,7 +193,7 @@ class Player {
     // MAYBE CREATE attack(level) function cuz ultimate and basic  attacks are basically exact same funciton
     ultimateAttack() { 
         // cost of ult attack is 20 xp
-        if (currMob.getElement().childNodes.length == 0 && this.#xp >= 20) { 
+        if (currMob.getElement().childNodes.length == 0 && currMob.getElement().classList.length == 0 && this.#xp >= 20) { 
             this.#xp -= 20;
             xpText.innerText = this.#xp + " XP"; 
 
@@ -205,8 +210,11 @@ class Player {
             currMob.getElement().classList.add("ultimateAttackHit");
             currMob.getElement().onanimationend = () => { 
                 currMob.getElement().classList.remove("ultimateAttackHit");
+                
                 if (currMob.getHealth() <= 0) 
                     this.mobDeath();
+                else 
+                    currMob.attack();
             };
         }
     }

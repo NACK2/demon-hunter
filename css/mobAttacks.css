@@ -14,7 +14,8 @@
 }
 
 .death {
-    animation: deathAnimation 0.7s 0.1s 2 ease-in-out forwards; /* forwards maintains final state of animation */
+    /* forwards maintains final state of animation, so after animation ends mob will stay opacity 0 */
+    animation: deathAnimation 0.7s 0.1s 2 ease-in-out forwards; 
 }
 
 /* animation when mob gets hit by basic attack */
@@ -126,7 +127,7 @@
         width: 120px;
         height: 190px;
         background-size: 120px 190px;
-        transform: translateY(-250px);
+        transform: translateY(-220px);
     }
     100% {
         width: 230px;
@@ -141,40 +142,36 @@
         width: 230px;
         height: 90px;
         background-size: 230px 90px;
-        /* top: 40%  */
     }
     30%, 60% { /* slime digs into ground, preparing to jump high */
         width: 270px;
         height: 70px;
         background-size: 270px 70px;
-        top: 60%
+        /* top: 60% */
+        transform: translateY(100px);
     }
     70%, 80% { /* high jump */
         width: 100px;
         height: 200px;
         background-size: 100px 200px;
-        top: 5%
+        /* top: 5% */
+        transform: translateY(-400px);
     }
     85% { /* smash into ground */
         width: 280px;
         height: 60px;
         background-size: 280px 60px;
-        top: 70%
+        /* top: 70% */
+        transform: translateY(150px);
     }
     100% { /* regular slime state */
         width: 200px;
         height: 160px;
         background-size: 200px 160px;
-        /* top: 40%   */
+        transform: translateY(0px);
     }
 }
 
 .groundShatter {
-    animation: regularToBounce 0.5s 1.5s, bounce 1s 3 2s ease-in-out, smash 1.5s 5s ease-in-out;
+    animation: regularToBounce 0.5s 1s, bounce 1s 1.5s 2 ease-in-out, smash 1.5s 3.5s ease-in-out;
 }
-
-
-/* regularToBounce for 0.5s after 1.5s delay (2s total), 
-    bounce starts after 2s delay (so right after regularToBounce finishes) for 3 iterations, each iteration is 1s (3s total),
-    groundShatter starts 5s delay (so right after the first two animations are finished) for 1.5s */
-    /* animation: regularToBounce 0.5s 1.5s, bounce 1s 3 2s ease-in-out, groundShatter 1.5s 5s ease-in-out; */

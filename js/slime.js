@@ -50,7 +50,22 @@ class Slime {
     }
 
     attack() {
-        // this.#slimeElement.classList.add("groundShatter");
-        // setTimeout(function() { currMob.getElement().classList.remove("groundShatter"); }, 7000);
+        // groundShatter is 3 animations in one class, after animation ends onanimationend() is triggered and
+        // the groundShatter class is removed, but in this case onanimationend() is triggered only when the first animation
+        // is finished, so using animationCount iterator to make sure to wait for all 3 animations to finish
+        let animationCount = 0; 
+        this.#slimeElement.classList.add("groundShatter"); // slimes ground shatter attack
+        
+        this.#slimeElement.onanimationstart = () => { 
+            this.#healthBarContainer.style.visibility = "hidden";
+        }
+
+        this.#slimeElement.onanimationend = () => {
+            ++animationCount;
+            if (animationCount == 3) {
+                currMob.getElement().classList.remove("groundShatter");
+                this.#healthBarContainer.style.visibility = "visible";
+            }
+        }
     }
 }
