@@ -102,14 +102,27 @@ class Player {
         return this.#health;
     }
 
-    // will be called by mobs when they attack the player, decreases player health, and updates and saves new health
+    // will be called by mobs when they attack the player
+    // decreases player health, updates and saves new health, plays either death or player getting hit animation
     decHealth(mobAttackDmg) {
         this.#health -= mobAttackDmg;
+
         if (this.#health < 0) { // if health dipped into negatives set it to 0
             this.#health = 0;
         }
         healthText.innerText = this.#health + " HP"; 
+        healthText.classList.add("healthFlash"); // health text will flash red and have enlargening effect 
+        healthText.onanimationend = (event) => {
+            event.stopPropagation(); 
+            healthText.classList.remove("healthFlash");
+        }
         localStorage.setItem("health", JSON.stringify(this.#health)); 
+
+        // if player dies: player death animation, else: player getting hit animation
+        if (this.#health <= 0) 
+            this.playerDeath();
+        else 
+            this.playerHit(); // animation screen makes when player is hit by mob
     }
 
     incGold(gold) {
@@ -250,6 +263,7 @@ class Player {
         unbindBattleBtns(); // unbinds the battle screen buttons
     }    
 
+    // called when player dies, restores health to default, saves health and sends player back to wilderness
     playerDeath() {
         this.#health = 50; // restore to default health
         localStorage.setItem("health", JSON.stringify(this.#health)); 
@@ -263,6 +277,14 @@ class Player {
             // the dying animation, that way they can see the 0 HP during player death animation, and will be updated to
             // default health for next time
             healthText.innerText = this.#health + " HP"; 
+        }
+    }
+
+    // called when player gets hit by mob, flash grayscale screen
+    playerHit() {
+        battleBackground.classList.add("playerHit");
+        battleBackground.onanimationend = () => {
+            battleBackground.classList.remove("playerHit");
         }
     }
 }

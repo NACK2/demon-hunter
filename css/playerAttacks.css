@@ -8,7 +8,7 @@
 }
 
 .playerDeath {
-    animation: playerDeathAnimation 1.5s linear;
+    animation: playerDeathAnimation 1.5s 1s linear;
 }
 
 /*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/

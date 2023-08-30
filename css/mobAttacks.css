@@ -108,7 +108,7 @@
 /* Animations player makes when attacked by mob */
 /*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
 
-@keyframes groundShatterHitAnimation {
+@keyframes playerHitAnimation {
     0% {
         filter: grayscale(0%);
     }
@@ -120,7 +120,7 @@
     }
 }
 
-/* when hit by groound shatter */
-.groundShatterHit { 
-    animation: groundShatterHitAnimation 1s 1 linear;
+/* when player is hit by mob */
+.playerHit { 
+    animation: playerHitAnimation 1s 1 linear;
 }

@@ -52,6 +52,26 @@
     animation: blurAnimation 1s linear;
 }
 
+@keyframes healthFlashAnimation {
+    0% {
+        transform: scale(1);
+        color: white;
+    }
+    50% {
+        transform: scale(1.2);
+        color: red;
+    }
+    100% {
+        transform: scale(1);
+        color: white;
+    }
+}
+
+/* used on health text when player takes damage */
+.healthFlash {
+    animation: healthFlashAnimation 0.5s 2 linear;
+}
+
 body {
     background-color: black;
 }
