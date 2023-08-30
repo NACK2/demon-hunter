@@ -17,7 +17,6 @@ const text = document.querySelector("#text");
 const wildernessContainer = document.querySelector("#wildernessContainer"); // Container w/ everything on wilderness page
 const battleContainer = document.querySelector("#battleContainer");
 const battleBackground = document.querySelector("#battleBackground");
-const battleConsoleText = document.querySelector("#battleConsoleText");
 
 let bushes = []; // array of bush elements
 let slimes = []; // array of slime elements
@@ -97,14 +96,19 @@ function transitionAnimation() {
     // setTimeout will call battleScreen() after a 1s delay which will switch from wilderness to battle screen, before 
     // that 1s is finished there will be a blur effect
     setTimeout(battleScreen, 1000);
-    land.classList.add("blurAnimation"); // blur effect
+    land.classList.add("blur"); // blur effect
 }
 
 // function is called when player encounters a mob, switches from wilderness to battle screen
 function battleScreen() { 
-    land.classList.remove("blurAnimation");
+    land.classList.remove("blur");
     wildernessContainer.style.display = "none"; // everything on screen will disappear (such as wilderness, exit btn, text)
     battleContainer.style.display = "block"; // go to battle screen
+    
+    battleContainer.classList.add("unblur");
+    battleContainer.onanimationend = () => {
+        battleContainer.classList.remove("unblur");
+    }
 }
 
 // function is called when player is running away from battle encounter with mob

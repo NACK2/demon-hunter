@@ -71,7 +71,15 @@ class Slime {
             else if (animationCount == 3) { 
                 currMob.getElement().classList.remove("groundShatter");
                 this.#healthBarContainer.style.visibility = "visible"; // health bar comes back once entire animation is finished
-                this.groundShatterHit(); // animation screen makes when hit by ground shatter
+
+                // attacking players health and saving players health
+                player.decHealth(10);
+            
+                // if player dies: player death animation, else: player getting hit animation
+                if (player.getHealth() <= 0) 
+                    player.playerDeath();
+                else 
+                    this.groundShatterHit(); // animation screen makes when hit by ground shatter
             }
         }
     }

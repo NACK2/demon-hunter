@@ -1,3 +1,16 @@
+@keyframes playerDeathAnimation {
+    0% {
+        filter: opacity(100%);
+    }
+    100% {
+        filter: opacity(0%);
+    }
+}
+
+.playerDeath {
+    animation: playerDeathAnimation 1s linear;
+}
+
 /*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/
 /* Animations when player attacks mob */
 /*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/

@@ -102,6 +102,16 @@ class Player {
         return this.#health;
     }
 
+    // will be called by mobs when they attack the player, decreases player health, and updates and saves new health
+    decHealth(mobAttackDmg) {
+        this.#health -= mobAttackDmg;
+        if (this.#health < 0) { // if health dipped into negatives set it to 0
+            this.#health = 0;
+        }
+        healthText.innerText = this.#health + " HP"; 
+        localStorage.setItem("health", JSON.stringify(this.#health)); 
+    }
+
     incGold(gold) {
         this.#gold += gold;
     }
@@ -229,14 +239,30 @@ class Player {
         xpText.innerText = this.getXp() + " XP"; 
         localStorage.setItem("xp", JSON.stringify(this.getXp())); 
 
-        currMob.getElement().classList.add("death"); 
+        currMob.getElement().classList.add("mobDeath"); 
 
         // after death animation is done, remove animation and go back to wilderness screen
         currMob.getElement().onanimationend = () => {
-            currMob.getElement().classList.remove("death")
+            currMob.getElement().classList.remove("mobDeath")
             wildernessScreen();
         }
 
         unbindBattleBtns(); // unbinds the battle screen buttons
     }    
+
+    playerDeath() {
+        this.#health = 50; // restore to default health
+        localStorage.setItem("health", JSON.stringify(this.#health)); 
+
+        battleContainer.classList.add("playerDeath"); 
+        battleContainer.onanimationend = () => {
+            battleContainer.classList.remove("playerDeath")
+            wildernessScreen();
+
+            // updating health text on animation end so that player won't see the restored default health during
+            // the dying animation, that way they can see the 0 HP during player death animation, and will be updated to
+            // default health for next time
+            healthText.innerText = this.#health + " HP"; 
+        }
+    }
 }

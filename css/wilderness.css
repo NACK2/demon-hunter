@@ -106,7 +106,7 @@ body {
     background-size: 80px 70px;
 }
 
-@keyframes unblur {
+@keyframes unblurAnimation {
     from {
         filter:blur(100px);
     }
@@ -115,7 +115,12 @@ body {
     }
 }
 
-@keyframes blur {
+/* everytime battle screen is started it will start by unblurring */
+.unblur {
+    animation: unblurAnimation 1s linear; 
+}
+
+@keyframes blurAnimation {
     from {
         filter: blur(0px);
     }
@@ -125,13 +130,12 @@ body {
 }
 
 /* will be used as transition effect when going from wilderness to battle screen */
-.blurAnimation {
-    animation: blur 1s linear;
+.blur {
+    animation: blurAnimation 1s linear;
 }
 
 #battleContainer {
     display: none;
-    animation: unblur 1s linear; /* everytime battle screen is started it will start by unblurring */
 }
 
 #battleBackground {

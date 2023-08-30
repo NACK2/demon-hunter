@@ -1,4 +1,4 @@
-@keyframes deathAnimation {
+@keyframes mobDeathAnimation {
     0% {
         filter: opacity(0%);
         transform: scale(1);
@@ -13,9 +13,9 @@
     }
 }
 
-.death {
+.mobDeath {
     /* forwards maintains final state of animation, so after animation ends mob will stay opacity 0 */
-    animation: deathAnimation 0.7s 0.1s 2 ease-in-out forwards; 
+    animation: mobDeathAnimation 0.7s 0.1s 2 ease-in-out forwards; 
 }
 
 
