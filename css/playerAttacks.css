@@ -1,14 +1,14 @@
 @keyframes playerDeathAnimation {
     0% {
-        filter: opacity(100%);
+        filter: opacity(100%) saturate(0%);
     }
     100% {
-        filter: opacity(0%);
+        filter: opacity(0%) saturate(0%);
     }
 }
 
 .playerDeath {
-    animation: playerDeathAnimation 1s linear;
+    animation: playerDeathAnimation 1.5s linear;
 }
 
 /*-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=*/

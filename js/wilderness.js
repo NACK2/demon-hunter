@@ -93,19 +93,19 @@ function userRun() {
 
 // slowly blurs screen and switches from wilderness to battle screen
 function transitionAnimation() { 
-    // setTimeout will call battleScreen() after a 1s delay which will switch from wilderness to battle screen, before 
-    // that 1s is finished there will be a blur effect
-    setTimeout(battleScreen, 1000);
     land.classList.add("blur"); // blur effect
+    land.onanimationend = () => {
+        land.classList.remove("blur");
+        battleScreen();
+    }
 }
 
 // function is called when player encounters a mob, switches from wilderness to battle screen
 function battleScreen() { 
-    land.classList.remove("blur");
     wildernessContainer.style.display = "none"; // everything on screen will disappear (such as wilderness, exit btn, text)
     battleContainer.style.display = "block"; // go to battle screen
-    
-    battleContainer.classList.add("unblur");
+
+    battleContainer.classList.add("unblur"); // unblur battle screen 
     battleContainer.onanimationend = () => {
         battleContainer.classList.remove("unblur");
     }
