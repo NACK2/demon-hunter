@@ -62,7 +62,7 @@ class Slime {
         this.#slimeElement.classList.add("groundShatter"); // slimes ground shatter attack
 
         this.#slimeElement.onanimationend = (event) => {
-            event.stopPropagation(); // to stop the ending of ground shatter from triggering its parents (battleBackground) onanimationend()
+            event.stopPropagation(); // to stop the ending of ground shatter from triggering its parents (battleBackground's) onanimationend()
 
             ++animationCount;
             if (animationCount == 1) { // remove health bar in first part of attack animation

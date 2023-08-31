@@ -129,6 +129,17 @@ function wildernessScreen() {
     spawnEntities(); // respawn new locations for mobs
 }
 
+// will be called when a button on the battle screen is trying to be clicked
+// if the # of children and classes is 0, means no battle screen animation (such as attack animations) is 
+// in progress, if any is > 0 means another animation is in progress
+function isBattleAnimInProgress() {
+    // currMob's child has player's attack anim, currMob has mob getting hit by attack anim, battleBackground has player getting hit by mob anim
+    if (!currMob.getElement().childNodes.length && !currMob.getElement().classList.length && !battleBackground.classList.length)
+        return false;
+    
+    return true;
+}
+
 // binds each button on the battle screen
 function initBattleBtns() {
     basicAttackBtn.addEventListener("click", basicAttackEventHandler);
@@ -150,8 +161,8 @@ function ultimateAttackEventHandler(e) {
 }
 
 function runBtnEventHandler(e) {
-    // must make sure # of children and classes is 0, if its > 0 that means another attack is in progress
-    if (!currMob.getElement().childNodes.length && !currMob.getElement().classList.length && !battleBackground.classList.length) 
+    // if another battle screen animation (such as attack animation) isnt in progress, its ok to run back to wilderness
+    if (!isBattleAnimInProgress()) 
         wildernessScreen();
 }
 
