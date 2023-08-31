@@ -189,7 +189,7 @@ class Player {
         if (!currMob.getElement().childNodes.length && !currMob.getElement().classList.length && !battleBackground.classList.length && this.#xp >= 10) {
             this.#xp -= 10; // remove xp
             xpText.innerText = this.#xp + " XP"; // update xp text
-            // NOTE: updated xp will be saved to localStorage when mob dies, so dont have to save each time player attacks
+            localStorage.setItem("xp", JSON.stringify(this.#xp)); // save xp
 
             currMob.decHealth(this.#equippedWeapon.power * 1.2);
 
@@ -219,6 +219,7 @@ class Player {
         if (!currMob.getElement().childNodes.length && !currMob.getElement().classList.length && !battleBackground.classList.length && this.#xp >= 20) { 
             this.#xp -= 20;
             xpText.innerText = this.#xp + " XP"; 
+            localStorage.setItem("xp", JSON.stringify(this.#xp)); 
 
             currMob.decHealth(this.#equippedWeapon.power * 1.5);
             
@@ -244,13 +245,13 @@ class Player {
 
     // called when mob dies, gives player gold and xp, plays death animation, and goes back to wilderness screen
     mobDeath() {
-        this.incGold(currMob.dropGold()); // player gains the gold that mob dropped after mob was killed
-        goldText.innerText = this.getGold() + " G"; // update battle screen gold text
-        localStorage.setItem("gold", JSON.stringify(this.getGold())); // save data
+        this.#gold += currMob.dropGold(); // player gains the gold that mob dropped after mob was killed
+        goldText.innerText = this.#gold + " G"; // update battle screen gold text
+        localStorage.setItem("gold", JSON.stringify(this.#gold)); // save data
 
-        this.incXp(currMob.dropXp());
-        xpText.innerText = this.getXp() + " XP"; 
-        localStorage.setItem("xp", JSON.stringify(this.getXp())); 
+        this.#xp += currMob.dropXp();
+        xpText.innerText = this.#xp + " XP"; 
+        localStorage.setItem("xp", JSON.stringify(this.#xp)); 
 
         currMob.getElement().classList.add("mobDeath"); 
 
@@ -267,6 +268,7 @@ class Player {
     playerDeath() {
         this.#health = 50; // restore to default health
         localStorage.setItem("health", JSON.stringify(this.#health)); 
+        localStorage.setItem("xp", JSON.stringify(this.#xp)); 
 
         battleContainer.classList.add("playerDeath"); 
         battleContainer.onanimationend = () => {

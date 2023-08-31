@@ -25,7 +25,6 @@ let landCoords = land.getBoundingClientRect(); // # of pixels land is from (0, 0
 function init() {
     spawnEntities(); // spawns mobs and init's player running
     exitBtn.onclick = gameMenu;
-    runBtn.onclick = wildernessScreen;
 
     healthText.innerText = player.getHealth() + " HP";
     goldText.innerText = player.getGold() + " G";
@@ -130,11 +129,12 @@ function wildernessScreen() {
     spawnEntities(); // respawn new locations for mobs
 }
 
-// binds each attack button on the battle screen
+// binds each button on the battle screen
 function initBattleBtns() {
     basicAttackBtn.addEventListener("click", basicAttackEventHandler);
     chargedAttackBtn.addEventListener("click", chargedAttackEventHandler);
     ultimateAttackBtn.addEventListener("click", ultimateAttackEventHandler);
+    runBtn.addEventListener("click", runBtnEventHandler);
 }
 
 function basicAttackEventHandler(e) {
@@ -149,11 +149,18 @@ function ultimateAttackEventHandler(e) {
     player.ultimateAttack();
 }
 
-// unbinds each attack button on the battle screen
+function runBtnEventHandler(e) {
+    // must make sure # of children and classes is 0, if its > 0 that means another attack is in progress
+    if (!currMob.getElement().childNodes.length && !currMob.getElement().classList.length && !battleBackground.classList.length) 
+        wildernessScreen();
+}
+
+// unbinds each button on the battle screen
 function unbindBattleBtns() {
     basicAttackBtn.removeEventListener("click", basicAttackEventHandler);
     chargedAttackBtn.removeEventListener("click", chargedAttackEventHandler);
     ultimateAttackBtn.removeEventListener("click", ultimateAttackEventHandler);
+    runBtn.removeEventListener("click", runBtnEventHandler);
     // currMob = null;
 }
 
@@ -161,8 +168,6 @@ function battleSlime() { // fight with slime
     let slime = new Slime(); 
     currMob = slime; // sets current mob player is fighting
     initBattleBtns();
-
-    // slime.getElement().style.animation = "regularToBounce 0.5s 1.5s, bounce 1s 3 2s ease-in-out, groundShatter 1.5s 5s ease-in-out";
 }
 
 function getRandomCoords(entity) {
